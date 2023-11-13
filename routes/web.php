@@ -19,3 +19,4 @@ Route::get('/', function () {
 
 Route::view('/login-auth','login-auth');
 Route::view('/example-page','example-page');
+Route::view('/customer','customer');

@@ -165,7 +165,7 @@
             <p class="price">$70.00</p>
           </div>
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_03.png" alt="Image"></a>
+            <a href="shop-single.html"> <img src="/back/images/product_03.png" alt="Image"></a>
             <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
             <p class="price">$120.00</p>
           </div>
@@ -209,7 +209,7 @@
             <div class="nonloop-block-3 owl-carousel">
 
               <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="images/product_03.png" alt="Image"></a>
+                <a href="shop-single.html"> <img src="/back/images/product_03.png" alt="Image"></a>
                 <h3 class="text-dark"><a href="/back/shop-single.html">Umcka Cold Care</a></h3>
                 <p class="price">$120.00</p>
               </div>
@@ -388,3 +388,4 @@
 </body>
 
 </html>
+

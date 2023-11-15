@@ -49,7 +49,7 @@
                   <div class="main-nav d-none d-lg-block">
                     <nav class="site-navigation text-right text-md-center" role="navigation">
                       <ul class="site-menu js-clone-nav d-none d-lg-block">
-                        <li><a href="login.html">LOGIN</a></li>
+                        <li><a href="/login-auth">LOGIN</a></li>
                         <li><a href="register.html">Register</a></li>
                       </ul>
                     </nav>

@@ -9,6 +9,7 @@
     </div>
     <form action="{{ route('admin.login_handler') }}" method="POST">
         @csrf
+
         @if (Session::get('fall'))
             <div class="alert alert-danger">
                 {{ Session::get('fall') }}
@@ -18,19 +19,20 @@
             </div>
         @endif
 
-        <div class="input-group custom">
+        <div class="input-group custom mb-3">
             <input type="text" class="form-control form-control-lg" placeholder="Email/Username" name="login_id" value="{{ old('login_id') }}">
             <div class="input-group-append custom">
-                <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></div>
+                <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+            </div>
         </div>
 
         @error('login_id')
-            <div class="d-block text-danger" style="margin-top: -25px; margin-bottom: -25px">
+            <div class="text-danger small" style="margin-top: -10px; margin-bottom: 5px; text-align: left;">
                 {{ $message }}
             </div>
         @enderror
 
-        <div class="input-group custom">
+        <div class="input-group custom mb-3">
             <input type="password" class="form-control form-control-lg" placeholder="********" name="password">
             <div class="input-group-append custom">
                 <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
@@ -38,7 +40,7 @@
         </div>
 
         @error('password')
-            <div class="d-block text-danger" style="margin-top: -25px; margin-bottom: -25px">
+            <div class="text-danger small" style="margin-top: -10px; margin-bottom: 5px; text-align: left;">
                 {{ $message }}
             </div>
         @enderror
@@ -59,8 +61,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="input-group mb-0">
-                    
-                    <a class="btn btn-primary btn-lg btn-block" href="index.html">Sign In</a>
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
                 </div>
             </div>
         </div>

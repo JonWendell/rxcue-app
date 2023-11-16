@@ -155,8 +155,8 @@
         <div class="row">
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
             <span class="tag">Sale</span>
-            <a href="shop-single.html"> <img src="/back/images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
+            <a href="/ordered"> <img src="/back/images/product_01.png" alt="Image"></a>
+            <h3 class="text-dark"><a href="/ordered">Bioderma</a></h3>
             <p class="price"><del>95.00</del> &mdash; $55.00</p>
           </div>
           <div class="col-sm-6 col-lg-4 text-center item mb-4">

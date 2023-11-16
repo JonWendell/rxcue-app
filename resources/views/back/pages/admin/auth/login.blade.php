@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="input-group custom">
-            <input type="password" class="form-control form-control-lg" placeholder="**********">
+            <input type="password" class="form-control form-control-lg" placeholder="********">
             <div class="input-group-append custom">
                 <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
             </div>

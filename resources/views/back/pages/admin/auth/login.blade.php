@@ -1,4 +1,4 @@
-@extends('back.layout.auth-layout')tml
+@extends('back.layout.auth-layout')
 
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Admin login')
 

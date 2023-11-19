@@ -222,6 +222,8 @@
 						</div>
 					</div>
 				</div>
+
+				@if (Auth::guard('admin')->check())
 				<div class="user-info-dropdown">
 					<div class="dropdown">
 						<a
@@ -247,13 +249,19 @@
 							<a class="dropdown-item" href="faq.html"
 								><i class="dw dw-help"></i> Help</a
 							>
-							<a class="dropdown-item" href="login.html"
-								><i class="dw dw-logout"></i> Log Out</a
+							<a class="dropdown-item" href="{{route('admin.logout_handler')}}"
+								onclick="event.preventDefault();document.getElementById('adminLogoutForm').submit();">
+								<i class="dw dw-logout"></i> Log Out</a
 							>
+
+							<form action="{{route('admin.logout_handler')}}" id="adminLogoutForm" method="POST">@csrf</form>
 						</div>
 					</div>
 				</div>
 
+				@elseif (Auth::guard('seller')->check())
+
+				@endif
 			</div>
 		</div>
 
@@ -528,8 +536,7 @@
 								<span class="micon bi bi-layout-text-window-reverse"></span>
 								<span class="mtext"
 									>Landing Page
-									<img src="/back/vendors/images/coming-soon.png" alt="" width="25"
-								/></span>
+								</span>
 							</a>
 						</li>
 					</ul>
@@ -643,7 +650,7 @@
 							<tr>
 								<td class="table-plus">
 									<img
-										src=""
+										src="/back/vendors/images/biogesic.jfif"
 										width="70"
 										height="70"
 										alt=""
@@ -684,7 +691,7 @@
 							<tr>
 								<td class="table-plus">
 									<img
-										src=""
+										src="/back/vendors/images/robitussin.jfif"
 										width="70"
 										height="70"
 										alt=""
@@ -725,7 +732,7 @@
 							<tr>
 								<td class="table-plus">
 									<img
-										src=""
+										src="/back/vendors/images/solmux.jfif"
 										width="70"
 										height="70"
 										alt=""
@@ -767,7 +774,7 @@
 							<tr>
 								<td class="table-plus">
 									<img
-										src=""
+										src="/back/vendors/images/neozep.jfif"
 										width="70"
 										height="70"
 										alt=""
@@ -809,7 +816,7 @@
 							<tr>
 								<td class="table-plus">
 									<img
-										src=""
+										src="/back/vendors/images/paracetamol.jfif"
 										width="70"
 										height="70"
 										alt=""

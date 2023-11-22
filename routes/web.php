@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -30,4 +31,4 @@ Route::get('/view-branches', [BranchController::class, 'view'])->name('branch.vi
 Route::get('/edit-branch/{id}', [BranchController::class, 'editForm'])->name('branch.edit.form');
 Route::delete('/archive-branch/{id}', [BranchController::class, 'archive'])->name('branch.archive');
 Route::put('/update-branch/{id}', [BranchController::class, 'update'])->name('branch.update');
-
+Route::get('/manage-user', [UserController::class, 'index'])->name('user.index');

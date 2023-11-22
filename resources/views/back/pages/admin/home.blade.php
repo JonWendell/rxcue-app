@@ -481,12 +481,14 @@
 							<!-- Add the following button for creating a branch -->
 							<a href="/create-branch" class="btn btn-primary">Create Branch</a>
 						</li>
-						</li>
-                        <li class="dropdown">
+						</li>                    
+						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-person"></span
-								><span class="mtext">Manage User</span>
+								<span class="micon bi bi-person"></span>
+								<span class="mtext">Manage User</span>
 							</a>
+							<!-- Add the button to navigate to the route for managing users -->
+							<a href="/manage-user" class="btn btn-primary">Manage Users</a>
 						</li>
                         <li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">

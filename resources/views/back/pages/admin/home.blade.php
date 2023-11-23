@@ -495,6 +495,8 @@
 								<span class="micon bi bi-box"></span
 								><span class="mtext">Inventory</span>
 							</a>
+							<a href="{{ route('inventory.index') }}">View Inventory</a>
+							<a href="{{ route('inventory.create') }}">Create Inventory</a>
 						</li>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">

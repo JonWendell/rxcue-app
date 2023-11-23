@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagmentController;
+use App\Http\Controllers\InventoryController;
 
 
 
@@ -45,16 +46,9 @@ Route::post('/updateUser/{id}', 'UserManagmentController@updateUser')->name('upd
 Route::get('/archiveUser/{id}', 'UserManagmentController@archiveUser')->name('archiveUser');
 
 
+//routes for inventoyry//
 
 
-
-
-
-
-
-
-
-
-
-
-//Route::get('/manage-user', [UserController::class, 'index'])->name('user.index');
+Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory.create');
+Route::post('/inventory', [InventoryController::class, 'store'])->name('inventory.store');

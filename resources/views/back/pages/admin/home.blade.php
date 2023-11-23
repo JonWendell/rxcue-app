@@ -487,8 +487,8 @@
 								<span class="micon bi bi-person"></span>
 								<span class="mtext">Manage User</span>
 							</a>
-							<!-- Add the button to navigate to the route for managing users -->
-							<a href="/manage-user" class="btn btn-primary">Manage Users</a>
+							<!-- Add the button to navigate to the route for managing users -->						
+							<a href="{{ route('user/table')}}" class="btn btn-primary">Manage Users</a>
 						</li>
                         <li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserManagmentController;
+
 
 
 /*
@@ -31,4 +33,28 @@ Route::get('/view-branches', [BranchController::class, 'view'])->name('branch.vi
 Route::get('/edit-branch/{id}', [BranchController::class, 'editForm'])->name('branch.edit.form');
 Route::delete('/archive-branch/{id}', [BranchController::class, 'archive'])->name('branch.archive');
 Route::put('/update-branch/{id}', [BranchController::class, 'update'])->name('branch.update');
-Route::get('/manage-user', [UserController::class, 'index'])->name('user.index');
+//User Management rout//
+Route::controller(UserManagmentController::class)->group(function(){
+    Route::get('user/table','index')->name('user/table');
+});
+// routes/web.php
+
+Route::get('/userTable', 'UserManagmentController@index')->name('userTable');
+Route::get('/editUser/{id}', 'UserManagmentController@editUser')->name('editUser');
+Route::post('/updateUser/{id}', 'UserManagmentController@updateUser')->name('updateUser');
+Route::get('/archiveUser/{id}', 'UserManagmentController@archiveUser')->name('archiveUser');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Route::get('/manage-user', [UserController::class, 'index'])->name('user.index');

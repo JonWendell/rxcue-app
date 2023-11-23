@@ -8,6 +8,7 @@ use App\Http\Controllers\InventoryController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,7 +54,7 @@ Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory
 Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory.create');
 Route::post('/inventory', [InventoryController::class, 'store'])->name('inventory.store');
 Route::post('/update-inventory', [InventoryController::class, 'update'])->name('updateInventory');
-Route::get('/inventory/add', [InventoryController::class, 'showAddForm'])->name('inventory.add');
-
-
+//Route::get('/inventory/add', [InventoryController::class, 'showAddForm'])->name('inventory.add');
+Route::get('/inventory/add/{id}', [InventoryController::class, 'getAddQuantity'])->name('inventory.add'); // Modified this line
+Route::post('/inventory/add/{id}', [InventoryController::class, 'postAddQuantity'])->name('inventory.postAdd'); // Modified this li
 

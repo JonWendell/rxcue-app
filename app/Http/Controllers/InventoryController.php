@@ -29,15 +29,7 @@ class InventoryController extends Controller
             'change_date' => 'required|date',
         ]);
         
-        $inventory = new Inventory;
-        $inventory->previous_quantity = $validatedData['previous_quantity'];
-        $inventory->quantity_change = $validatedData['quantity_change'];
-        $inventory->new_quantity = $validatedData['new_quantity'];
-        $inventory->change_date = $validatedData['change_date'];
-
-        // Save the record to the database
-        $inventory->save();
-
+    
         // Create a new inventory record
         Inventory::create($validatedData);
 
@@ -70,5 +62,43 @@ class InventoryController extends Controller
         return view('inventory.add');
     }
     
+    public function getAddQuantity($id)
+    {
+        // Fetch inventory item by ID and pass it to the view
+        $inventory = Inventory::find($id);
+        return view('inventory.add_quantity', compact('inventory'));
+    }
+
+    public function postAddQuantity(Request $request, $id)
+    {
+        // Validate the request
+        $request->validate([
+            'quantity' => 'required|numeric',
+        ]);
+    
+        // Find the original inventory item
+        $originalInventory = Inventory::find($id);
+    
+        // Calculate the new quantity
+        $newQuantity = $originalInventory->new_quantity + $request->input('quantity');
+    
+        // Ensure that the new quantity is non-negative
+        $newQuantity = max(0, $newQuantity);
+    
+        // Create a new inventory record with the updated quantity
+        $newInventory = new Inventory([
+            'item_name' => $originalInventory->item_name,
+            'previous_quantity' => $originalInventory->new_quantity,
+            'quantity_change' => $request->input('quantity'),
+            'new_quantity' => $newQuantity,
+            'change_date' => now(),
+        ]);
+    
+        // Save the new inventory record
+        $newInventory->save();
+    
+        // Redirect back to the inventory page
+        return redirect()->route('inventory.index')->with('success', 'Quantity updated successfully!');
+    }
     
 }

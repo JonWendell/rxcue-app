@@ -13,4 +13,5 @@ class Inventory extends Model
         'new_quantity',
         'change_date',
     ];
+    
 }

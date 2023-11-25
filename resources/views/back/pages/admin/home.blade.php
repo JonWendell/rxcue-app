@@ -479,25 +479,34 @@
 								<span class="mtext">Manage Branch</span>
 							</a>
 							<!-- Add the following button for creating a branch -->
-							<a href="/create-branch" class="btn btn-primary">Create Branch</a>
+							<ul class="submenu">
+								<li>
+							<a href="/create-branch" >Create Branch</a>
 						</li>
+					</ul>
 						</li>                    
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
 								<span class="micon bi bi-person"></span>
 								<span class="mtext">Manage User</span>
 							</a>
-							<!-- Add the button to navigate to the route for managing users -->						
-							<a href="{{ route('user/table')}}" class="btn btn-primary">Manage Users</a>
+							<!-- Add the button to navigate to the route for managing users -->	
+							<ul class="submenu">
+								<li>				
+							<a href="{{ route('user/table')}}" >Manage Users</a>
 						</li>
+						</ul>
                         <li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
 								<span class="micon bi bi-box"></span
 								><span class="mtext">Inventory</span>
 							</a>
+							<ul class="submenu">
+								<li>			
 							<a href="{{ route('inventory.index') }}">View Inventory</a>
 							<a href="{{ route('inventory.create') }}">Create Inventory</a>
 						</li>
+						</ul>
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle">
                                 <i class="micon bi bi-graph-up"></i>

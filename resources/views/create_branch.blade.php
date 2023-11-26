@@ -1,5 +1,8 @@
-<!-- resources/views/create_branch.blade.php -->
+@extends('back.layout.main-layout')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
+@section('content')
 
+<div class="main-container">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,3 +37,5 @@
 
 </body>
 </html>
+</div>
+@endsection

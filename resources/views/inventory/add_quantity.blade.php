@@ -1,3 +1,8 @@
+@extends('back.layout.main-layout')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
+@section('content')
+
+<div class="main-container">
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,3 +19,5 @@
     </form>
 </body>
 </html>
+</div>
+@endsection

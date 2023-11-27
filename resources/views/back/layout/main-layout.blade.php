@@ -560,18 +560,18 @@
 		</div>
 		<div class="mobile-menu-overlay"></div>
 
-		<div class="main-container">
-			<div class="pd-ltr-20">
-				<div class="card-box pd-20 height-100-p mb-30">
-					<div class="row align-items-center">
-                        <div>
-                            @yield('content')
-                        </div>
+
+			<div class="main-container">
+				<div class="card-box mb-30">
+					@yield('content')
 				</div>
+			</div>
 				<div class="footer-wrap pd-20 mb-20 card-box">
 					@2023 | RXCUE PHARMACY
 				</div>
 			</div>
+		</div>
+		</div>
 		</div>
 
 		<!-- js -->

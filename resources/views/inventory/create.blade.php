@@ -2,86 +2,123 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
 @section('content')
 
-<div class="main-container">
-    <!DOCTYPE html>
-    <html>
-    
-    <head>
-        <title>Create Inventory</title>
-    </head>
-    
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Inventory</title>
+    <!-- Include Bootstrap CSS if not already included -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <style>
-        form {
-            max-width: 500px;
-            width: 200%; /* Adjusted width to 100% */
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        body {
+            background-color: #f8f9fa;
         }
-         
-        h1 {
-            
+
+        .container {
+            margin-top: 2%;
         }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            text-align: left;
-            width: 100%;
+
+        .card {
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 1.5rem;
         }
-    
-        input {
-            width: calc(100% - 16px);
-            padding: 10px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            text-align: left;
+
+        h2 {
+            background-color: #d2ebebe5;
+            color: #fff;
+            font-size: 1.25rem;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+            text-decoration-color: #fff;
         }
-    
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            width: 30%;
+
+        .card-body {
+            padding: 1.25rem;
         }
-    
-        button:hover {
-            background-color: #45a049;
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            color: #000000;
+            background-color: #89b6e6;
+            border-color: #89b6e6;
+            width: 200px;
+            align-content: center;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #6397ce;
+            border-color: #89b0da;
         }
     </style>
-    
+</head>
+
+<body>
+
+    <div class="card-box mb-30">
+        <div class="table-responsive">
+            <h2 class="h4 pd-20">Add Product</h2>
+            <div class="card-body">
+                <!-- The form element starts here -->
                 <form method="post" action="{{ route('inventory.store') }}">
                     @csrf
-                    <h1>Create Inventory</h1>
-                    <label for="item_name">Item Name</label>
-                    <input type="text" name="item_name" required><br>
-    
-                    <label for="previous_quantity">Previous Quantity</label>
-                    <input type="number" name="previous_quantity" required><br>
-    
-                    <label for="quantity_change">Quantity Change</label>
-                    <input type="number" name="quantity_change" required><br>
-    
-                    <label for="new_quantity">New Quantity</label>
-                    <input type="number" name="new_quantity" required><br>
-    
-                    <label for="change_date">Date</label>
-                    <input type="date" name="change_date" required><br>
-    
-                    <button type="submit">Submit</button>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="item_name">Item Name</label>
+                            <input type="text" class="form-control" name="item_name" placeholder="Input product name"
+                                required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="previous_quantity">Previous Quantity</label>
+                            <input type="number" class="form-control" name="previous_quantity"
+                                placeholder="Input previous quantity" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="quantity_change">Quantity Change</label>
+                            <input type="number" class="form-control" name="quantity_change" placeholder="Change quantity"
+                                required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="new_quantity">New Quantity</label>
+                            <input type="number" class="form-control" name="new_quantity" placeholder="Input new quantity"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="change_date">Date</label>
+                            <input type="date" class="form-control" name="change_date" placeholder="date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        </div>
+                    </div>
                 </form>
+                <!-- The form element ends here -->
             </div>
         </div>
-    </html>
-    
+    </div>
+
+</body>
+
+</html>
 @endsection

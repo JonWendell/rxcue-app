@@ -43,14 +43,12 @@
                 </tbody>
             </table>
         </div>
-<<<<<<< HEAD
 
         <!-- Add User button -->
         <div class="text-right">
             <a href="{{ route('addUserForm') }}" class="btn btn-primary">Add User</a>
         </div>
     </div>
-=======
     </div>
 
     <script>
@@ -59,7 +57,6 @@
             window.location.href = "{{ url('inventory/add') }}/" + id;
         }
     </script>
->>>>>>> 4e237fd2d9b9de0172f3b13f4c1fa01e61e5d372
 
 </body>
 </html>

@@ -7,11 +7,26 @@ use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $inventories = Inventory::all();
-        return view('inventory.index', compact('inventories'));
+        $pageTitle = 'Inventory Management';
+    
+        // Get the search input from the request
+        $search = $request->input('search');
+    
+        // Query the inventories based on the search input
+        $query = Inventory::query();
+    
+        if (!empty($search)) {
+            $query->where('item_name', 'like', '%' . $search . '%');
+        }
+    
+        // Fetch the filtered inventories
+        $inventories = $query->get();
+    
+        return view('inventory.index', compact('pageTitle', 'inventories', 'search'));
     }
+    
 
     public function create()
     {

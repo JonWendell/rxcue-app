@@ -49,11 +49,9 @@ Route::group(['prefix' => 'user'], function () {
 
 //routes for inventoyry//
 
-
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
 Route::get('/inventory/create', [InventoryController::class, 'create'])->name('inventory.create');
 Route::post('/inventory', [InventoryController::class, 'store'])->name('inventory.store');
 Route::post('/update-inventory', [InventoryController::class, 'update'])->name('updateInventory');
-Route::get('/inventory/add/{id}', [InventoryController::class, 'getAddQuantity'])->name('inventory.add'); // Modified this line
-Route::post('/inventory/add/{id}', [InventoryController::class, 'postAddQuantity'])->name('inventory.postAdd'); // Modified this li
-
+Route::get('/inventory/add/{id}', [InventoryController::class, 'getAddQuantity'])->name('inventory.add');
+Route::post('/inventory/add/{id}', [InventoryController::class, 'postAddQuantity'])->name('inventory.postAdd');

@@ -5,8 +5,21 @@
     <body>
                     <div class="card-box mb-30">
                         <div class="table-responsive">
+                            
                             <h2 class="h4 pd-20">View Inventory</h2>
                             <table class="table nowrap">
+                                <!-- Add this at the top of your Blade view, before the table -->
+<div class="mb-3">
+    <form action="{{ route('inventory.index') }}" method="GET">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by item name" name="search" value="{{ $search }}">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
                                 <thead>
                                     <tr>
                                         <th>Product</th>

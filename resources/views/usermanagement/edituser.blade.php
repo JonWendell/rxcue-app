@@ -1,4 +1,10 @@
+@extends('back.layout.main-layout')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
+@section('content')
+<<<<<<< HEAD
 
+<h2>Edit User</h2>
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +14,7 @@
 </head>
 <body>
     <h2>Edit User</h2>
+>>>>>>> 4e237fd2d9b9de0172f3b13f4c1fa01e61e5d372
 
 @if(session('success'))
     <div class="alert alert-success">
@@ -39,5 +46,10 @@
     <p>No user data found.</p>
 @endif
 
+<<<<<<< HEAD
+=======
 </body>
 </html>
+
+>>>>>>> 4e237fd2d9b9de0172f3b13f4c1fa01e61e5d372
+@endsection

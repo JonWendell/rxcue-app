@@ -1,8 +1,13 @@
-@extends('back.layout.main-layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
-@section('content')
 
-<h2>Edit User</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Branch</title>
+</head>
+<body>
+    <h2>Edit User</h2>
 
 @if(session('success'))
     <div class="alert alert-success">
@@ -34,4 +39,5 @@
     <p>No user data found.</p>
 @endif
 
-@endsection
+</body>
+</html>

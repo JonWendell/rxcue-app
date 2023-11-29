@@ -36,15 +36,15 @@ Route::get('/edit-branch/{id}', [BranchController::class, 'editForm'])->name('br
 Route::delete('/archive-branch/{id}', [BranchController::class, 'archive'])->name('branch.archive');
 Route::put('/update-branch/{id}', [BranchController::class, 'update'])->name('branch.update');
 //User Management rout//
-Route::controller(UserManagmentController::class)->group(function(){
-    Route::get('user/table','index')->name('user/table');
-});
-// routes/web.php
 
-Route::get('/userTable', 'UserManagmentController@index')->name('userTable');
-Route::get('/editUser/{id}', 'UserManagmentController@editUser')->name('editUser');
-Route::post('/updateUser/{id}', 'UserManagmentController@updateUser')->name('updateUser');
-Route::get('/archiveUser/{id}', 'UserManagmentController@archiveUser')->name('archiveUser');
+Route::group(['prefix' => 'user'], function () {
+    Route::get('table', [UserManagmentController::class, 'index'])->name('userTable');
+    Route::get('edit/{id}', [UserManagmentController::class, 'editUser'])->name('editUser');
+    Route::post('update/{id}', [UserManagmentController::class, 'updateUser'])->name('updateUser');
+    Route::get('archive/{id}', [UserManagmentController::class, 'archiveUser'])->name('archiveUser');
+    Route::get('add-user-form', [UserManagmentController::class, 'showAddUserForm'])->name('addUserForm');
+    Route::post('store-user', [UserManagmentController::class, 'storeUser'])->name('storeUser');
+});
 
 
 //routes for inventoyry//

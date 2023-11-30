@@ -5,6 +5,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagmentController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\EcomController;
 
 
 
@@ -19,16 +20,18 @@ use App\Http\Controllers\InventoryController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//ecom routes
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::view('/login-auth','login-auth');
 Route::view('/example-page','example-page');
-Route::view('/customer','customer');
+Route::get('/customer', [EcomController::class, 'index']);
 Route::view('/ordered','ordered');
 Route::view('/checkout','checkout');
+
+//branch routes nakakalito na to //
 Route::get('/create-branch', [BranchController::class, 'createForm'])->name('branch.create.form');
 Route::post('/create-branch', [BranchController::class, 'create'])->name('branch.create');
 Route::get('/view-branches', [BranchController::class, 'view'])->name('branch.view');

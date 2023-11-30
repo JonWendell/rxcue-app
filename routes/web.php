@@ -28,7 +28,7 @@ Route::get('/', function () {
 Route::view('/login-auth','login-auth');
 Route::view('/example-page','example-page');
 Route::get('/customer', [EcomController::class, 'index']);
-Route::view('/ordered','ordered');
+Route::get('/order-layout/{productId}', [EcomController::class, 'showOrderLayout']);
 Route::view('/checkout','checkout');
 
 //branch routes nakakalito na to //

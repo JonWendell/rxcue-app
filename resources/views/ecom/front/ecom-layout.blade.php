@@ -25,9 +25,7 @@
     <div class="site-wrap">
 
         <div class="site-navbar py-2">
-
             <!-- ... (your existing navbar code) ... -->
-
         </div>
 
         <div class="site-blocks-cover" style="background-image: url('/back/images/hero_1.jpg');">
@@ -57,11 +55,11 @@
                 <div class="row">
                     @foreach($inventoryData as $item)
                         <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                            <a href="/ordered">
+                            <a href="{{ url('/order-layout', ['productId' => $item->id]) }}">
                                 <img src="{{ asset('storage/images/' . $item->image) }}" alt="Image"
                                     class="img-fluid product-image">
                             </a>
-                            <h3 class="text-dark"><a href="/ordered">{{ $item->item_name }}</a></h3>
+                            <h3 class="text-dark"><a href="{{ url('/order-layout', ['productId' => $item->id]) }}">{{ $item->item_name }}</a></h3>
                             <p class="price">$ {{ $item->price }}</p>
                         </div>
                     @endforeach

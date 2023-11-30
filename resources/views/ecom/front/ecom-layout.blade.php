@@ -57,7 +57,10 @@
                 <div class="row">
                     @foreach($inventoryData as $item)
                         <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                            <a href="/ordered"> <img src="/back/images/product_placeholder.png" alt="Image"></a>
+                            <a href="/ordered">
+                                <img src="{{ asset('storage/images/' . $item->image) }}" alt="Image"
+                                    class="img-fluid product-image">
+                            </a>
                             <h3 class="text-dark"><a href="/ordered">{{ $item->item_name }}</a></h3>
                             <p class="price">$ {{ $item->price }}</p>
                         </div>
@@ -99,15 +102,15 @@
         </div>
     </footer>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
+    <script src="/back/js/jquery-3.3.1.min.js"></script>
+    <script src="/back/js/jquery-ui.js"></script>
+    <script src="/back/js/popper.min.js"></script>
+    <script src="/back/js/bootstrap.min.js"></script>
+    <script src="/back/js/owl.carousel.min.js"></script>
+    <script src="/back/js/jquery.magnific-popup.min.js"></script>
+    <script src="/back/js/aos.js"></script>
 
-    <script src="js/main.js"></script>
+    <script src="/back/js/main.js"></script>
 
 </body>
 

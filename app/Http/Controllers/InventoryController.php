@@ -42,15 +42,24 @@ class InventoryController extends Controller
             'quantity_change' => 'required|numeric',
             'new_quantity' => 'required|numeric',
             'change_date' => 'required|date',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Add this line
         ]);
-        
-    
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/images');
+            $validatedData['image'] = basename($imagePath);
+        }
+
         // Create a new inventory record
         Inventory::create($validatedData);
 
         // Redirect to the inventory index page
         return redirect()->route('inventory.index')->with('success', 'Inventory item added successfully!');
     }
+    
+        
+
 
     public function update(Request $request)
     {

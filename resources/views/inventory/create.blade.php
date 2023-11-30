@@ -69,7 +69,7 @@
             <h2 class="h4 pd-20">Add Product</h2>
             <div class="card-body">
                 <!-- The form element starts here -->
-                <form method="post" action="{{ route('inventory.store') }}">
+                <form method="post" action="{{ route('inventory.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-row">
@@ -104,6 +104,14 @@
                         <div class="form-group col-md-6">
                             <label for="change_date">Date</label>
                             <input type="date" class="form-control" name="change_date" placeholder="date" required>
+                        </div>
+                    </div>
+
+                    <!-- Add this to your create.blade.php form -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="image">Product Image</label>
+                            <input type="file" class="form-control-file" name="image" accept="image/*">
                         </div>
                     </div>
 

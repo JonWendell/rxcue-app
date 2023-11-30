@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// app/Models/Inventory.php
+
 class Inventory extends Model
 {
     protected $fillable = [
@@ -12,6 +14,6 @@ class Inventory extends Model
         'quantity_change',
         'new_quantity',
         'change_date',
+        'image', // Add this line
     ];
-    
 }

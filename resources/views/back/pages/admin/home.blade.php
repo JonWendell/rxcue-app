@@ -490,11 +490,10 @@
 								<span class="micon bi bi-person"></span>
 								<span class="mtext">Manage User</span>
 							</a>
+							<!-- Add the button to navigate to the route for managing users -->	
 							<ul class="submenu">
 								<li>				
-									<a href="{{ route('userTable') }}">Manage Users</a>
-								</li>
-							</ul>
+							<a href="{{ route('userTable') }}">Manage Users</a>
 						</li>
 						</ul>
                         <li class="dropdown">
@@ -543,6 +542,7 @@
 							<div class="dropdown-divider"></div>
 						</li>
 						<li>
+
 
 						<li>
 							<a

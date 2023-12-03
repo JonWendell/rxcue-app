@@ -14,6 +14,11 @@ class Inventory extends Model
         'quantity_change',
         'new_quantity',
         'change_date',
-        'image', // Add this line
+        'description',
+        'quantity',
+        'image',
+        'category',
+        'price',
     ];
+    
 }

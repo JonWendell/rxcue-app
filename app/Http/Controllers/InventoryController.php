@@ -38,11 +38,14 @@ class InventoryController extends Controller
         // Validate the form data
         $validatedData = $request->validate([
             'item_name' => 'required|string',
+            'description' => 'nullable|string',
             'previous_quantity' => 'required|numeric',
             'quantity_change' => 'required|numeric',
             'new_quantity' => 'required|numeric',
             'change_date' => 'required|date',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Add this line
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category' => 'nullable|string', // Add this line for the new field
+            'price' => 'required|numeric', // Add this line for the new field
         ]);
 
         // Handle image upload
@@ -57,8 +60,6 @@ class InventoryController extends Controller
         // Redirect to the inventory index page
         return redirect()->route('inventory.index')->with('success', 'Inventory item added successfully!');
     }
-    
-        
 
 
     public function update(Request $request)
@@ -70,6 +71,10 @@ class InventoryController extends Controller
             'quantity_change' => 'required|numeric',
             'new_quantity' => 'required|numeric',
             'change_date' => 'required|date',
+            'description' => 'nullable|string',
+            'quantity' => 'required|numeric',
+            'category' => 'nullable|in:fluid,solid,other', // Adjust if needed
+            'price' => 'required|numeric',
         ]);
 
         // Find the inventory record based on item name
@@ -81,11 +86,6 @@ class InventoryController extends Controller
         // Redirect back to the inventory index page
         return redirect()->route('inventory.index')->with('success', 'Inventory item updated successfully!');
     }
-        public function showAddForm()
-    {
-        return view('inventory.add');
-    }
-    
     public function getAddQuantity($id)
     {
         // Fetch inventory item by ID and pass it to the view
@@ -99,28 +99,24 @@ class InventoryController extends Controller
         $request->validate([
             'quantity' => 'required|numeric',
         ]);
-    
+
         // Find the original inventory item
         $originalInventory = Inventory::find($id);
-    
+
         // Calculate the new quantity
         $newQuantity = $originalInventory->new_quantity + $request->input('quantity');
-    
+
         // Ensure that the new quantity is non-negative
         $newQuantity = max(0, $newQuantity);
-    
-        // Create a new inventory record with the updated quantity
-        $newInventory = new Inventory([
-            'item_name' => $originalInventory->item_name,
+
+        // Update the existing inventory item with the new quantity
+        $originalInventory->update([
             'previous_quantity' => $originalInventory->new_quantity,
             'quantity_change' => $request->input('quantity'),
             'new_quantity' => $newQuantity,
             'change_date' => now(),
         ]);
-    
-        // Save the new inventory record
-        $newInventory->save();
-    
+
         // Redirect back to the inventory page
         return redirect()->route('inventory.index')->with('success', 'Quantity updated successfully!');
     }

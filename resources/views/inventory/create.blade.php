@@ -80,38 +80,60 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="previous_quantity">Previous Quantity</label>
-                            <input type="number" class="form-control" name="previous_quantity"
-                                placeholder="Input previous quantity" required>
+                            <label for="description">Description</label>
+                            <textarea class="form-control" name="description" placeholder="Input product description"
+                                rows="3"></textarea>
                         </div>
                     </div>
 
                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="previous_quantity">Previous Quantity</label>
+                            <input type="number" class="form-control" name="previous_quantity"
+                                placeholder="Input previous quantity" required>
+                        </div>
+
                         <div class="form-group col-md-6">
                             <label for="quantity_change">Quantity Change</label>
                             <input type="number" class="form-control" name="quantity_change" placeholder="Change quantity"
                                 required>
                         </div>
+                    </div>
 
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="new_quantity">New Quantity</label>
                             <input type="number" class="form-control" name="new_quantity" placeholder="Input new quantity"
                                 required>
                         </div>
-                    </div>
 
-                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="change_date">Date</label>
                             <input type="date" class="form-control" name="change_date" placeholder="date" required>
                         </div>
                     </div>
 
-                    <!-- Add this to your create.blade.php form -->
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="image">Product Image</label>
                             <input type="file" class="form-control-file" name="image" accept="image/*">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="category">Category</label>
+                            <select class="form-control" name="category">
+                                <option value="fluid">Fluid</option>
+                                <option value="solid">Solid</option>
+                                <!-- Add more options as needed -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" name="price" placeholder="Input product price"
+                                required>
                         </div>
                     </div>
 

@@ -1,12 +1,17 @@
-<!-- resources/views/inventory/audit_history.blade.php -->
-
 @extends('back.layout.main-layout')
 @section('pageTitle', 'Audit History')
 @section('content')
 
 <div class="card-box mb-30">
     <div class="table-responsive">
-        <h2 class="h4 pd-20">Audit History for {{ $inventory->item_name }}</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="h4 pd-20">Audit History for {{ $inventory->item_name }}</h2>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="{{ route('inventory.index') }}" class="btn btn-primary">Back to Inventory</a>
+            </div>
+        </div>
 
         <table class="table nowrap">
             <thead>

@@ -30,6 +30,9 @@ Route::view('/example-page','example-page');
 Route::get('/customer', [EcomController::class, 'index']);
 Route::get('/order-layout/{productId}', [EcomController::class, 'showOrderLayout']);
 Route::view('/checkout','checkout');
+Route::get('/cart', [EcomController::class, 'showCart']);
+Route::post('/add-to-cart/{productId}', [EcomController::class, 'addToCart'])->name('addToCart');
+
 
 //branch routes nakakalito na to //
 Route::get('/create-branch', [BranchController::class, 'createForm'])->name('branch.create.form');

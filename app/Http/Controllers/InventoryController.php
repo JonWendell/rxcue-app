@@ -136,7 +136,7 @@ class InventoryController extends Controller
         $inventory = Inventory::find($id);
 
         // Load the 'inventory.audit_history' view and pass the $inventory data
-        return view('inventory.audit_history', compact('inventory'));
+        return view('inventory.audit_history', ['inventory' => $inventory]);
     }
         
 }

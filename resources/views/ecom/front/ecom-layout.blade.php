@@ -21,6 +21,25 @@
 </head>
 
 <body>
+    <div class="site-navbar py-2">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="logo">
+                    <!-- Your logo code goes here -->
+                    <h1 class="m-0"><a href="/">Pharma</a></h1>
+                </div>
+                <div class="main-nav">
+                    <ul class="list-unstyled mb-0">
+                        <!-- Add this line for the View Cart link -->
+                        <li><a href="{{ url('/cart') }}">View Cart</a></li>
+                        <!-- Add other navigation links if needed -->
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
 
     <div class="site-wrap">
 

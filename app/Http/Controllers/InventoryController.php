@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventory;
+use App\Models\Audit;
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
@@ -94,31 +95,48 @@ class InventoryController extends Controller
     }
 
     public function postAddQuantity(Request $request, $id)
+{
+    // Validate the request
+    $request->validate([
+        'quantity' => 'required|numeric',
+    ]);
+
+    // Find the original inventory item
+    $originalInventory = Inventory::find($id);
+
+    // Calculate the new quantity
+    $newQuantity = $originalInventory->new_quantity + $request->input('quantity');
+
+    // Ensure that the new quantity is non-negative
+    $newQuantity = max(0, $newQuantity);
+
+    // Update the existing inventory item with the new quantity
+    $originalInventory->update([
+        'previous_quantity' => $originalInventory->new_quantity,
+        'quantity_change' => $request->input('quantity'),
+        'new_quantity' => $newQuantity,
+        'change_date' => now(),
+    ]);
+
+    // Record the audit
+    Audit::create([
+        'inventory_id' => $originalInventory->id,
+        'current_quantity' => $originalInventory->new_quantity,
+        'quantity' => $request->input('quantity'),
+        'new_stock' => $newQuantity,
+        'type' => 'add', // You can customize this value based on your needs
+    ]);
+
+    // Redirect back to the inventory page
+    return redirect()->route('inventory.index')->with('success', 'Quantity updated successfully!');
+}
+    public function auditHistory($id)
     {
-        // Validate the request
-        $request->validate([
-            'quantity' => 'required|numeric',
-        ]);
+        // Fetch inventory item by ID and pass it to the view
+        $inventory = Inventory::find($id);
 
-        // Find the original inventory item
-        $originalInventory = Inventory::find($id);
-
-        // Calculate the new quantity
-        $newQuantity = $originalInventory->new_quantity + $request->input('quantity');
-
-        // Ensure that the new quantity is non-negative
-        $newQuantity = max(0, $newQuantity);
-
-        // Update the existing inventory item with the new quantity
-        $originalInventory->update([
-            'previous_quantity' => $originalInventory->new_quantity,
-            'quantity_change' => $request->input('quantity'),
-            'new_quantity' => $newQuantity,
-            'change_date' => now(),
-        ]);
-
-        // Redirect back to the inventory page
-        return redirect()->route('inventory.index')->with('success', 'Quantity updated successfully!');
+        // Load the 'inventory.audit_history' view and pass the $inventory data
+        return view('inventory.audit_history', compact('inventory'));
     }
-    
+        
 }

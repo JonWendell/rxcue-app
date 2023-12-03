@@ -1,24 +1,31 @@
 <?php
 
+// app/Models/Inventory.php
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-// app/Models/Inventory.php
 
 class Inventory extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'item_name',
+        'description',
         'previous_quantity',
         'quantity_change',
         'new_quantity',
         'change_date',
-        'description',
-        'quantity',
         'image',
         'category',
         'price',
     ];
-    
+
+    public function audits()
+    {
+        return $this->hasMany(Audit::class);
+    }
 }
+

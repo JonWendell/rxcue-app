@@ -1,3 +1,5 @@
+<!-- resources/views/inventory/index.blade.php -->
+
 @extends('back.layout.main-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
 @section('content')
@@ -24,14 +26,11 @@
                 <thead>
                     <tr>
                         <th>Product</th>
-                        <th>Description</th>
                         <th>Previous Quantity</th>
                         <th>Added/Removed</th>
                         <th>New Quantity</th>
                         <th>Date</th>
                         <th>Image</th>
-                        <th>Category</th>
-                        <th>Price</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -39,7 +38,6 @@
                     @foreach($inventories as $inventory)
                     <tr>
                         <td class="table-plus">{{ $inventory->item_name }}</td>
-                        <td>{{ $inventory->description }}</td>
                         <td>{{ $inventory->previous_quantity }}</td>
                         <td>{{ $inventory->quantity_change }}</td>
                         <td>{{ $inventory->new_quantity }}</td>
@@ -52,8 +50,6 @@
                             No Image
                             @endif
                         </td>
-                        <td>{{ $inventory->category }}</td>
-                        <td>{{ $inventory->price }}</td>
                         <td>
                             <div class="dropdown">
                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
@@ -64,6 +60,10 @@
                                     <a class="dropdown-item"
                                         onclick="redirectToAddPage('{{ $inventory->id }}')"><i
                                             class="dw dw-plus"></i> Add Quantity</a>
+                                    <!-- Add this button for viewing audit history -->
+                                    <a class="dropdown-item"
+                                        href="{{ route('inventory.audit', ['id' => $inventory->id]) }}"><i
+                                            class="dw dw-eye"></i> View Audit History</a>
                                 </div>
                             </div>
                         </td>
@@ -74,13 +74,10 @@
                     @foreach($inventory->addedQuantities as $addedQuantity)
                     <tr>
                         <td></td>
-                        <td></td>
                         <td>{{ $addedQuantity->previous_quantity }}</td>
                         <td>{{ $addedQuantity->quantity_change }}</td>
                         <td>{{ $addedQuantity->new_quantity }}</td>
                         <td>{{ $addedQuantity->change_date }}</td>
-                        <td></td> <!-- Empty column for consistency -->
-                        <td></td> <!-- Empty column for consistency -->
                         <td></td> <!-- Empty column for consistency -->
                         <td></td> <!-- Empty column for consistency -->
                     </tr>

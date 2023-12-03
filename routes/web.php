@@ -58,3 +58,4 @@ Route::post('/inventory', [InventoryController::class, 'store'])->name('inventor
 Route::post('/update-inventory', [InventoryController::class, 'update'])->name('updateInventory');
 Route::get('/inventory/add/{id}', [InventoryController::class, 'getAddQuantity'])->name('inventory.add');
 Route::post('/inventory/add/{id}', [InventoryController::class, 'postAddQuantity'])->name('inventory.postAdd');
+Route::get('/inventory/audit/{id}', [InventoryController::class, 'auditHistory'])->name('inventory.audit');

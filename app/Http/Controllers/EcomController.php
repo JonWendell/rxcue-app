@@ -66,9 +66,26 @@ class EcomController extends Controller
     
         return redirect()->back()->with('success', 'Item added to cart.');
     }
-    
+        public function removeFromCart($productId)
+    {
+        $cart = Session::get('cart', []);
 
-    
+        // Check if the product is in the cart
+        if (isset($cart[$productId])) {
+            // Remove the product from the cart
+            unset($cart[$productId]);
+
+            // Update the session with the modified cart
+            Session::put('cart', $cart);
+
+            return redirect()->back()->with('success', 'Item removed from cart.');
+        }
+
+        return redirect()->back()->with('error', 'Item not found in cart.');
+    }
+
+
+        
 
     
     

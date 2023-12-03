@@ -19,7 +19,13 @@
                     <p>Price: ₱{{ $item['price'] }}</p>
                     <p>Total Price: ₱{{ $item['totalPrice'] }}</p> <!-- Display total price -->
                     <img src="{{ asset('storage/images/' . $item['image']) }}" alt="Product Image" class="img-fluid">
-                    <!-- Add more details or styling as needed -->
+                    
+                    <!-- Add a "Remove" button for each product -->
+                    <form action="{{ route('remove-from-cart', $productId) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit">Remove</button>
+                    </form>
                 </div>
             @endforeach
 

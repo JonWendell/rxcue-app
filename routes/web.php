@@ -34,6 +34,9 @@ Route::view('/checkout','checkout');
 Route::get('/cart', [EcomController::class, 'showCart']);
 Route::post('/add-to-cart/{productId}', [EcomController::class, 'addToCart'])->name('addToCart');
 Route::post('/purchase', [EcomController::class, 'purchase'])->name('purchase');
+Route::delete('/remove-from-cart/{productId}', [EcomController::class, 'removeFromCart'])->name('remove-from-cart');
+
+
 
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagmentController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\EcomController;
+use App\Http\Controllers\CashierController;
 
 
 
@@ -32,6 +33,8 @@ Route::get('/order-layout/{productId}', [EcomController::class, 'showOrderLayout
 Route::view('/checkout','checkout');
 Route::get('/cart', [EcomController::class, 'showCart']);
 Route::post('/add-to-cart/{productId}', [EcomController::class, 'addToCart'])->name('addToCart');
+Route::post('/purchase', [EcomController::class, 'purchase'])->name('purchase');
+
 
 
 //branch routes nakakalito na to //
@@ -62,3 +65,6 @@ Route::post('/update-inventory', [InventoryController::class, 'update'])->name('
 Route::get('/inventory/add/{id}', [InventoryController::class, 'getAddQuantity'])->name('inventory.add');
 Route::post('/inventory/add/{id}', [InventoryController::class, 'postAddQuantity'])->name('inventory.postAdd');
 Route::get('/inventory/audit/{id}', [InventoryController::class, 'auditHistory'])->name('inventory.audit');
+
+// routes for cashier
+Route::get('/cashier', [CashierController::class, 'index'])->name('cashier');

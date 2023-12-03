@@ -22,6 +22,12 @@
                     <!-- Add more details or styling as needed -->
                 </div>
             @endforeach
+
+            <form action="{{ route('purchase') }}" method="post">
+                @csrf
+                <button type="submit">Purchase</button>
+            </form>
+            
         @else
             <p>Your cart is empty.</p>
         @endif

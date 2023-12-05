@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log; // Import the Log facade
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -72,5 +73,13 @@ class AuthController extends Controller
 
         // Redirect back to the login form if authentication fails
         return redirect()->route('login.form')->with('error', 'Invalid credentials');
+    }
+    public function logout()
+    {
+        // Terminate the session
+        Session::flush();
+
+        // Redirect to the login form with a success message
+        return redirect()->route('login.form')->with('success', 'You have been logged out successfully.');
     }
 }

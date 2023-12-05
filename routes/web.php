@@ -84,6 +84,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/cashier', [CashierController::class, 'show'])->name('cashier.show');
 
-//routes for <logout></logout>
-
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('manual.logout');
+Route::middleware(['auth.manual'])->group(function () {
+    Route::get('/back-home', function () {
+        return view('back.home');
+    })->name('admin.home');
+});

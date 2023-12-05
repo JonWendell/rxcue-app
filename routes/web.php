@@ -7,7 +7,7 @@ use App\Http\Controllers\UserManagmentController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\EcomController;
 use App\Http\Controllers\CashierController;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,8 +58,6 @@ Route::put('/update-branch/{id}', [BranchController::class, 'update'])->name('br
 //ecom side//
 
 
-Route::view('/login-auth','login-auth'); //wala to
-Route::view('/example-page','example-page'); //wala din to
 Route::get('/customer', [EcomController::class, 'index']);
 Route::get('/order-layout/{productId}', [EcomController::class, 'showOrderLayout']);
 Route::view('/checkout','checkout');
@@ -68,3 +66,12 @@ Route::post('/add-to-cart/{productId}', [EcomController::class, 'addToCart'])->n
 Route::post('/purchase', [EcomController::class, 'purchase'])->name('purchase');
 Route::delete('/remove-from-cart/{productId}', [EcomController::class, 'removeFromCart'])->name('remove-from-cart');
 
+// routes/web.php
+
+
+
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');

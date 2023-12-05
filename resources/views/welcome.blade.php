@@ -49,8 +49,8 @@
                   <div class="main-nav d-none d-lg-block">
                     <nav class="site-navigation text-right text-md-center" role="navigation">
                       <ul class="site-menu js-clone-nav d-none d-lg-block">
-                        <li><a href="/login-auth">LOGIN</a></li>
-                        <li><a href="register.html">Register</a></li>
+                        <li><a href="/login">LOGIN</a></li>
+                        <li><a href="/register">Register</a></li>
                       </ul>
                     </nav>
                   </div>             
@@ -67,7 +67,6 @@
                       <h1>Welcome To Rxcue</h1>
                       <p>
                         <a href="{{ url('/customer') }}" class="btn btn-primary px-5 py-3">Shop Now</a>
-
                       </p>
                     </div>
                   </div>
@@ -77,13 +76,8 @@
         
     </body>
     
-        <script src="{{ asset('/sw.js') }}"></script>
 <script>
-    if (!navigator.serviceWorker.controller) {
-        navigator.serviceWorker.register("/sw.js").then(function (reg) {
-            console.log("Service worker has been registered for scope: " + reg.scope);
-        });
-    }
+
 </script>
     </body>
 </html>

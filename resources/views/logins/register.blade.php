@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>User Registration</title>
     <style>
+        /* Your existing styles remain unchanged */
+
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
 
         form {
-            max-width: 400px;
+            max-width: 300px;
             margin: 0 auto;
         }
 
@@ -45,7 +46,8 @@
 <body>
 
     <form action="{{ route('register') }}" method="post">
-        @csrf
+        @csrf <!-- Add CSRF token -->
+
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
 

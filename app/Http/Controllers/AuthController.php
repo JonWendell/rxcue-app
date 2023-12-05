@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; // Update the namespace
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log; // Import the Log facade
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -36,35 +39,38 @@ class AuthController extends Controller
         return redirect()->route('login.form');
     }
 
-    public function showLoginForm()
+        public function showLoginForm()
+        {
+            return view('logins.login');
+        }
+
+            public function login(Request $request)
     {
-        return view('logins.login');
-    }
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
+        $user = User::where('email', $credentials['email'])->first();
 
-        if (Auth::attempt($credentials)) {
-            // Authentication was successful
+        if ($user && password_verify($credentials['password'], $user->password)) {
+            // Manual login
+            session(['user' => $user]);
 
-            // Get the authenticated user
-            $user = Auth::user();
-
-            // Check the user's role
+            // Redirect based on the user's role
             switch ($user->role) {
                 case 'admin':
                     return redirect()->route('admin.home');
-                    break;
-
-                // Add other roles as needed
-
+                case 'cashier':
+                    return redirect()->route('cashier.show');
+                case 'client':
+                    return redirect()->route('client.home');
                 default:
                     return redirect()->route('dashboard');
             }
         }
 
-        // Authentication failed
+        // Redirect back to the login form if authentication fails
         return redirect()->route('login.form')->with('error', 'Invalid credentials');
     }
 }

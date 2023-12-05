@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
     <style>
+        /* Your existing styles remain unchanged */
+
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -43,16 +45,18 @@
 </head>
 <body>
 
-    <form action="login_process.php" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+    <form action="{{ route('login') }}" method="post">
+        @csrf
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
 
         <button type="submit">Login</button>
 
-        <!-- Add a registration button linking to the Laravel route -->
+        <!-- Update registration link -->
         <a href="{{ route('register.form') }}">
             <button type="button">Register</button>
         </a>

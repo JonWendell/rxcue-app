@@ -5,6 +5,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class User extends Model
 {
@@ -22,4 +26,19 @@ class User extends Model
         'role',
         'password',
     ];
+    public function getAuthIdentifierName()
+    {
+        return 'id'; // Change 'id' to your actual primary key column name
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+    
 }

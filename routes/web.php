@@ -25,7 +25,7 @@ Route::get('/', function () {
 
 Route::get('/back-home', function () {
     return view('back.home');
-});
+})->name('admin.home');
 
 //User Management rout//
 
@@ -58,7 +58,9 @@ Route::put('/update-branch/{id}', [BranchController::class, 'update'])->name('br
 //ecom side//
 
 
-Route::get('/customer', [EcomController::class, 'index']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/customer', [EcomController::class, 'index']);
+});
 Route::get('/order-layout/{productId}', [EcomController::class, 'showOrderLayout']);
 Route::view('/checkout','checkout');
 Route::get('/cart', [EcomController::class, 'showCart']);
@@ -75,3 +77,13 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+
+//cashier
+
+
+Route::get('/cashier', [CashierController::class, 'show'])->name('cashier.show');
+
+//routes for <logout></logout>
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -7,7 +7,6 @@
     <div class="login-title">
         <h2 class="text-center text-primary">User login</h2>
     </div>
-    <form action="{{ route('admin.login_handler') }}" method="POST">
         @csrf
 
         @if (Session::get('fall'))

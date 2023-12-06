@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,10 +20,25 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // Check the user's role
+                switch (Auth::user()->role) {
+                    case 'admin':
+                        return redirect()->route('admin.home');
+                    case 'cashier':
+                        return redirect('/cashier');
+                    case 'client':
+                        return redirect()->route('customer');
+                    default:
+                        return redirect()->route('dashboard');
+                }
             }
         }
 
-        return $next($request);
+        // If the user is not authenticated and the current route is the login page, redirect to home
+        if (!$request->is('login')) {
+            return $next($request);
+        }
+
+        return redirect('/'); // Change to the appropriate home route if needed
     }
 }

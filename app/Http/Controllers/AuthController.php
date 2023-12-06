@@ -31,12 +31,15 @@ class AuthController extends Controller
             'role' => 'required|in:admin,cashier,client',
             'password' => 'required|string|max:255',
         ]);
-
+    
+        // Hash the password before creating the user
+        $validatedData['password'] = bcrypt($validatedData['password']);
+    
         // Create a new user using the User model
         User::create($validatedData);
-
+    
         // Add any additional registration logic here (e.g., sending emails, etc.)
-
+    
         return redirect()->route('login.form');
     }
 
@@ -63,9 +66,9 @@ class AuthController extends Controller
                 case 'admin':
                     return redirect()->route('admin.home');
                 case 'cashier':
-                    return redirect()->route('cashier.show');
+                    return redirect('/cashier');
                 case 'client':
-                    return redirect()->route('client.home');
+                    return redirect()->route('customer');
                 default:
                     return redirect()->route('dashboard');
             }

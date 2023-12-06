@@ -4,7 +4,7 @@ class constGuards
 {
     const ADMIN = 'admin';
     const CLIENT = 'client';
-    const SELLER = 'seller';
+    const Cashier = 'cashier';
 }
 
 class constDefaults

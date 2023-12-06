@@ -49,6 +49,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // ... other middleware
         'auth.manual' => \App\Http\Middleware\AuthenticateManual::class,
+        'redirectIfAuthenticated' => \App\Http\Middleware\RedirectIfAuthenticated::class,
     ];
 
 

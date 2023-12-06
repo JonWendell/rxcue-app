@@ -23,9 +23,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/back-home', function () {
-    return view('back.home');
-})->name('admin.home');
+Route::middleware(['auth.manual'])->group(function () {
+    Route::get('/back-home', function () {
+        return view('back.home');
+    })->name('admin.home');
+});
+
+
+Route::middleware(['auth.manual'])->group(function () {
+    Route::get('/customer', [EcomController::class, 'index'])->name('customer');
+});
 
 //User Management rout//
 
@@ -58,9 +65,7 @@ Route::put('/update-branch/{id}', [BranchController::class, 'update'])->name('br
 //ecom side//
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/customer', [EcomController::class, 'index']);
-});
+
 Route::get('/order-layout/{productId}', [EcomController::class, 'showOrderLayout']);
 Route::view('/checkout','checkout');
 Route::get('/cart', [EcomController::class, 'showCart']);
@@ -81,12 +86,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 //cashier
 
-
 Route::get('/cashier', [CashierController::class, 'show'])->name('cashier.show');
 
+
 Route::get('/logout', [AuthController::class, 'logout'])->name('manual.logout');
-Route::middleware(['auth.manual'])->group(function () {
-    Route::get('/back-home', function () {
-        return view('back.home');
-    })->name('admin.home');
-});
+

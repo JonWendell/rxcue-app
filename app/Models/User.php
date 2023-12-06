@@ -36,9 +36,8 @@ class User extends Model
         return $this->getKey();
     }
 
-    public function getAuthPassword()
+        public function getAuthPassword()
     {
         return $this->password;
     }
-    
 }

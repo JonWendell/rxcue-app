@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 03, 2023 at 04:13 PM
+-- Generation Time: Dec 07, 2023 at 02:53 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -24,32 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
---
-
-CREATE TABLE `admins` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `admins`
---
-
-INSERT INTO `admins` (`id`, `name`, `username`, `email`, `password`, `picture`, `created_at`, `updated_at`) VALUES
-(2, 'Admin', 'admin', 'admin@gmail.com', '$2y$12$F3jtcyiOcHI3yWzc8QprfODTyWd/oDrPPFa0M6hk0rLJlzgDzjuii', NULL, '2023-11-15 20:34:24', '2023-11-15 20:34:24'),
-(4, 'Cabcab', 'Sett', 'corvecc1@gmail.com', '12345', NULL, '2023-11-22 12:56:54', '2023-11-30 19:11:20'),
-(5, 'Test', 'wendell', 'weithingcheong@gmai.com', '$2y$12$D5tAGLYcDEbZkUAHkEva4On72nipo6JD91t72tgBqT37ufFGIxkQW', NULL, '2023-11-30 19:12:20', '2023-11-30 19:12:20');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `audits`
 --
 
@@ -59,7 +33,7 @@ CREATE TABLE `audits` (
   `current_quantity` int NOT NULL,
   `quantity` int NOT NULL,
   `new_stock` int NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -71,7 +45,8 @@ CREATE TABLE `audits` (
 INSERT INTO `audits` (`id`, `inventory_id`, `current_quantity`, `quantity`, `new_stock`, `type`, `created_at`, `updated_at`) VALUES
 (1, 3, 1005, 5, 1005, 'add', '2023-12-03 06:26:22', '2023-12-03 06:26:22'),
 (2, 3, 505, -500, 505, 'add', '2023-12-03 06:37:37', '2023-12-03 06:37:37'),
-(3, 3, 605, 100, 605, 'add', '2023-12-03 06:41:55', '2023-12-03 06:41:55');
+(3, 3, 605, 100, 605, 'add', '2023-12-03 06:41:55', '2023-12-03 06:41:55'),
+(4, 3, 610, 5, 610, 'add', '2023-12-05 07:20:36', '2023-12-05 07:20:36');
 
 -- --------------------------------------------------------
 
@@ -94,28 +69,8 @@ CREATE TABLE `branches` (
 --
 
 INSERT INTO `branches` (`id`, `name`, `location`, `contact`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Testbranch', 'Nacoco', '09305115251', 'Inactive', '2023-11-21 20:18:37', '2023-11-21 20:18:37');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `clients`
---
-
-CREATE TABLE `clients` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `emails_verified_at` timestamp NULL DEFAULT NULL,
-  `status` enum('Pending','Active') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(2, 'Testbranch', 'Nacoco', '09305115251', 'Inactive', '2023-11-21 20:18:37', '2023-11-21 20:18:37'),
+(6, 'Testbranch1', 'Pachocha', '09305115251', 'Active', '2023-12-05 07:25:30', '2023-12-05 07:25:30');
 
 -- --------------------------------------------------------
 
@@ -149,9 +104,9 @@ CREATE TABLE `inventories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `quantity` int DEFAULT '0',
-  `category` enum('fluid','solid','other') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `category` enum('fluid','solid','other') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -160,7 +115,7 @@ CREATE TABLE `inventories` (
 --
 
 INSERT INTO `inventories` (`id`, `item_name`, `previous_quantity`, `quantity_change`, `new_quantity`, `change_date`, `created_at`, `updated_at`, `image`, `description`, `quantity`, `category`, `price`) VALUES
-(3, 'Biogesic', 505, 100, 605, '2023-12-03', '2023-12-03 06:26:09', '2023-12-03 06:41:55', '2ATy5qNcqUEdboalYhBkHJKAbF6jtzhuF7d2ni7r.png', 'This combination product contains 2 medications, acetaminophen and an antihistamine. Acetaminophen helps to reduce fever and/or mild to moderate pain (such as headache, backache, aches/pains due to muscle strain, cold, or flu).', 0, 'solid', 6.00),
+(3, 'Biogesic', 605, 5, 610, '2023-12-05', '2023-12-03 06:26:09', '2023-12-05 07:20:36', '2ATy5qNcqUEdboalYhBkHJKAbF6jtzhuF7d2ni7r.png', 'This combination product contains 2 medications, acetaminophen and an antihistamine. Acetaminophen helps to reduce fever and/or mild to moderate pain (such as headache, backache, aches/pains due to muscle strain, cold, or flu).', 0, 'solid', 6.00),
 (4, 'Mefinamic', 0, 500, 500, '2023-12-03', '2023-12-03 07:38:21', '2023-12-03 07:38:21', 'ItL5Npn4RpQmgl2M1tm8T6UxVbZKjfbNdbpfJgS3.jpg', 'Mefenamic acid is a nonsteroidal anti-inflammatory drug (NSAID) used to treat mild to moderate pain. It may also be used to treat menstrual cramps and other conditions as determined by your doctor.', 0, 'solid', 10.00);
 
 -- --------------------------------------------------------
@@ -192,7 +147,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2023_11_23_073022_create_inventories_table', 6),
 (11, '2023_11_23_074648_create_inventories_table', 7),
 (12, '2023_11_30_055330_add_image_to_inventories', 8),
-(13, '2023_12_03_133905_create_audits_table', 9);
+(13, '2023_12_03_133905_create_audits_table', 9),
+(14, '2023_12_04_155704_add_timestamps_to_users_table', 10);
 
 -- --------------------------------------------------------
 
@@ -248,54 +204,37 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sellers`
---
-
-CREATE TABLE `sellers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `emails_verified_at` timestamp NULL DEFAULT NULL,
-  `status` enum('Pending','InReview','Active') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
-  `payment_method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `middleName` varchar(50) DEFAULT NULL,
+  `address` varchar(255) NOT NULL,
+  `gender` enum('male','female','other') NOT NULL,
+  `age` int NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `role` enum('admin','cashier','client') NOT NULL,
+  `password` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `firstName`, `lastName`, `middleName`, `address`, `gender`, `age`, `email`, `role`, `password`, `created_at`, `updated_at`) VALUES
+(4, 'wendell', 'jon wendell', 'cabrera', 'lontoc', 'Nacoco', 'male', 21, 'corvecc1@gmail.com', 'admin', '$2y$12$asgmqA.AbNLlPOI4s3zKLOtJlT25hBJBKH7b24WNOV.Wyztb9UUBK', '2023-12-05 10:25:53', '2023-12-05 10:25:53'),
+(8, 'ewqewq', 'qweqwe', 'qweqwe', 'wqeqweqw', 'ewqeqwe', 'male', 32, 'nopona21@gmail.com', 'client', '$2y$12$t.FmGtStKGE2aWdXq/t7nORisgrGog43Zjwwm2Y.t/e29grckAiL.', '2023-12-06 10:40:40', '2023-12-06 10:40:40'),
+(9, 'Cydie', 'Cydie', 'Gargulo', 'Ewan', 'Naujan', 'female', 32, 'weithingcheong@gmai.com', 'cashier', '$2y$12$5SlcZ3D27eTFlQR0/DepeuwhnN7BSpEDw5xLD7wi86aL3TBhuE1hK', '2023-12-06 10:47:29', '2023-12-06 10:47:29');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `admins`
---
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `admins_username_unique` (`username`),
-  ADD UNIQUE KEY `admins_email_unique` (`email`);
 
 --
 -- Indexes for table `audits`
@@ -309,14 +248,6 @@ ALTER TABLE `audits`
 --
 ALTER TABLE `branches`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `clients`
---
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `clients_username_unique` (`username`),
-  ADD UNIQUE KEY `clients_email_unique` (`email`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -358,47 +289,26 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `sellers`
---
-ALTER TABLE `sellers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `sellers_username_unique` (`username`),
-  ADD UNIQUE KEY `sellers_email_unique` (`email`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `clients`
---
-ALTER TABLE `clients`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -416,7 +326,7 @@ ALTER TABLE `inventories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -425,16 +335,10 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `sellers`
---
-ALTER TABLE `sellers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

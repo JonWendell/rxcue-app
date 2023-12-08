@@ -1,93 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <style>
-        /* Your existing styles remain unchanged */
+@extends('back.layout.auth-layout')
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Register')
 
-        form {
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-
+@section('content')
+<div class="login-box bg-white box-shadow border-radius-10">
+    <div class="login-title">
+        <h2 class="text-center text-primary">Registration</h2>
+    </div>
     <form action="{{ route('register') }}" method="post">
         @csrf <!-- Add CSRF token -->
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <input type="text" class="form-control form-control-lg" placeholder="Username" name="username" required>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <input type="text" class="form-control form-control-lg" placeholder="First Name" name="firstName" required>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <input type="text" class="form-control form-control-lg" placeholder="Last Name" name="lastName" required>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <input type="text" class="form-control form-control-lg" placeholder="Middle Name" name="middleName">
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <input type="text" class="form-control form-control-lg" placeholder="Address" name="address" required>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-address"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <select class="form-control form-control-lg" id="gender" name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-gender"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <label for="middleName">Middle Name:</label>
-        <input type="text" id="middleName" name="middleName">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <input type="number" class="form-control form-control-lg" placeholder="Age" name="age" required>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <input type="email" class="form-control form-control-lg" placeholder="Email" name="email" required>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-email"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <select class="form-control form-control-lg" id="role" name="role" required>
+                        <option value="admin">Admin</option>
+                        <option value="cashier">Cashier</option>
+                        <option value="client">Client</option>
+                    </select>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="icon-copy dw dw-user"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group custom">
+                    <input type="password" class="form-control form-control-lg" placeholder="Password" name="password" required>
+                    <div class="input-group-append custom">
+                        <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-        </select>
+        <div class="text-center mt-3">
+            <p>Already have an account? <a href="{{ route('login') }}" class="text-primary">Login</a></p>
+        </div>
 
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-            <option value="admin">Admin</option>
-            <option value="cashier">Cashier</option>
-            <option value="client">Client</option>
-        </select>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Register</button>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="input-group mb-0">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+                </div>
+            </div>
+        </div>
     </form>
+</div>
 
-</body>
-</html>
+
+@endsection

@@ -8,6 +8,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\EcomController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,3 +92,6 @@ Route::get('/cashier', [CashierController::class, 'show'])->name('cashier.show')
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('manual.logout');
 
+//landingpage
+Route::get('/home', [PageController::class, 'home'])->name('home');
+Route::get('/about', [PageController::class, 'about'])->name('about');

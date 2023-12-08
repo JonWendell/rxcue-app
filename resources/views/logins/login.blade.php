@@ -1,66 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <style>
-        /* Your existing styles remain unchanged */
+@extends('back.layout.auth-layout')
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Login')
 
-        form {
-            max-width: 300px;
-            margin: 0 auto;
-        }
+@section('content')
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-
+<div class="login-box bg-white box-shadow border-radius-10">
+    <div class="login-title">
+        <h2 class="text-center text-primary">Login</h2>
+    </div>
     <form action="{{ route('login') }}" method="post">
         @csrf
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <div class="input-group custom mb-3">
+            <input type="email" class="form-control form-control-lg" placeholder="Email" name="email" required>
+            <div class="input-group-append custom">
+                <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+            </div>
+        </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <div class="input-group custom mb-3">
+            <input type="password" class="form-control form-control-lg" placeholder="********" name="password" required>
+            <div class="input-group-append custom">
+                <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+            </div>
+        </div>
 
-        <button type="submit">Login</button>
+        <div class="row pb-30">
+            <div class="col-6">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">Remember</label>
+                </div>
+            </div>
 
-        <!-- Update registration link -->
-        <a href="{{ route('register.form') }}">
-            <button type="button">Register</button>
-        </a>
+            <div class="col-6 text-right">
+                <a href="{{ route('register.form') }}" class="text-primary">Register</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="input-group mb-0">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                </div>
+            </div>
+        </div>
     </form>
+</div>
 
-</body>
-</html>
+    
+@endsection

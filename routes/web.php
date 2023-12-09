@@ -9,6 +9,7 @@ use App\Http\Controllers\EcomController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SalesController;   
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,3 +97,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('manual.logout');
 //landingpage
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+
+
+// routes/web.php
+
+
+Route::post('/purchase', [SalesController::class, 'purchase'])->name('purchase');

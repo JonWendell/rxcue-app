@@ -21,7 +21,9 @@ class Inventory extends Model
         'image',
         'category',
         'price',
+        'upc', // Add this line for the new field
     ];
+    
 
     public function audits()
     {

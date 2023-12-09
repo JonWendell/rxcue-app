@@ -17,6 +17,7 @@ class Audit extends Model
         'quantity',
         'new_stock',
         'type',
+        'upc', // Add this line for the new field
     ];
 
     public function inventory()
@@ -24,3 +25,5 @@ class Audit extends Model
         return $this->belongsTo(Inventory::class);
     }
 }
+
+

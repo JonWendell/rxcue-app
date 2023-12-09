@@ -44,6 +44,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('archive/{id}', [UserManagmentController::class, 'archiveUser'])->name('archiveUser');
     Route::get('add-user-form', [UserManagmentController::class, 'showAddUserForm'])->name('addUserForm');
     Route::post('store-user', [UserManagmentController::class, 'storeUser'])->name('storeUser');
+    Route::get('/user/details/{id}', [UserManagmentController::class, 'getUserDetails'])->name('getUserDetails');
 });
 
 //routes for inventoyry//

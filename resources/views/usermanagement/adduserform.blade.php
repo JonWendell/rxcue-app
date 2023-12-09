@@ -18,9 +18,6 @@
             @csrf
 
             <!-- Your form fields go here -->
-            <label for="name">Name:</label>
-            <input type="text" name="name" required><br>
-
             <label for="username">Username:</label>
             <input type="text" name="username" required><br>
 
@@ -29,6 +26,31 @@
 
             <label for="password">Password:</label>
             <input type="password" name="password" required><br>
+
+            <label for="firstName">First Name:</label>
+            <input type="text" name="firstName" required><br>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" name="lastName" required><br>
+
+            <label for="middleName">Middle Name:</label>
+            <input type="text" name="middleName"><br>
+
+            <label for="address">Address:</label>
+            <input type="text" name="address"><br>
+
+            <label for="gender">Gender:</label>
+            <select name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <!-- Add more gender options if needed -->
+            </select><br>
+
+            <label for="age">Age:</label>
+            <input type="number" name="age"><br>
+
+            <label for="role">Role:</label>
+            <input type="text" name="role" required><br>
 
             <label for="picture">Profile Picture:</label>
             <input type="file" name="picture" accept="image/*"><br>

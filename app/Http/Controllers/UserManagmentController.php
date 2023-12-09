@@ -51,28 +51,36 @@ class UserManagmentController extends Controller
     public function storeUser(Request $request){
         // Validate the request
         $request->validate([
-            'username' => 'required|string|max:255|unique:admins',
-            'email' => 'required|email|unique:admins',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
-            'picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Adjust the file type and size as needed
+            'firstName' => 'string|max:255', // Add validation for firstName
+            'picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+    
         // Handle file upload
         if ($request->hasFile('picture')) {
             $picturePath = $request->file('picture')->store('profile_pictures', 'public');
         } else {
             $picturePath = null;
         }
-
+    
         // Create a new user
         $user = User::create([
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
+            'firstName' => $request->input('firstName'),
+            'lastName' => $request->input('lastName'),
+            'middleName' => $request->input('middleName'),
+            'address' => $request->input('address', ''), // Provide a default value
+            'gender' => $request->input('gender'),
+            'age' => $request->input('age'),
+            'role' => $request->input('role'),
             'picture' => $picturePath,
             'created_at' => now(),
         ]);
-
+    
         return redirect()->route('userTable')->with('success', 'User added successfully');
     }
 

@@ -50,7 +50,11 @@
             <input type="number" name="age"><br>
 
             <label for="role">Role:</label>
-            <input type="text" name="role" required><br>
+            <select name="role" required>
+                <option value="admin">Admin</option>
+                <option value="client">Client</option>
+                <option value="cashier">Cashier</option>
+            </select><br>
 
             <label for="picture">Profile Picture:</label>
             <input type="file" name="picture" accept="image/*"><br>

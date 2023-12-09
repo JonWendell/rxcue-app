@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>UPC</th>
                     <th>Current Quantity</th>
                     <th>Quantity</th>
                     <th>New Stock</th>
@@ -28,6 +29,7 @@
                 @foreach($inventory->audits as $audit)
                 <tr>
                     <td>{{ $audit->id }}</td>
+                    <td>{{ $inventory->upc }}</td> <!-- Display the UPC from the Inventory model -->
                     <td>{{ $audit->current_quantity }}</td>
                     <td>{{ $audit->quantity }}</td>
                     <td>{{ $audit->new_stock }}</td>

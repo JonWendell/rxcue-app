@@ -29,6 +29,7 @@
                         <th>Image</th>
                         <th>Category</th>
                         <th>Price</th>
+                        <th>UPC</th> <!-- Add this line for the new field -->
                         <th>Created At</th>
                         <th>Action</th>
                     </tr>
@@ -49,6 +50,7 @@
                         </td>
                         <td>{{ $inventory->category }}</td>
                         <td>₱{{ $inventory->price }}</td>
+                        <td>{{ $inventory->upc }}</td> <!-- Add this line for the new field -->
                         <td>{{ $inventory->created_at }}</td>
                         <td>
                             <div class="dropdown">
@@ -60,7 +62,9 @@
                                     <a class="dropdown-item"
                                         onclick="redirectToAddPage('{{ $inventory->id }}')"><i
                                             class="dw dw-plus"></i> Add Quantity</a>
-                                            <a class="dropdown-item" href="{{ route('inventory.audit', ['id' => $inventory->id]) }}"><i class="dw dw-history"></i> Audit History</a>
+                                    <a class="dropdown-item"
+                                        href="{{ route('inventory.audit', ['id' => $inventory->id]) }}"><i
+                                            class="dw dw-history"></i> Audit History</a>
                                 </div>
                             </div>
                         </td>

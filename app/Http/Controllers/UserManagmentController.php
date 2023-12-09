@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
-
+use Illuminate\Support\Facades\Hash;
 
 class UserManagmentController extends Controller
 {
@@ -24,49 +23,69 @@ class UserManagmentController extends Controller
     // Update user
     public function updateUser(Request $request, $id){
         $user = User::find($id);
-        $user->update($request->all());
+        $user->update($request->only([
+            'username', 'email', 'firstName', 'lastName', 'middleName', 'address', 'gender', 'age', 'role'
+        ]));
+
+        // Update password if provided
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+        }
+
+        // Handle file upload
+        if ($request->hasFile('picture')) {
+            $picturePath = $request->file('picture')->store('profile_pictures', 'public');
+            $user->picture = $picturePath;
+            $user->save();
+        }
+
         // You might want to add validation and error handling here
         return redirect()->route('userTable')->with('success', 'User updated successfully');
     }
 
-    // Archive user
-    public function archiveUser($id){
-        $user = User::find($id);
-        $user->delete();
-        // You might want to add confirmation and error handling here
-        return redirect()->route('userTable')->with('success', 'User archived successfully');
-    }
     public function showAddUserForm(){
         return view('usermanagement.adduserform');
     }
+
     public function storeUser(Request $request){
         // Validate the request
         $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:admins',
-            'email' => 'required|email|unique:admins',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
-            'picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Adjust the file type and size as needed
+            'firstName' => 'string|max:255', // Add validation for firstName
+            'picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+    
         // Handle file upload
         if ($request->hasFile('picture')) {
             $picturePath = $request->file('picture')->store('profile_pictures', 'public');
         } else {
             $picturePath = null;
         }
-
+    
         // Create a new user
         $user = User::create([
-            'name' => $request->input('name'),
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
+            'firstName' => $request->input('firstName'),
+            'lastName' => $request->input('lastName'),
+            'middleName' => $request->input('middleName'),
+            'address' => $request->input('address', ''), // Provide a default value
+            'gender' => $request->input('gender'),
+            'age' => $request->input('age'),
+            'role' => $request->input('role'),
             'picture' => $picturePath,
             'created_at' => now(),
         ]);
-
+    
         return redirect()->route('userTable')->with('success', 'User added successfully');
     }
 
+    public function getUserDetails($id) {
+        $user = User::find($id);
+        return view('usermanagement.userdetails', compact('user'));
+    }
 }

@@ -9,8 +9,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Inventory</title>
-    <!-- Include Bootstrap CSS if not already included -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <style>
         body {
             background-color: #f8f9fa;
@@ -134,6 +132,11 @@
                             <label for="price">Price</label>
                             <input type="number" class="form-control" name="price" placeholder="Input product price"
                                 required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="upc">UPC (Universal Product Code)</label>
+                            <input type="text" class="form-control" name="upc" placeholder="Input UPC code">
                         </div>
                     </div>
 

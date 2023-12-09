@@ -29,6 +29,7 @@
                 </div>
             @endforeach
 
+            <!-- Add a form for the purchase action -->
             <form action="{{ route('purchase') }}" method="post">
                 @csrf
                 <button type="submit">Purchase</button>

@@ -9,6 +9,7 @@ use App\Http\Controllers\EcomController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SalesController;   
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('archive/{id}', [UserManagmentController::class, 'archiveUser'])->name('archiveUser');
     Route::get('add-user-form', [UserManagmentController::class, 'showAddUserForm'])->name('addUserForm');
     Route::post('store-user', [UserManagmentController::class, 'storeUser'])->name('storeUser');
+    Route::get('/user/details/{id}', [UserManagmentController::class, 'getUserDetails'])->name('getUserDetails');
 });
 
 //routes for inventoyry//
@@ -95,3 +97,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('manual.logout');
 //landingpage
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+
+
+// routes/web.php
+
+
+Route::post('/purchase', [SalesController::class, 'purchase'])->name('purchase');

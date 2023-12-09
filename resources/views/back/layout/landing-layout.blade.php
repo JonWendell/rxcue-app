@@ -56,11 +56,11 @@
                         <i class="fas fa-times"></i>
                     </a>
                 </div>
-                <ul class="main-nav">
-				<li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('about') }}">About</a></li>
-                <li><a href="index-2.html">Products</a></li>
-                </ul>
+				<ul class="main-nav">
+					<li><a href="{{ route('home') }}">Home</a></li>
+					<li><a href="{{ route('about') }}">About</a></li>
+					<li><a href="index-2.html">Products</a></li>
+					</ul>
             </div>
             <ul class="nav header-navbar-rht">
                 <li class="nav-item contact-item">
@@ -72,6 +72,12 @@
                         <p class="contact-info-header">+63 9637411286</p>
                     </div>
                 </li>
+				<li class="nav-item">
+					<a class="nav-link header-login" href="{{ route('login') }}">
+						<i class="fas fa-shopping-cart"></i> Shop Now
+					</a>
+				</li>
+				
                 <li class="nav-item">
                     <a class="nav-link header-login" href="{{ route('login') }}">Login / Signup</a>
                 </li>
@@ -88,11 +94,11 @@
 						<div class="col-md-12 col-12">
 							<nav aria-label="breadcrumb" class="page-breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Blank Page</li>
+									<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page"><a href="{{ route('about') }}">About</a></li>
+									<li class="breadcrumb-item active" aria-current="page"><a href="{{ route('home') }}">Products</a></li>
 								</ol>
 							</nav>
-							<h2 class="breadcrumb-title">Blank Page</h2>
 						</div>
 					</div>
 				</div>
@@ -123,9 +129,7 @@
 							
 								<!-- Footer Widget -->
 								<div class="footer-widget footer-about">
-									<div class="footer-logo">
-										<img src="/back/vendors/images/RXCUE PHARMACY.png" alt="logo" width="260">
-									</div>
+									<h2 class="footer-title">About Us</h2>
 									<div class="footer-about-content">
 										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 										<div class="social-icon">
@@ -194,11 +198,11 @@
 									<div class="footer-contact-info">
 										<div class="footer-address">
 											<span><i class="fas fa-map-marker-alt"></i></span>
-											<p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
+											<p> Calero, Calapan City Oriental Mindoro, Philippines</p>
 										</div>
 										<p>
 											<i class="fas fa-phone-alt"></i>
-											+1 315 369 5943
+											+63 96372411286
 										</p>
 										<p class="mb-0">
 											<i class="fas fa-envelope"></i>
@@ -219,26 +223,6 @@
                 <div class="footer-bottom">
 					<div class="container-fluid">
 					
-						<!-- Copyright -->
-						<div class="copyright">
-							<div class="row">
-								<div class="col-md-6 col-lg-6">
-								</div>
-								<div class="col-md-6 col-lg-6">
-								
-									<!-- Copyright Menu -->
-									<div class="copyright-menu">
-										<ul class="policy-menu">
-											<li><a href="term-condition.html">Terms and Conditions</a></li>
-											<li><a href="privacy-policy.html">Policy</a></li>
-										</ul>
-									</div>
-									<!-- /Copyright Menu -->
-									
-								</div>
-							</div>
-						</div>
-						<!-- /Copyright -->
 						
 					</div>
 				</div>

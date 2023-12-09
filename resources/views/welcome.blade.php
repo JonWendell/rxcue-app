@@ -72,6 +72,9 @@
                         <p class="contact-info-header">+63 9637411286</p>
                     </div>
                 </li>
+				<li class="nav-item">
+                    <a class="nav-link header-login" href="{{ route('login') }}">Shop Now</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link header-login" href="{{ route('login') }}">Login / Signup</a>
                 </li>

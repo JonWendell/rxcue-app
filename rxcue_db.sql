@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2023 at 02:53 PM
+-- Generation Time: Dec 10, 2023 at 06:47 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -35,18 +35,16 @@ CREATE TABLE `audits` (
   `new_stock` int NOT NULL,
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `upc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `audits`
 --
 
-INSERT INTO `audits` (`id`, `inventory_id`, `current_quantity`, `quantity`, `new_stock`, `type`, `created_at`, `updated_at`) VALUES
-(1, 3, 1005, 5, 1005, 'add', '2023-12-03 06:26:22', '2023-12-03 06:26:22'),
-(2, 3, 505, -500, 505, 'add', '2023-12-03 06:37:37', '2023-12-03 06:37:37'),
-(3, 3, 605, 100, 605, 'add', '2023-12-03 06:41:55', '2023-12-03 06:41:55'),
-(4, 3, 610, 5, 610, 'add', '2023-12-05 07:20:36', '2023-12-05 07:20:36');
+INSERT INTO `audits` (`id`, `inventory_id`, `current_quantity`, `quantity`, `new_stock`, `type`, `created_at`, `updated_at`, `upc`) VALUES
+(14, 8, 300, -200, 300, 'purchase', '2023-12-09 00:21:16', '2023-12-09 00:21:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,16 +105,16 @@ CREATE TABLE `inventories` (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `quantity` int DEFAULT '0',
   `category` enum('fluid','solid','other') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` decimal(8,2) DEFAULT '0.00'
+  `price` decimal(8,2) DEFAULT '0.00',
+  `upc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `inventories`
 --
 
-INSERT INTO `inventories` (`id`, `item_name`, `previous_quantity`, `quantity_change`, `new_quantity`, `change_date`, `created_at`, `updated_at`, `image`, `description`, `quantity`, `category`, `price`) VALUES
-(3, 'Biogesic', 605, 5, 610, '2023-12-05', '2023-12-03 06:26:09', '2023-12-05 07:20:36', '2ATy5qNcqUEdboalYhBkHJKAbF6jtzhuF7d2ni7r.png', 'This combination product contains 2 medications, acetaminophen and an antihistamine. Acetaminophen helps to reduce fever and/or mild to moderate pain (such as headache, backache, aches/pains due to muscle strain, cold, or flu).', 0, 'solid', 6.00),
-(4, 'Mefinamic', 0, 500, 500, '2023-12-03', '2023-12-03 07:38:21', '2023-12-03 07:38:21', 'ItL5Npn4RpQmgl2M1tm8T6UxVbZKjfbNdbpfJgS3.jpg', 'Mefenamic acid is a nonsteroidal anti-inflammatory drug (NSAID) used to treat mild to moderate pain. It may also be used to treat menstrual cramps and other conditions as determined by your doctor.', 0, 'solid', 10.00);
+INSERT INTO `inventories` (`id`, `item_name`, `previous_quantity`, `quantity_change`, `new_quantity`, `change_date`, `created_at`, `updated_at`, `image`, `description`, `quantity`, `category`, `price`, `upc`) VALUES
+(8, 'Biogesic', 0, 500, 300, '2023-12-09', '2023-12-09 00:19:39', '2023-12-09 00:21:16', NULL, 'MASAKIT ANG ULO', 0, 'solid', 6.00, '210245');
 
 -- --------------------------------------------------------
 
@@ -148,7 +146,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2023_11_23_074648_create_inventories_table', 7),
 (12, '2023_11_30_055330_add_image_to_inventories', 8),
 (13, '2023_12_03_133905_create_audits_table', 9),
-(14, '2023_12_04_155704_add_timestamps_to_users_table', 10);
+(14, '2023_12_04_155704_add_timestamps_to_users_table', 10),
+(15, '2023_12_09_035629_add_upc_to_inventories_table', 11),
+(16, '2023_12_09_053135_create_sales_table', 12),
+(17, '2023_12_09_053808_update_sales_table', 13),
+(18, '2023_12_09_065803_create_sales_table', 14),
+(19, '2023_12_09_075041_create_sales_table', 15),
+(20, '2023_12_09_080221_add_upc_to_audits_table', 16);
 
 -- --------------------------------------------------------
 
@@ -204,14 +208,35 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sales`
+--
+
+CREATE TABLE `sales` (
+  `id` bigint UNSIGNED NOT NULL,
+  `inventory_id` bigint UNSIGNED NOT NULL,
+  `quantity_sold` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`id`, `inventory_id`, `quantity_sold`, `created_at`, `updated_at`) VALUES
+(6, 8, 200, '2023-12-09 00:21:16', '2023-12-09 00:21:16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `username` varchar(50) NOT NULL,
-  `firstName` varchar(50) NOT NULL,
-  `lastName` varchar(50) NOT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) NOT NULL DEFAULT '',
   `middleName` varchar(50) DEFAULT NULL,
   `address` varchar(255) NOT NULL,
   `gender` enum('male','female','other') NOT NULL,
@@ -228,9 +253,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `firstName`, `lastName`, `middleName`, `address`, `gender`, `age`, `email`, `role`, `password`, `created_at`, `updated_at`) VALUES
-(4, 'wendell', 'jon wendell', 'cabrera', 'lontoc', 'Nacoco', 'male', 21, 'corvecc1@gmail.com', 'admin', '$2y$12$asgmqA.AbNLlPOI4s3zKLOtJlT25hBJBKH7b24WNOV.Wyztb9UUBK', '2023-12-05 10:25:53', '2023-12-05 10:25:53'),
-(8, 'ewqewq', 'qweqwe', 'qweqwe', 'wqeqweqw', 'ewqeqwe', 'male', 32, 'nopona21@gmail.com', 'client', '$2y$12$t.FmGtStKGE2aWdXq/t7nORisgrGog43Zjwwm2Y.t/e29grckAiL.', '2023-12-06 10:40:40', '2023-12-06 10:40:40'),
-(9, 'Cydie', 'Cydie', 'Gargulo', 'Ewan', 'Naujan', 'female', 32, 'weithingcheong@gmai.com', 'cashier', '$2y$12$5SlcZ3D27eTFlQR0/DepeuwhnN7BSpEDw5xLD7wi86aL3TBhuE1hK', '2023-12-06 10:47:29', '2023-12-06 10:47:29');
+(10, 'Sett', 'Jon Wendell', 'Cabrera', 'Lontoc', 'Nacoco', 'male', 21, 'corvecc1@gmail.com', 'admin', '$2y$12$blNCympMxI3J4zKBJNPzNuHby8wX7XZqzt1GIjOX38oohaHtatiUS', '2023-12-08 20:40:46', '2023-12-08 20:40:46'),
+(11, 'Cydie', 'Cydie', 'Gargulo', 'Sasa', 'Naujan', 'female', 21, 'cydie@gmail.com', 'admin', '$2y$12$wm.oy9d4yA19QKtlbyPxJO/UkmVcCrYMSDFU7HBWqjRdcV.fzmV4K', '2023-12-08 20:57:08', '2023-12-08 20:57:08'),
+(12, 'angelicafolloso@gmail.com', 'Fol', 'Ange', 'D', 'Lalud', 'female', 21, 'nopona21@gmail.com', 'client', '$2y$12$D0XuHdGp1HvQ1GzZjnqq5.SvBmQg6C5povM3ycvzVikSDZEAozVJy', '2023-12-08 21:02:33', '2023-12-08 21:02:33');
 
 --
 -- Indexes for dumped tables
@@ -289,6 +314,13 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sales_inventory_id_foreign` (`inventory_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -302,7 +334,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -320,13 +352,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `inventories`
 --
 ALTER TABLE `inventories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -335,10 +367,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -349,6 +387,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `audits`
   ADD CONSTRAINT `audits_inventory_id_foreign` FOREIGN KEY (`inventory_id`) REFERENCES `inventories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `sales`
+--
+ALTER TABLE `sales`
+  ADD CONSTRAINT `sales_inventory_id_foreign` FOREIGN KEY (`inventory_id`) REFERENCES `inventories` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -18,3 +18,15 @@ Route::get('/about', function () {
 Route::get('/products', function () {
     return view('products');
 })->name('products');
+
+Route::get('/product1', function () {
+    return view('product1');
+})->name('product1');
+
+Route::get('/home1', function () {
+    return view('home1');
+})->name('home1');
+
+Route::get('/about2', function () {
+    return view('about2');
+})->name('about2');

@@ -1,6 +1,7 @@
-@extends('back.layout.landing-layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Products')
+@extends('back.layout.ecom-layout')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Home')
 @section('content')
+<!-- Page Content -->
 <div class="site-section">
     <div class="container">
         <div class="row">
@@ -19,7 +20,7 @@
                         <p class="price">$ {{ $item->price }}</p>
                         
                         <!-- Form for Add to Cart button -->
-                        <form action="{{ route('login') }}" method="GET">
+                        <form action="{{ url('/order-layout', ['productId' => $item->id]) }}" method="GET">
                             <button type="submit" class="btn btn-primary add-to-cart-btn">Add to Cart</button>
                         </form>
                     </div>

@@ -75,6 +75,9 @@ Route::get('/cart', [EcomController::class, 'showCart']);
 Route::post('/add-to-cart/{productId}', [EcomController::class, 'addToCart'])->name('addToCart');
 Route::post('/purchase', [EcomController::class, 'purchase'])->name('purchase');
 Route::delete('/remove-from-cart/{productId}', [EcomController::class, 'removeFromCart'])->name('remove-from-cart');
+Route::get('/home1', [EcomController::class, 'home1'])->name('home1');
+Route::get('/about2', [EcomController::class, 'about2'])->name('about2');
+Route::get('/product1', [EcomController::class, 'product1'])->name('product1');
 
 // routes/web.php
 

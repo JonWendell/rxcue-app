@@ -105,64 +105,15 @@
 			</div>
 			<!-- /Breadcrumb -->
 			
-			<style>
-				.content {
-					display: flex;
-					align-items: center;
-					justify-content: space-around;
-					margin: 50px 0;
-					margin-top: 2px;
-					margin-bottom: 3px;
-				}
-		
-		
-				.container-fluid {
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					max-width: 1200px;
-					margin: 0 auto;
-				}
-		
-				.col-12 {
-					flex: 5;
-					padding: 20px;
-				}
-		
-				.col-12 img {
-					max-width: 100%;
-					height: auto;
-					border-radius: 10px;
-				}
-			</style>
-		</head>
-		
-		<body>
-		
-			<div class="content">
+			<!-- Page Content -->
+            <div class="content">
 				<div class="container-fluid">
-					<div class="col-12">
-						<img src="/back/vendors/images/medicines-l.webp" alt="Pharmacy Image">
-					</div>
-					<div class="col-12">
-						<h1>Welcome to eMed - Your Trusted Pharmacy</h1>
-						<p>
-							eMed is committed to providing quality healthcare services and products. Our experienced
-							pharmacists are dedicated to ensuring you receive the best possible care for your health needs.
-						</p>
-						<p>
-							Whether you need prescriptions filled, health consultations, or access to a wide range of
-							healthcare products, eMed is here for you.
-						</p>
+					<div class="row">
+						<div class="col-12">
+							@yield('content')
+						</div>
 					</div>
 				</div>
-			</div>
-		</body>
-		
-            
-            
-
-
 
 			</div>		
 			<!-- /Page Content -->

@@ -85,8 +85,23 @@ class EcomController extends Controller
     }
 
 
-        
+    public function home1()
+    {
+        return view('home1');
+    }
 
+    public function about2()
+    {
+        return view('about2');
+    }
+    public function product1()
+    {
+        // Retrieve data from your Product model or other source
+        $inventoryData = Inventory::all(); // Replace with your actual model and query
+
+        // Pass the data to the view
+        return view('product1', ['inventoryData' => $inventoryData]);
+    }
     
     
 }

@@ -30,13 +30,13 @@
                         </div>
                         <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
                             <!-- Add a form for the purchase and remove actions -->
-                            <form id="purchaseForm" action="{{ route('purchase') }}" method="post">
+                            <form class="purchase-form" data-product-id="{{ $productId }}" action="{{ route('purchase') }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-primary mb-2">Purchase</button>
                             </form>
 
                             <!-- Add a "Remove" button for each product -->
-                            <form action="{{ route('remove-from-cart', $productId) }}" method="post">
+                            <form class="remove-form" data-product-id="{{ $productId }}" action="{{ route('remove-from-cart', $productId) }}" method="post">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger">Remove</button>
@@ -61,18 +61,23 @@
 
     <script>
         $(document).ready(function() {
-            $('form#purchaseForm').submit(function(event) {
+            $('.purchase-form').submit(function(event) {
                 event.preventDefault();
+
+                var form = $(this);
 
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route("purchase") }}',
-                    data: $('form#purchaseForm').serialize(),
+                    url: form.attr('action'),
+                    data: form.serialize(),
                     dataType: 'json',
                     success: function(response) {
                         // Display a success message as an alert
                         $('#purchaseSuccessAlert').fadeIn('slow');
-                        
+
+                        // Remove the parent card of the clicked purchase button
+                        form.closest('.card').remove();
+
                         // Optional: You may want to hide the message after a few seconds
                         setTimeout(function() {
                             $('#purchaseSuccessAlert').fadeOut('slow');

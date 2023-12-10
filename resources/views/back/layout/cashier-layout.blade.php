@@ -3,7 +3,7 @@
 	<head>
 		<!-- Basic Page Info -->
 		<meta charset="utf-8" />
-		<title>Admin Dashboard</title>
+		<title>Cashier Dashboard</title>
 
 		<!-- Site favicon -->
 		<link
@@ -248,7 +248,7 @@
 							<a class="dropdown-item" href="faq.html"
 								><i class="dw dw-help"></i> Help</a
 							>
-							<a class="dropdown-item" href="{{ route('manual.logout') }}">
+                            <a class="dropdown-item" href="{{ route('manual.logout') }}">
 								<i class="dw dw-logout"></i> Log Out
 							</a>
 
@@ -447,109 +447,38 @@
 				<div class="sidebar-menu">
 					<ul id="accordion-menu">
 						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-house"></span
-								><span class="mtext">Home</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="index2.html">Cashier Dashboard</a></li>
-								<li><a href="index3.html">User Dashboard</a></li>
-							</ul>
-						</li>
-                        <!--
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-textarea-resize"></span
-								><span class="mtext">Forms</span>
-							</a>
-							<ul class="submenu">
-								<li><a href="form-wizard.html">Form Wizard</a></li>
-							</ul>
-						</li>
-                        -->
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-building"></span>
-								<span class="mtext">Manage Branch</span>
-							</a>
-							<!-- Add the following button for creating a branch -->
-							<ul class="submenu">
-								<li>
-							<a href="/create-branch" >Create Branch</a>
-						</li>
-					</ul>
-						</li>                    
-						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-person"></span>
-								<span class="mtext">Manage User</span>
-							</a>
-							<!-- Add the button to navigate to the route for managing users -->	
-							<ul class="submenu">
-								<li>				
-							<a href="{{ route('userTable') }}">Manage Users</a>
-						</li>
-						</ul>
-                        <li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-box"></span
-								><span class="mtext">Inventory</span>
-							</a>
-							<ul class="submenu">
-								<li>			
-							<a href="{{ route('inventory.index') }}">View Inventory</a>
-							<a href="{{ route('inventory.create') }}">Create Inventory</a>
-						</li>
-						</ul>
-                        <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle">
-                                <i class="micon bi bi-graph-up"></i>
-                                <span class="mtext">Statistics</span>
+                            <a href="javascript:;" class="dropdown-toggle no-arrow">
+                                <i class="micon bi bi-house-door"></i>
+                                <span class="mtext">Home</span>
                             </a>
                         </li>
                         <li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-arrow-up-right-square"></span
-								><span class="mtext">Analysis</span>
-							</a>
-						</li>
+                            <a href="javascript:;" class="dropdown-toggle no-arrow">
+                                <i class="micon bi bi-graph-up"></i>
+                                <span class="mtext">Sales Management</span>
+                            </a>
+                        </li>
                         <li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-cart3"></span
-								><span class="mtext">E-commerce</span>
-							</a>
-						</li>
+                            <a href="javascript:;" class="dropdown-toggle no-arrow">
+                                <i class="micon bi bi-box"></i>
+                                <span class="mtext">Inventory</span>
+                            </a>
+                        </li>
                         <li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-bag"></span
-								><span class="mtext">Sales</span>
-							</a>
-						</li>
-						<li>
-							<a href="chat.html" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-chat-right-dots"></span
-								><span class="mtext">Chat</span>
-							</a>
-						</li>
-					
-						<li>
-							<div class="dropdown-divider"></div>
-						</li>
-						<li>
-
-						<li>
-							<a
-								href="https://dropways.github.io/deskapp-free-single-page-website-template/"
-								target="_blank"
-								class="dropdown-toggle no-arrow"
-							>
-								<span class="micon bi bi-layout-text-window-reverse"></span>
-								<span class="mtext"
-									>Landing Page
-								</span>
-							</a>
-						</li>
-					</ul>
+                            <a href="javascript:;" class="dropdown-toggle no-arrow">
+                                <i class="micon bi bi-cart"></i>
+                                <span class="mtext">Purchases</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle no-arrow">
+                                <i class="micon bi bi-calendar"></i>
+                                <span class="mtext">Appointment</span>
+                            </a>
+                        </li>
+                    
+                    </ul>
+						
 				</div>
 			</div>
 		</div>

@@ -93,6 +93,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 //cashier
 
 Route::get('/cashier', [CashierController::class, 'show'])->name('cashier.show');
+Route::get('/cashier/inventory', [CashierController::class, 'showInventory'])->name('cashier.inventory');
+
 
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('manual.logout');

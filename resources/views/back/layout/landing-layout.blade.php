@@ -59,7 +59,7 @@
 				<ul class="main-nav">
 					<li><a href="{{ route('home') }}">Home</a></li>
 					<li><a href="{{ route('about') }}">About</a></li>
-					<li><a href="index-2.html">Products</a></li>
+					<li><a href="{{ route('products') }}">Products</a></li>
 					</ul>
             </div>
             <ul class="nav header-navbar-rht">
@@ -96,7 +96,7 @@
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
 									<li class="breadcrumb-item active" aria-current="page"><a href="{{ route('about') }}">About</a></li>
-									<li class="breadcrumb-item active" aria-current="page"><a href="{{ route('home') }}">Products</a></li>
+									<li class="breadcrumb-item active" aria-current="page"><a href="{{ route('products') }}">Products</a></li>
 								</ol>
 							</nav>
 						</div>

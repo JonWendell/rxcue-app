@@ -92,10 +92,7 @@
 							<nav aria-label="breadcrumb" class="page-breadcrumb">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Blank Page</li>
-								</ol>
-							</nav>
-							<h2 class="breadcrumb-title">Blank Page</h2>
+									
 						</div>
 					</div>
 				</div>
@@ -108,6 +105,58 @@
 					<div class="row">
 						<div class="col-12">
 							@yield('content')
+							<style>
+								.content {
+									display: flex;
+									align-items: center;
+									justify-content: space-around;
+									margin: 50px 0;
+									margin-top: 2px;
+									margin-bottom: 3px;
+								}
+						
+						
+								.container-fluid {
+									display: flex;
+									align-items: center;
+									justify-content: space-between;
+									max-width: 1200px;
+									margin: 0 auto;
+								}
+						
+								.col-12 {
+									flex: 5;
+									padding: 20px;
+								}
+						
+								.col-12 img {
+									max-width: 100%;
+									height: auto;
+									border-radius: 10px;
+								}
+							</style>
+						</head>
+						
+						<body>
+						
+							<div class="content">
+								<div class="container-fluid">
+									<div class="col-12">
+										<img src="/back/vendors/images/medicines-l.webp" alt="Pharmacy Image">
+									</div>
+									<div class="col-12">
+										<h1>Welcome to eMed - Your Trusted Pharmacy</h1>
+										<p>
+											eMed is committed to providing quality healthcare services and products. Our experienced
+											pharmacists are dedicated to ensuring you receive the best possible care for your health needs.
+										</p>
+										<p>
+											Whether you need prescriptions filled, health consultations, or access to a wide range of
+											healthcare products, eMed is here for you.
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -126,9 +175,8 @@
 							
 								<!-- Footer Widget -->
 								<div class="footer-widget footer-about">
-									<div class="footer-logo">
-										<img src="/back/vendors/images/RXCUE PHARMACY.png" alt="logo" width="260">
-									</div>
+									<h2 class="footer-title">About us</h2>
+									
 									<div class="footer-about-content">
 										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 										<div class="social-icon">
@@ -222,27 +270,9 @@
                 <div class="footer-bottom">
 					<div class="container-fluid">
 					
-						<!-- Copyright -->
-						<div class="copyright">
-							<div class="row">
-								<div class="col-md-6 col-lg-6">
-								</div>
-								<div class="col-md-6 col-lg-6">
-								
-									<!-- Copyright Menu -->
-									<div class="copyright-menu">
-										<ul class="policy-menu">
-											<li><a href="term-condition.html">Terms and Conditions</a></li>
-											<li><a href="privacy-policy.html">Policy</a></li>
-										</ul>
-									</div>
-									<!-- /Copyright Menu -->
+
 									
-								</div>
-							</div>
-						</div>
-						<!-- /Copyright -->
-						
+
 					</div>
 				</div>
 				<!-- /Footer Bottom -->

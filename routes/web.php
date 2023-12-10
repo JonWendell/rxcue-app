@@ -97,6 +97,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('manual.logout');
 //landingpage
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/products', [PageController::class, 'products'])->name('products');
 
 
 // routes/web.php

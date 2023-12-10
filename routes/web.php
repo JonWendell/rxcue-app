@@ -79,6 +79,7 @@ Route::get('/home1', [EcomController::class, 'home1'])->name('home1');
 Route::get('/about2', [EcomController::class, 'about2'])->name('about2');
 Route::get('/product1', [EcomController::class, 'product1'])->name('product1');
 
+
 // routes/web.php
 
 
@@ -107,5 +108,5 @@ Route::get('/products', [PageController::class, 'products'])->name('products');
 
 // routes/web.php
 
-
 Route::post('/purchase', [SalesController::class, 'purchase'])->name('purchase');
+

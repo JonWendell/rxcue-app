@@ -491,6 +491,12 @@
 								<i class="micon bi bi-cart"></i>
 								<span class="mtext">Purchases</span>
 							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{{ route('cashier.purchases') }}">View Purchases</a>
+								</li>
+								<!-- Add other dropdown items if needed -->
+							</ul>
 						</li>
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle no-arrow">

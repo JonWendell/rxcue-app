@@ -110,3 +110,7 @@ Route::get('/products', [PageController::class, 'products'])->name('products');
 
 Route::post('/purchase', [SalesController::class, 'purchase'])->name('purchase');
 
+
+
+Route::get('/cashier/purchases', [SalesController::class, 'showPurchases'])->name('cashier.purchases');
+

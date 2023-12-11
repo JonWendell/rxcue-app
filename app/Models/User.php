@@ -40,4 +40,11 @@ class User extends Model
     {
         return $this->password;
     }
+   
+    public function sales()
+    {
+        return $this->hasMany(Sales::class, 'user_id');
+    }
+    
+    
 }

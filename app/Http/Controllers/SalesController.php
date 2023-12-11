@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Sales;
 use App\Models\Inventory;
 use App\Models\Audit;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Session; // Add this line
+use App\Models\User;
 
 class SalesController extends Controller
 {
@@ -40,4 +43,12 @@ class SalesController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Purchase successful']);
     }
+    public function showPurchases()
+    {
+        // Fetch all sales data with associated user and inventory information
+        $sales = Sales::with(['user', 'inventory'])->get();
+    
+        return view('cashier.purchase', compact('sales'));
+    }
 }
+

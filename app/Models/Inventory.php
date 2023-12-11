@@ -29,5 +29,9 @@ class Inventory extends Model
     {
         return $this->hasMany(Audit::class);
     }
+    public function sales()
+    {
+        return $this->hasMany(Sales::class, 'inventory_id');
+    }
 }
 

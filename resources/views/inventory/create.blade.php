@@ -88,7 +88,7 @@
                         <div class="form-group col-md-6">
                             <label for="previous_quantity">Previous Quantity</label>
                             <input type="number" class="form-control" name="previous_quantity"
-                                placeholder="Input previous quantity" required>
+                            placeholder="Input previous quantity" required>
                         </div>
 
                         <div class="form-group col-md-6">
@@ -102,7 +102,7 @@
                         <div class="form-group col-md-6">
                             <label for="new_quantity">New Quantity</label>
                             <input type="number" class="form-control" name="new_quantity" placeholder="Input new quantity"
-                                required>
+                            required>
                         </div>
 
                         <div class="form-group col-md-6">

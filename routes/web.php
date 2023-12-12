@@ -79,6 +79,7 @@ Route::get('/home1', [EcomController::class, 'home1'])->name('home1');
 Route::get('/about2', [EcomController::class, 'about2'])->name('about2');
 Route::get('/product1', [EcomController::class, 'product1'])->name('product1');
 
+
 // routes/web.php
 
 
@@ -93,6 +94,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 //cashier
 
 Route::get('/cashier', [CashierController::class, 'show'])->name('cashier.show');
+Route::get('/cashier/inventory', [CashierController::class, 'showInventory'])->name('cashier.inventory');
+
 
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('manual.logout');
@@ -105,5 +108,12 @@ Route::get('/products', [PageController::class, 'products'])->name('products');
 
 // routes/web.php
 
-
 Route::post('/purchase', [SalesController::class, 'purchase'])->name('purchase');
+
+
+
+Route::get('/cashier/purchases', [SalesController::class, 'showPurchases'])->name('cashier.purchases');
+Route::get('/purchases/show', [SalesController::class, 'showPurchases'])->name('purchases.show');
+Route::get('/purchases/{id}/void', [SalesController::class, 'voidPurchase'])
+    ->name('purchases.void');
+    

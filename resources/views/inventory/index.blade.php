@@ -32,6 +32,7 @@
                         <th>UPC</th> <!-- Add this line for the new field -->
                         <th>Created At</th>
                         <th>Action</th>
+                        
                     </tr>
                 </thead>
                 <tbody>

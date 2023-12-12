@@ -53,6 +53,7 @@
 			href="/back/src/plugins/datatables/css/responsive.bootstrap4.min.css"
 		/>
 		<link rel="stylesheet" type="text/css" href="/back/vendors/styles/style.css" />
+		
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script
@@ -89,6 +90,21 @@
 		<!-- End Google Tag Manager -->
 	</head>
 	<body>
+		<div class="header">
+			<!-- ... Header section ... -->
+		</div>
+	
+		<div class="left-side-bar">
+			<!-- ... Left sidebar ... -->
+		</div>	
+	
+		<div class="right-sidebar">
+			<!-- ... Right sidebar ... -->
+		</div>
+	
+		<div class="content-wrap">
+			@yield('content')
+		</div>
 		<div class="header">
 			<div class="header-left">
 				<div class="menu-icon bi bi-list"></div>
@@ -447,48 +463,54 @@
 				<div class="sidebar-menu">
 					<ul id="accordion-menu">
 						<li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle no-arrow">
-                                <i class="micon bi bi-house-door"></i>
-                                <span class="mtext">Home</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle no-arrow">
-                                <i class="micon bi bi-graph-up"></i>
-                                <span class="mtext">Sales Management</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle no-arrow">
-                                <i class="micon bi bi-box"></i>
-                                <span class="mtext">Inventory</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle no-arrow">
-                                <i class="micon bi bi-cart"></i>
-                                <span class="mtext">Purchases</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle no-arrow">
-                                <i class="micon bi bi-calendar"></i>
-                                <span class="mtext">Appointment</span>
-                            </a>
-                        </li>
-                    
-                    </ul>
-						
+							<a href="javascript:;" class="dropdown-toggle no-arrow">
+								<i class="micon bi bi-house-door"></i>
+								<span class="mtext">Home</span>
+							</a>
+						</li>
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle no-arrow">
+								<i class="micon bi bi-graph-up"></i>
+								<span class="mtext">Sales Management</span>
+							</a>
+						</li>
+			
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle no-arrow">
+								<i class="micon bi bi-house-door"></i>
+								<span class="mtext">Inventory</span>
+							</a>
+							<ul class="submenu">
+								<li><a class="dropdown-item" href="{{ route('cashier.inventory') }}">Cashier Inventory</a></li>
+								<!-- Add more dropdown items if needed -->
+							</ul>
+						</li>
+			
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle no-arrow">
+								<i class="micon bi bi-cart"></i>
+								<span class="mtext">Purchases</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{{ route('cashier.purchases') }}">View Purchases</a>
+								</li>
+							
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle no-arrow">
+								<i class="micon bi bi-calendar"></i>
+								<span class="mtext">Appointment</span>
+							</a>
+						</li>
+					</ul>
 				</div>
 			</div>
-		</div>
-		<div class="mobile-menu-overlay"></div>
-
-
-
-		</div>
-		</div>
-		</div>
+			<div class="mobile-menu-overlay"></div>
+			</div>
+			</div>
+			</div>
 
 		<!-- js -->
 		<script src="/back/vendors/scripts/core.js"></script>

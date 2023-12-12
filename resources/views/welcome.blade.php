@@ -178,7 +178,7 @@
 									<h2 class="footer-title">About us</h2>
 									
 									<div class="footer-about-content">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+										<p>eMed is committed to providing quality healthcare services and products. Our experienced pharmacists are dedicated to ensuring you receive the best possible care for your health needs. </p>
 										<div class="social-icon">
 											<ul>
 												<li>
@@ -245,11 +245,11 @@
 									<div class="footer-contact-info">
 										<div class="footer-address">
 											<span><i class="fas fa-map-marker-alt"></i></span>
-											<p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
+											<p> Calero, Calapan City Oriental Mindoro, Philippines</p>
 										</div>
 										<p>
 											<i class="fas fa-phone-alt"></i>
-											+1 315 369 5943
+											+63 9637411286
 										</p>
 										<p class="mb-0">
 											<i class="fas fa-envelope"></i>

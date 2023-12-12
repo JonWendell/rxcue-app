@@ -574,10 +574,8 @@
 								<div class="weight-600 font-30 text-blue">Cydie Gargullo!</div>
 							</h4>
 							<p class="font-18 max-width-600">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-								hic non repellendus debitis iure, doloremque assumenda. Autem
-								modi, corrupti, nobis ea iure fugiat, veniam non quaerat
-								mollitia animi error corporis.
+								eMed is committed to providing quality healthcare services and products. 
+								Our experienced pharmacists are dedicated to ensuring you receive the best possible care for your health needs.
 							</p>
 						</div>
 					</div>

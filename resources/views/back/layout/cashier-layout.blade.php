@@ -491,11 +491,10 @@
 								<i class="micon bi bi-cart"></i>
 								<span class="mtext">Purchases</span>
 							</a>
-							<ul class="dropdown-menu">
+							<ul class="submenu">
 								<li>
-									<a href="{{ route('cashier.purchases') }}">View Purchases</a>
+									<a class="dropdown-item" href="{{ route('cashier.purchases') }}">View Purchases</a>
 								</li>
-							
 							</ul>
 						</li>
 						<li class="dropdown">

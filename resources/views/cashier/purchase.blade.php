@@ -33,9 +33,10 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="card-title">User Purchases</h4>
-                            <!-- Add a link or button if needed -->
+                            <a href="{{ route('cashier.show') }}" class="btn btn-secondary">Back</a>
                         </div>
                     </div>
+                    
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="purchaseTable" class="table custom-table">

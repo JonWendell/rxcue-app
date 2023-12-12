@@ -73,8 +73,7 @@
                 <div id="product-details">
                     <h2>{{ $product->item_name }}</h2>
                     <a href="{{ asset('storage/images/' . $product->image) }}" target="_blank">
-                        <img src="{{ asset('storage/images/' . $product->image) }}" alt="Product Image"
-                            class="img-fluid">
+                        <img src="{{ asset('storage/images/' . $product->image) }}" alt="Product Image" class="img-fluid">
                     </a>
                 </div>
             </div>
@@ -82,39 +81,39 @@
                 <div id="product-details">
                     <p>{{ $product->description }}</p>
                     <p id="price" class="fw-bold">Price: ₱{{ $product->price }}</p>
-
+    
                     <div class="notification-container">
                         @if(session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-
+    
                         @if(session('error'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 {{ session('error') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
                     </div>
-
+    
                     <form action="{{ route('addToCart', ['productId' => $product->id]) }}" method="post"
                         oninput="updatePrice()">
                         @csrf
                         <div class="mb-3">
                             <label for="quantity" class="form-label">Quantity:</label>
-                            <input type="number" id="quantity" name="quantity" value="1" min="1"
-                                class="form-control">
+                            <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-success">Add to Cart</button>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Add to Cart</button>
+                            <a href="{{ route('product1') }}" class="btn btn-primary mt-2">Shop More</a>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-
+    
         <script>
             var initialPrice = {{ $product->price }};
             
@@ -124,12 +123,12 @@
                 document.getElementById('price').innerText = 'Price: ₱' + totalPrice.toFixed(2);
             }
         </script>
-
+    
         @else
         <p class="alert alert-warning">No product selected.</p>
         @endif
     </div>
-
+    
     <!-- Add Bootstrap JS and Popper.js (dependency for Bootstrap JS) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

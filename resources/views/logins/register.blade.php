@@ -94,8 +94,6 @@
             <div class="col-md-6">
                 <div class="input-group custom">
                     <select class="form-control form-control-lg" id="role" name="role" required>
-                        <option value="admin">Admin</option>
-                        <option value="cashier">Cashier</option>
                         <option value="client">Client</option>
                     </select>
                     <div class="input-group-append custom">

@@ -30,11 +30,12 @@
                             </div>
                         </div>
                         <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
-                            <!-- Add a form for the purchase and remove actions -->
+                            <!-- Add a form for the purchase action -->
                             <form class="purchase-form" data-product-id="{{ $productId }}" action="{{ route('purchase') }}" method="post">
                                 @csrf
                                 <!-- Add input fields for user information -->
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                <input type="hidden" name="product_id" value="{{ $productId }}">
                                 <button type="submit" class="btn btn-primary mb-2">Purchase</button>
                             </form>
 

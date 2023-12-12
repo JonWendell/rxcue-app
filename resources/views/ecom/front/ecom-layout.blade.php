@@ -180,7 +180,7 @@
 								<div class="footer-widget footer-about">
 									<h2 class="footer-title">About Us</h2>
 									<div class="footer-about-content">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+										<p>eMed is committed to providing quality healthcare services and products. Our experienced pharmacists are dedicated to ensuring you receive the best possible care for your health needs. </p>
 										<div class="social-icon">
 											<ul>
 												<li>

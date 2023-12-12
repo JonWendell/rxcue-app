@@ -81,15 +81,17 @@
             <p><strong>Gender:</strong> {{ $user->gender }}</p>
             <p><strong>Age:</strong> {{ $user->age }}</p>
             <p><strong>Role:</strong> {{ $user->role }}</p>
-
-            <!-- Add more fields if needed -->
+            
+           <!-- Add more fields if needed -->
+        </div>
+        <div>
+            <a href="{{ route('userTable') }}" class="go-back-link">Go Back to User Table</a>
         </div>
         @else
         <p>No user data found.</p>
         @endif
     </div>
 
-    <a href="{{ route('userTable') }}" class="go-back-link">Go Back to User Table</a>
 
 </body>
 

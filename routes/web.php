@@ -113,4 +113,7 @@ Route::post('/purchase', [SalesController::class, 'purchase'])->name('purchase')
 
 
 Route::get('/cashier/purchases', [SalesController::class, 'showPurchases'])->name('cashier.purchases');
-
+Route::get('/purchases/show', [SalesController::class, 'showPurchases'])->name('purchases.show');
+Route::get('/purchases/{id}/void', [SalesController::class, 'voidPurchase'])
+    ->name('purchases.void');
+    

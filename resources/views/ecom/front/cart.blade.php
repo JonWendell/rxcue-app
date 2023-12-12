@@ -17,6 +17,7 @@
             @foreach(session('cart') as $productId => $item)
                 <div class="card mb-3">
                     <div class="row g-0">
+                        <!-- Place the image within the column -->
                         <div class="col-md-3">
                             <img src="{{ asset('storage/images/' . $item['image']) }}" alt="Product Image" class="img-fluid">
                         </div>
@@ -32,6 +33,8 @@
                             <!-- Add a form for the purchase and remove actions -->
                             <form class="purchase-form" data-product-id="{{ $productId }}" action="{{ route('purchase') }}" method="post">
                                 @csrf
+                                <!-- Add input fields for user information -->
+                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                 <button type="submit" class="btn btn-primary mb-2">Purchase</button>
                             </form>
 
@@ -48,11 +51,18 @@
         @else
             <p>Your cart is empty.</p>
         @endif
-    </div>
 
-    <!-- Alert for Purchase Success -->
-    <div id="purchaseSuccessAlert" class="alert alert-success" style="display:none;">
-        <strong>Success!</strong> Your purchase was successful.
+        <!-- Display the purchase success message if it exists -->
+        @if(session('purchaseSuccess'))
+            <div class="alert alert-success">
+                <strong>Success!</strong> {{ session('purchaseSuccess') }}
+            </div>
+
+            <!-- Clear the purchase success message from the session -->
+            @php
+                session()->forget('purchaseSuccess');
+            @endphp
+        @endif
     </div>
 
     <!-- Add your footer scripts or links here -->
@@ -60,32 +70,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('.purchase-form').submit(function(event) {
-                event.preventDefault();
-
-                var form = $(this);
-
-                $.ajax({
-                    type: 'POST',
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                    dataType: 'json',
-                    success: function(response) {
-                        // Display a success message as an alert
-                        $('#purchaseSuccessAlert').fadeIn('slow');
-
-                        // Remove the parent card of the clicked purchase button
-                        form.closest('.card').remove();
-
-                        // Optional: You may want to hide the message after a few seconds
-                        setTimeout(function() {
-                            $('#purchaseSuccessAlert').fadeOut('slow');
-                        }, 3000);
-                    },
-                    error: function(error) {
-                        console.error('Error:', error);
-                    }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handling form submissions
+            document.querySelectorAll('.purchase-form').forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    // Optional: You can add loading spinners or other UI feedback here
+                    return true; // Let the form submit naturally
                 });
             });
         });

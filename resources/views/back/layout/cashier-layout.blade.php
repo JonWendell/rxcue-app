@@ -495,7 +495,7 @@
 								<li>
 									<a href="{{ route('cashier.purchases') }}">View Purchases</a>
 								</li>
-								<!-- Add other dropdown items if needed -->
+							
 							</ul>
 						</li>
 						<li class="dropdown">

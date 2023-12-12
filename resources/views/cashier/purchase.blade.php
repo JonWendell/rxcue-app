@@ -22,6 +22,8 @@
     </style>
 </head>
 
+<!-- ... (existing code) ... -->
+
 <body>
 
     <div class="container-fluid">
@@ -43,24 +45,30 @@
                                         <th>Item Name</th>
                                         <th>Quantity Sold</th>
                                         <th>Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($sales as $sale)
-                                        <tr>
-                                            <td>
-                                                @if($sale->user)
-                                                    {{ $sale->user->firstName }} {{ $sale->user->middleName }} {{ $sale->user->lastName }}<br>
-                                                    {{ $sale->user->address }}<br>
-                                                    Age: {{ $sale->user->age }}, Gender: {{ $sale->user->gender }}
-                                                @else
-                                                    User information not available
-                                                @endif
-                                            </td>
-                                            <td>{{ $sale->inventory->item_name }}</td>
-                                            <td>{{ $sale->quantity_sold }}</td>
-                                            <td>{{ $sale->created_at }}</td>
-                                        </tr>
+                                        @if (!$sale->voided)
+                                            <tr>
+                                                <td>
+                                                    @if($sale->user)
+                                                        {{ $sale->user->firstName }} {{ $sale->user->middleName }} {{ $sale->user->lastName }}<br>
+                                                        {{ $sale->user->address }}<br>
+                                                        Age: {{ $sale->user->age }}, Gender: {{ $sale->user->gender }}
+                                                    @else
+                                                        User information not available
+                                                    @endif
+                                                </td>
+                                                <td>{{ $sale->inventory->item_name }}</td>
+                                                <td>{{ $sale->quantity_sold }}</td>
+                                                <td>{{ $sale->created_at }}</td>
+                                                <td>
+                                                    <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

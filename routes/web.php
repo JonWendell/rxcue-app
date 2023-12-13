@@ -9,7 +9,8 @@ use App\Http\Controllers\EcomController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\SalesController;   
+use App\Http\Controllers\SalesController;  
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -447,15 +447,12 @@
 				<div class="sidebar-menu">
 					<ul id="accordion-menu">
 						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
-								<span class="micon bi bi-house"></span
-								><span class="mtext">Home</span>
+							<a href="{{ route('admin.home') }}" class="dropdown-toggle no-arrow">
+								<span class="micon bi bi-house"></span>
+								<span class="mtext">Home</span>
 							</a>
-							<ul class="submenu">
-								<li><a href="index2.html">Cashier Dashboard</a></li>
-								<li><a href="index3.html">User Dashboard</a></li>
-							</ul>
 						</li>
+						
                         <!--
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
@@ -502,25 +499,25 @@
 						</li>
 						</ul>
                         <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle">
+                            <a href="javascript:;" class="dropdown-toggle no-arrow">
                                 <i class="micon bi bi-graph-up"></i>
                                 <span class="mtext">Statistics</span>
                             </a>
                         </li>
                         <li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-toggle no-arrow">
 								<span class="micon bi bi-arrow-up-right-square"></span
 								><span class="mtext">Analysis</span>
 							</a>
 						</li>
                         <li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-toggle no-arrow">
 								<span class="micon bi bi-cart3"></span
 								><span class="mtext">E-commerce</span>
 							</a>
 						</li>
                         <li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-toggle no-arrow">
 								<span class="micon bi bi-bag"></span
 								><span class="mtext">Sales</span>
 							</a>

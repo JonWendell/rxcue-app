@@ -66,10 +66,24 @@
         <div class="table-responsive">
             <h2 class="h4 pd-20">Add Product</h2>
             <div class="card-body">
+
+                @if (Session::has('success'))
+                <div class="alert alert-success">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
+            
+            <!-- Check for error message -->
+            @if (Session::has('error'))
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+            @endif
+            
+
                 <!-- The form element starts here -->
                 <form method="post" action="{{ route('inventory.store') }}" enctype="multipart/form-data">
                     @csrf
-
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="item_name">Item Name</label>

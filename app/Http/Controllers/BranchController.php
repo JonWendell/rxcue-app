@@ -33,6 +33,7 @@ class BranchController extends Controller
 
         // Redirect back to the create form with a success message
         return redirect()->route('branch.create.form')->with('success', 'Branch created successfully');
+        
     }
 
     public function view()

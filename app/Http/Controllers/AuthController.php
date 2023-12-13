@@ -77,12 +77,23 @@ class AuthController extends Controller
         // Redirect back to the login form if authentication fails
         return redirect()->route('login.form')->with('error', 'Invalid credentials');
     }
+
     public function logout()
-    {
-        // Terminate the session
-        Session::flush();
+{
+    // Check if the user is logged in
+    if (Auth::check()) {
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Log the user out
+        Auth::logout();
 
         // Redirect to the login form with a success message
-        return redirect()->route('login.form')->with('success', 'You have been logged out successfully.');
+        return redirect()->route('login.form')->with('success', "You have been logged out successfully, $user->name.");
     }
+
+    // If the user is not logged in, simply redirect to the login form
+    return redirect()->route('login.form');
+}
+
 }

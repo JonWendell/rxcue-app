@@ -36,7 +36,7 @@
                             <a href="{{ route('cashier.show') }}" class="btn btn-secondary">Back</a>
                         </div>
                     </div>
-                    
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="purchaseTable" class="table custom-table">
@@ -44,6 +44,7 @@
                                     <tr>
                                         <th>User</th>
                                         <th>Item Name</th>
+                                        <th>UPC</th>
                                         <th>Quantity Sold</th>
                                         <th>Date</th>
                                         <th>Action</th>
@@ -63,6 +64,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $sale->inventory->item_name }}</td>
+                                                <td>{{ $sale->inventory->upc }}</td> <!-- Display UPC here -->
                                                 <td>{{ $sale->quantity_sold }}</td>
                                                 <td>{{ $sale->created_at }}</td>
                                                 <td>

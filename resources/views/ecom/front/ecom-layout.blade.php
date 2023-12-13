@@ -61,6 +61,7 @@
 					<li><a href="{{ route('about2') }}">About</a></li>
 					<li><a href="{{ route('product1') }}">Products</a></li>
 					</ul>
+					
             </div>
             <ul class="nav header-navbar-rht">
                 <li class="nav-item contact-item">
@@ -77,9 +78,15 @@
 						<i class="fas fa-shopping-cart"></i> View Cart
 					</a>
 				</li>
+				<li class="nav-item">
+					<a href="{{ route('ecom.purchase.history') }}" class="btn btn-primary">View Purchase History</a>
+				</li>
 				
-                <li class="nav-item">
-                    <a class="nav-link header-login" href="{{ route('manual.logout') }}">Logout</a>
+				<li class="nav-item">
+					<a class="nav-link header-login" href="{{ route('manual.logout') }}">Logout</a>
+				</li>
+
+			
                 </li>
             </ul>
         </nav>

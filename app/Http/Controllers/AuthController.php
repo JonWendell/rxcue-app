@@ -48,35 +48,34 @@ class AuthController extends Controller
             return view('logins.login');
         }
 
-            public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
-
-        $user = User::where('email', $credentials['email'])->first();
-
-        if ($user && password_verify($credentials['password'], $user->password)) {
-            // Manual login
-            session(['user' => $user]);
-
-            // Redirect based on the user's role
-            switch ($user->role) {
-                case 'admin':
-                    return redirect()->route('admin.home');
-                case 'cashier':
-                    return redirect('/cashier');
-                case 'client':
-                    return redirect()->route('customer');
-                default:
-                    return redirect()->route('dashboard');
+        public function login(Request $request)
+        {
+            $credentials = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|string',
+            ]);
+        
+            $user = User::where('email', $credentials['email'])->first();
+        
+            if ($user && Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
+                // Authentication successful
+        
+                // Redirect based on the user's role
+                switch ($user->role) {
+                    case 'admin':
+                        return redirect()->route('admin.home');
+                    case 'cashier':
+                        return redirect('/cashier');
+                    case 'client':
+                        return redirect()->route('customer');
+                    default:
+                        return redirect()->route('dashboard');
+                }
             }
+        
+            // Redirect back to the login form if authentication fails
+            return redirect()->route('login.form')->with('error', 'Invalid credentials');
         }
-
-        // Redirect back to the login form if authentication fails
-        return redirect()->route('login.form')->with('error', 'Invalid credentials');
-    }
 
     public function logout()
 {
@@ -95,5 +94,6 @@ class AuthController extends Controller
     // If the user is not logged in, simply redirect to the login form
     return redirect()->route('login.form');
 }
+
 
 }

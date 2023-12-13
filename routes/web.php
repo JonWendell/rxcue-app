@@ -30,6 +30,7 @@ Route::middleware(['auth.manual'])->group(function () {
     Route::get('/back-home', function () {
         return view('back.home');
     })->name('admin.home');
+    
 });
 
 
@@ -118,3 +119,5 @@ Route::get('/purchases/show', [SalesController::class, 'showPurchases'])->name('
 Route::get('/purchases/{id}/void', [SalesController::class, 'voidPurchase'])
     ->name('purchases.void');
     
+    Route::get('/purchase-history', [EcomController::class, 'showPurchaseHistory'])->name('ecom.purchase.history');
+    Route::get('/cancel-order/{sale}', [EcomController::class, 'cancelOrder'])->name('cancel.order');

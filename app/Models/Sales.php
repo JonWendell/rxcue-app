@@ -25,4 +25,5 @@ class Sales extends Model
     {
         return $this->belongsTo(Inventory::class);
     }
+    
 }

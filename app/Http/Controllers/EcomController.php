@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Inventory;
 use Illuminate\Support\Facades\Session;
+use App\Models\Sales;
+use App\Models\Inventories;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class EcomController extends Controller
 {
@@ -102,6 +107,46 @@ class EcomController extends Controller
         // Pass the data to the view
         return view('product1', ['inventoryData' => $inventoryData]);
     }
-    
+        public function purchase(Request $request)
+    {
+        // Perform the purchase logic, save the sale record
+        // ...
+
+        // Retrieve values from the request or any other source
+        $inventoryId = $request->input('inventory_id'); // Change 'inventory_id' to the actual name in your form
+        $quantity = $request->input('quantity'); // Change 'quantity' to the actual name in your form
+
+        // Record the purchase history for the authenticated user
+        $user = Auth::user();
+        $sale = new Sales([
+            'user_id' => $user->id,
+            'inventory_id' => $inventoryId,
+            'quantity_sold' => $quantity,
+            // Add other fields as needed
+        ]);
+        $sale->save();
+
+        // Redirect or return a response
+        // ...
+    }
+        public function showPurchaseHistory()
+    {
+        // Retrieve the authenticated user's purchase history
+        $userSales = Sales::where('user_id', Auth::id())->with('inventory')->get();
+
+        return view('ecom.front.history', compact('userSales'));
+    }
+        public function cancelOrder(Sales $sale)
+    {
+        // Check if the authenticated user owns the order
+        if (auth()->id() !== $sale->user_id) {
+            return redirect()->back()->with('error', 'You are not authorized to cancel this order.');
+        }
+
+        // Implement your cancel order logic, for example, delete the sale record
+        $sale->delete();
+
+        return redirect()->back()->with('success', 'Order canceled successfully.');
+    }
     
 }

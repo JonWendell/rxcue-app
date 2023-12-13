@@ -469,7 +469,7 @@
 							</a>
 						</li>
 						<li class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle no-arrow">
+							<a href="{{ route('cashier.manageSales') }}" class="dropdown-toggle no-arrow">
 								<i class="micon bi bi-graph-up"></i>
 								<span class="mtext">Sales Management</span>
 							</a>

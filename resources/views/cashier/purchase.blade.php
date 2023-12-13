@@ -1,3 +1,5 @@
+<!-- purchase.blade.php -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,8 +23,6 @@
         }
     </style>
 </head>
-
-<!-- ... (existing code) ... -->
 
 <body>
 
@@ -52,8 +52,8 @@
                                 </thead>
                                 <tbody>
                                     @foreach($sales as $sale)
-                                        @if (!$sale->voided)
-                                            <tr>
+                                        @if (!$sale->completed)
+                                            <tr id="sale-row-{{ $sale->id }}">
                                                 <td>
                                                     @if($sale->user)
                                                         {{ $sale->user->firstName }} {{ $sale->user->middleName }} {{ $sale->user->lastName }}<br>
@@ -64,11 +64,12 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $sale->inventory->item_name }}</td>
-                                                <td>{{ $sale->inventory->upc }}</td> <!-- Display UPC here -->
+                                                <td>{{ $sale->inventory->upc }}</td>
                                                 <td>{{ $sale->quantity_sold }}</td>
                                                 <td>{{ $sale->created_at }}</td>
                                                 <td>
                                                     <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
+                                                    <button class="btn btn-success complete-purchase" data-sale-id="{{ $sale->id }}">Complete Purchase</button>
                                                 </td>
                                             </tr>
                                         @endif
@@ -89,8 +90,32 @@
 
     <script>
         $(document).ready(function () {
-            $('#purchaseTable').DataTable({
+            var table = $('#purchaseTable').DataTable({
                 responsive: true
+            });
+
+            // Handle the complete purchase button click
+            $('#purchaseTable').on('click', '.complete-purchase', function () {
+                var button = $(this);
+                var saleId = button.data('sale-id');
+
+                // Make an AJAX request to complete the purchase
+                $.ajax({
+                    url: "{{ url('cashier/complete-purchase') }}/" + saleId,
+                    type: 'GET',
+                    success: function (response) {
+                        // Display a success message
+                        alert(response.message);
+
+                        // Remove the entire table row
+                        var row = $('#sale-row-' + saleId);
+                        table.row(row).remove().draw();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert('Error completing the purchase');
+                    }
+                });
             });
         });
     </script>

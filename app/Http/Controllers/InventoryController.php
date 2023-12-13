@@ -5,29 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\Inventory;
 use App\Models\Audit;
 use Illuminate\Http\Request;
+use App\Models\Branch;
+use Illuminate\Support\Facades\Session;
+use App\Models\Sales;
+use App\Models\Inventories;
+use App\Models\User;
+
 
 class InventoryController extends Controller
 {
     public function index(Request $request)
-    {
-        $pageTitle = 'Inventory Management';
-    
-        // Get the search input from the request
-        $search = $request->input('search');
-    
-        // Query the inventories based on the search input
-        $query = Inventory::query();
-    
-        if (!empty($search)) {
-            $query->where('item_name', 'like', '%' . $search . '%');
-        }
-    
-        // Fetch the filtered inventories
-        $inventories = $query->get();
-    
-        return view('inventory.index', compact('pageTitle', 'inventories', 'search'));
+{
+    $pageTitle = 'Inventory Management';
+
+    // Get the search input from the request
+    $search = $request->input('search');
+
+    // Get the authenticated user's branch_id
+    $branchId = auth()->user()->branch_id;
+
+    // Query the inventories based on the user's branch
+    $query = Inventory::where('branch_id', $branchId);
+
+    // Additional filters based on the search input
+    if (!empty($search)) {
+        $query->where('item_name', 'like', '%' . $search . '%');
     }
-    
+
+    // Fetch the filtered inventories
+    $inventories = $query->get();
+
+    return view('inventory.index', compact('pageTitle', 'inventories', 'search'));
+}
 
     public function create()
     {
@@ -35,33 +44,39 @@ class InventoryController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validate the form data
-        $validatedData = $request->validate([
-            'item_name' => 'required|string',
-            'description' => 'nullable|string',
-            'previous_quantity' => 'required|numeric',
-            'quantity_change' => 'required|numeric',
-            'new_quantity' => 'required|numeric',
-            'change_date' => 'required|date',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'category' => 'nullable|string',
-            'price' => 'required|numeric',
-            'upc' => 'nullable|string', // Add this line for the new field
-        ]);
+{
+    // Validate the form data
+    $validatedData = $request->validate([
+        'item_name' => 'required|string',
+        'description' => 'nullable|string',
+        'previous_quantity' => 'required|numeric',
+        'quantity_change' => 'required|numeric',
+        'new_quantity' => 'required|numeric',
+        'change_date' => 'required|date',
+        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'category' => 'nullable|string',
+        'price' => 'required|numeric',
+        'upc' => 'nullable|string',
+    ]);
 
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images');
-            $validatedData['image'] = basename($imagePath);
-        }
+    // Get the authenticated user's branch_id
+    $branchId = auth()->user()->branch_id;
 
-        // Create a new inventory record
-        Inventory::create($validatedData);
+    // Add the branch_id to the validated data
+    $validatedData['branch_id'] = $branchId;
 
-        // Redirect to the inventory index page
-        return redirect()->route('inventory.index')->with('success', 'Inventory item added successfully!');
+    // Handle image upload
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('public/images');
+        $validatedData['image'] = basename($imagePath);
     }
+
+    // Create a new inventory record
+    Inventory::create($validatedData);
+
+    // Redirect to the inventory index page
+    return redirect()->route('inventory.index')->with('success', 'Inventory item added successfully!');
+}
 
 
     public function update(Request $request)

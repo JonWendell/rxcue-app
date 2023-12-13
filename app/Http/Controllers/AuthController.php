@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Branch;
 
+
 class AuthController extends Controller
 {
     public function showRegistrationForm()
@@ -54,34 +55,41 @@ class AuthController extends Controller
         }
 
         public function login(Request $request)
-        {
-            $credentials = $request->validate([
-                'email' => 'required|email',
-                'password' => 'required|string',
-            ]);
-        
-            $user = User::where('email', $credentials['email'])->first();
-        
-            if ($user && Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
-                // Authentication successful
-        
-                // Redirect based on the user's role
-                switch ($user->role) {
-                    case 'admin':
-                        return redirect()->route('admin.home');
-                    case 'cashier':
-                        return redirect('/cashier');
-                    case 'client':
-                        return redirect()->route('customer');
-                    default:
-                        return redirect()->route('dashboard');
-                }
-            }
-        
-            // Redirect back to the login form if authentication fails
-            return redirect()->route('login.form')->with('error', 'Invalid credentials');
-        }
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string',
+    ]);
 
+    $user = User::where('email', $credentials['email'])->first();
+
+    if ($user && Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
+        // Check if the user has access to the current branch
+        if ($user->branch_id === auth()->user()->branch_id) {
+            // Redirect based on the user's role
+            switch ($user->role) {
+                case 'admin':
+                    return redirect()->route('admin.home');
+                case 'cashier':
+                    return redirect('/cashier');
+                case 'client':
+                    return redirect()->route('customer');
+                default:
+                    return redirect()->route('dashboard');
+            }
+        } else {
+            // User does not have access to the current branch
+            Auth::logout();
+            return redirect()->route('login.form')->with('error', 'You do not have access to this branch.');
+        }
+    }
+
+    // Redirect back to the login form if authentication fails
+    return redirect()->route('login.form')->with('error', 'Invalid credentials');
+}
+    
+        // ... (other methods)
+    
     public function logout()
 {
     // Check if the user is logged in

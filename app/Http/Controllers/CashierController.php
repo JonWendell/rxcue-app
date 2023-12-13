@@ -43,14 +43,18 @@ class CashierController extends Controller
         return redirect()->route('cashier.manageSales');
     }
 
-    public function completePurchase(Request $request, $id)
+    public function completePurchase($id)
     {
-        // Your existing logic to mark the sale as completed goes here
-
-        // Assuming you have a Sale model
         $sale = Sales::findOrFail($id);
-        $sale->completed = true;
-        $sale->save();
+
+        // Update the sale as completed
+        $sale->update(['completed' => true]);
+
+        // Remove the sale from the user's purchase history
+        if ($sale->user) {
+            $userSales = $sale->user->sales()->where('completed', false)->get();
+            $userSales->find($id)->delete();
+        }
 
         return response()->json(['message' => 'Purchase completed successfully']);
     }

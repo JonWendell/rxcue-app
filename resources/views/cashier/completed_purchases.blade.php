@@ -5,6 +5,8 @@
 
 <head>
     <!-- ... (existing code) ... -->
+    <!-- Add Bootstrap CSS link for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -16,13 +18,13 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Completed Purchases</h4>
-                            <!-- You can add a back button or other navigation here if needed -->
+                            <a href="{{ route('cashier.show') }}" class="btn btn-secondary">Back</a>
                         </div>
                     </div>
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="completedPurchaseTable" class="table custom-table">
+                            <table id="completedPurchaseTable" class="table custom-table table-striped">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>User</th>
@@ -37,9 +39,19 @@
                                         <tr>
                                             <td>
                                                 @if($completedSale->user)
-                                                    {{ $completedSale->user->firstName }} {{ $completedSale->user->middleName }} {{ $completedSale->user->lastName }}<br>
-                                                    {{ $completedSale->user->address }}<br>
-                                                    Age: {{ $completedSale->user->age }}, Gender: {{ $completedSale->user->gender }}
+                                                    <dl>
+                                                        <dt>Name:</dt>
+                                                        <dd>{{ $completedSale->user->firstName }} {{ $completedSale->user->middleName }} {{ $completedSale->user->lastName }}</dd>
+                                                        
+                                                        <dt>Address:</dt>
+                                                        <dd>{{ $completedSale->user->address }}</dd>
+                                                        
+                                                        <dt>Age:</dt>
+                                                        <dd>{{ $completedSale->user->age }}</dd>
+                                                        
+                                                        <dt>Gender:</dt>
+                                                        <dd>{{ $completedSale->user->gender }}</dd>
+                                                    </dl>
                                                 @else
                                                     User information not available
                                                 @endif
@@ -47,7 +59,7 @@
                                             <td>{{ $completedSale->inventory->item_name }}</td>
                                             <td>{{ $completedSale->inventory->upc }}</td>
                                             <td>{{ $completedSale->quantity_sold }}</td>
-                                            <td>{{ $completedSale->created_at }}</td>
+                                            <td>{{ $completedSale->created_at->format('M d, Y H:i:s') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -63,6 +75,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Add Bootstrap JS link for DataTables to work properly -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         $(document).ready(function () {

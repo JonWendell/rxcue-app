@@ -42,13 +42,14 @@ Route::middleware(['auth.manual'])->group(function () {
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('table', [UserManagmentController::class, 'index'])->name('userTable');
-    Route::get('edit/{id}', [UserManagmentController::class, 'editUser'])->name('editUser');
+    Route::get('edit/{id}', [UserManagmentController::class, 'showEditUserForm'])->name('editUser');
     Route::post('update/{id}', [UserManagmentController::class, 'updateUser'])->name('updateUser');
     Route::get('archive/{id}', [UserManagmentController::class, 'archiveUser'])->name('archiveUser');
-    Route::get('add-user-form', [UserManagmentController::class, 'showAddUserForm'])->name('addUserForm');
+    Route::get('add-user-form', [UserManagmentController::class, 'showAddUserForm'])->name('addUserForm'); // Add this line
     Route::post('store-user', [UserManagmentController::class, 'storeUser'])->name('storeUser');
     Route::get('/user/details/{id}', [UserManagmentController::class, 'getUserDetails'])->name('getUserDetails');
 });
+
 
 //routes for inventoyry//
 

@@ -13,18 +13,9 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'username',
-        'firstName',
-        'lastName',
-        'middleName',
-        'Branches', // Change the field name to 'Branches'
-        'gender',
-        'age',
-        'email',
-        'role',
-        'password',
+        'username', 'email', 'password', 'firstName', 'lastName', 'middleName', 'address', 'gender', 'age', 'role', 'branch_id', 'picture'
     ];
-
+    
     protected $hidden = [
         'password',
         'remember_token',
@@ -35,9 +26,10 @@ class User extends Authenticatable
         return $this->hasMany(Sales::class, 'user_id');
     }
 
-    // Define the relationship with the 'Branch' model
+    // Adjust the relationship to BelongsTo
     public function branch()
     {
-        return $this->hasOne(Branch::class, 'user_id');
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
 }
+

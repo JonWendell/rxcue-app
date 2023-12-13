@@ -34,6 +34,7 @@ class AuthController extends Controller
             'email' => 'required|email|max:50',
             'role' => 'required|in:admin,cashier,client',
             'password' => 'required|string|max:255',
+            'branch_id' => 'required|exists:branches,id', // Add this line for branch validation
         ]);
     
         // Hash the password before creating the user

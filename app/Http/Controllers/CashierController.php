@@ -54,4 +54,11 @@ class CashierController extends Controller
 
         return response()->json(['message' => 'Purchase completed successfully']);
     }
+    public function manageSales()
+    {
+        // Get completed sales
+        $completedSales = Sales::where('completed', true)->get();
+
+        return view('cashier.completed_purchases', compact('completedSales'));
+    }
 }

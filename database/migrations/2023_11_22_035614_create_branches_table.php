@@ -1,7 +1,5 @@
 <?php
 
-// database/migrations/YYYY_MM_DD_HHMMSS_create_branches_table.php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +14,7 @@ class CreateBranchesTable extends Migration
             $table->string('location');
             $table->string('contact');
             $table->string('status');
+            $table->unsignedBigInteger('user_id')->default(1); // Assuming user with ID 1 is the default user
             $table->timestamps();
         });
     }

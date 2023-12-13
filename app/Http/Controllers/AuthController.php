@@ -8,12 +8,16 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Branch;
 
 class AuthController extends Controller
 {
     public function showRegistrationForm()
     {
-        return view('logins.register');
+        // Fetch all branches from the database
+        $branches = Branch::all();
+    
+        return view('logins.register', compact('branches'));
     }
 
     public function register(Request $request)

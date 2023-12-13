@@ -89,7 +89,14 @@
                 </div>
             </div>
         </div>
-
+        <div class="form-group">
+            <label for="branch">Branch:</label>
+            <select class="form-control" id="branch" name="branch" required>
+                @foreach($branches as $branch)
+                    <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="row mb-3">
             <div class="col-md-6">
                 <div class="input-group custom">

@@ -1,6 +1,6 @@
 <?php
 
-// app/User.php
+// app/Models/User.php
 
 namespace App\Models;
 
@@ -17,7 +17,7 @@ class User extends Authenticatable
         'firstName',
         'lastName',
         'middleName',
-        'address',
+        'Branches', // Change the field name to 'Branches'
         'gender',
         'age',
         'email',
@@ -29,8 +29,15 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
     public function sales()
     {
         return $this->hasMany(Sales::class, 'user_id');
+    }
+
+    // Define the relationship with the 'Branch' model
+    public function branch()
+    {
+        return $this->hasOne(Branch::class, 'user_id');
     }
 }

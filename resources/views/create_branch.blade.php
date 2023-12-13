@@ -1,7 +1,8 @@
+<!-- resources/views/create_branch.blade.php -->
+
 @extends('back.layout.main-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
 @section('content')
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +63,7 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="name">Name</label>
+                            <label for="name">Name Of Branch</label>
                             <input type="text" class="form-control" name="name" placeholder="Branch Name" required>
                         </div>
 
@@ -83,10 +84,12 @@
                             <input type="text" class="form-control" name="status" placeholder="Status" required>
                         </div>
                     </div>
-                <div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input type="submit" class="btn btn-primary btn-block" value="Create Branch">
+
+                    <div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input type="submit" class="btn btn-primary btn-block" value="Create Branch">
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -96,7 +99,6 @@
                     <div class="form-group col-md-6">
                         <a href="{{ route('branch.view') }}" class="btn btn-primary btn-block">View Branches</a>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

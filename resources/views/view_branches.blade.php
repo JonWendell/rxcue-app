@@ -1,7 +1,8 @@
+<!-- resources/views/view_branches.blade.php -->
+
 @extends('back.layout.main-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
 @section('content')
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,7 @@
             <h2 class="h4 pd-20">View Branches</h2>
 
             <!-- Button to go back to /create-branch -->
-
+            <a href="{{ route('branch.create.form') }}" class="btn btn-primary mb-3">Add New Branch</a>
 
             @if(isset($branches) && count($branches) > 0)
                 <table class="table nowrap">
@@ -50,9 +51,6 @@
                                                 @method('delete') <!-- Use DELETE method for delete operation -->
                                                 <button class="dropdown-item" type="submit"><i class="dw dw-delete-3"></i> Archive</button>
                                             </form>
-                                        <form action="display: inline-block;">
-                                            <a href="{{ route('branch.create.form') }}" class="dropdown-item"><i class="dw dw-add"></i> Add new branch</a>
-                                        </form>
                                         </div>
                                     </div>
                                 </td>

@@ -15,65 +15,66 @@ class SalesController extends Controller
 {
     
     public function purchase(Request $request)
-    {
-        // Start a database transaction
-        DB::beginTransaction();
+{
+    // Start a database transaction
+    DB::beginTransaction();
 
-        try {
-            $cart = session('cart', []);
+    try {
+        $cart = session('cart', []);
 
-            foreach ($cart as $productId => $item) {
-                $inventory = Inventory::where('id', $productId)
-                    ->where('branch_id', Auth::user()->branch->id) // Ensure the inventory belongs to the user's branch
-                    ->first();
+        foreach ($cart as $productId => $item) {
+            $inventory = Inventory::where('id', $productId)
+                ->where('branch_id', Auth::user()->branch->id) // Ensure the inventory belongs to the user's branch
+                ->first();
 
-                if (!$inventory) {
-                    // Handle the case where the inventory is not found
-                    continue; // Move on to the next iteration
-                }
-
-                $soldQuantity = min($item['quantity'], $inventory->new_quantity);
-
-                // Calculate the price at sale based on the quantity sold
-                $priceAtSale = $soldQuantity * $inventory->price;
-
-                $inventory->new_quantity -= $soldQuantity;
-                $inventory->save();
-
-                // Assuming Sale model has a relationship with User and Inventory models
-                $sale = Sales::create([
-                    'user_id' => Auth::id(),
-                    'inventory_id' => $productId,
-                    'quantity_sold' => $soldQuantity,
-                    'price_at_sale' => $priceAtSale, // Add this line
-                ]);
-
-                Audit::create([
-                    'inventory_id' => $productId,
-                    'current_quantity' => $inventory->new_quantity,
-                    'quantity' => -$soldQuantity,
-                    'new_stock' => $inventory->new_quantity,
-                    'type' => 'purchase',
-                    'upc' => $inventory->upc,
-                ]);
+            if (!$inventory) {
+                // Handle the case where the inventory is not found or doesn't belong to the user's branch
+                continue; // Move on to the next iteration
             }
 
-            // Commit the transaction if all steps are successful
-            DB::commit();
+            $soldQuantity = min($item['quantity'], $inventory->new_quantity);
 
-            session(['cart' => []]);
-            session(['purchaseSuccess' => 'Purchase successful']);
+            // Calculate the price at sale based on the quantity sold
+            $priceAtSale = $soldQuantity * $inventory->price;
 
-            return view('ecom.front.cart');
-        } catch (\Exception $e) {
-            // Rollback the transaction in case of an exception
-            DB::rollBack();
+            $inventory->new_quantity -= $soldQuantity;
+            $inventory->save();
 
-            // Handle the exception (e.g., log, display an error message)
+            // Assuming Sale model has a relationship with User and Inventory models
+            $sale = Sales::create([
+                'user_id' => Auth::id(),
+                'inventory_id' => $productId,
+                'quantity_sold' => $soldQuantity,
+                'price_at_sale' => $priceAtSale, // Add this line
+            ]);
 
-            return redirect()->back()->with('error', 'Error occurred during purchase');
+            Audit::create([
+                'inventory_id' => $productId,
+                'current_quantity' => $inventory->new_quantity,
+                'quantity' => -$soldQuantity,
+                'new_stock' => $inventory->new_quantity,
+                'type' => 'purchase',
+                'upc' => $inventory->upc,
+            ]);
         }
+
+        // Commit the transaction if all steps are successful
+        DB::commit();
+
+        session(['cart' => []]);
+        session(['purchaseSuccess' => 'Purchase successful']);
+
+        return view('ecom.front.cart');
+    } catch (\Exception $e) {
+        // Rollback the transaction in case of an exception
+        DB::rollBack();
+
+        // Handle the exception (e.g., log, display an error message)
+
+        return redirect()->back()->with('error', 'Error occurred during purchase');
     }
+}
+
 
     // ...
 
@@ -83,9 +84,14 @@ class SalesController extends Controller
     public function showPurchases()
     {
         $userBranchId = Auth::user()->branch->id;
-        // Fetch all sales data with associated user and inventory information
-        $sales = Sales::with(['user', 'inventory'])->get();
-
+        
+        // Fetch only sales records related to the user's branch
+        $sales = Sales::with(['user', 'inventory'])
+            ->whereHas('inventory', function ($query) use ($userBranchId) {
+                $query->where('branch_id', $userBranchId);
+            })
+            ->get();
+    
         return view('cashier.purchase', compact('sales'));
     }
 

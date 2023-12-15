@@ -41,9 +41,7 @@
                                         <th>User</th>
                                         <th>Item Name</th>
                                         <th>Quantity Sold</th>
-                                        <th>Cost</th>
                                         <th>Date</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,16 +59,7 @@
                                                 </td>
                                                 <td>{{ $sale->inventory->item_name }}</td>
                                                 <td>{{ $sale->quantity_sold }}</td>
-                                                <td>{{ $sale->cost }}</td>
-                                                <td>{{ $sale->date_sold }}</td>
-                                                <td>
-                                                    @if(!$sale->completed)
-                                                        <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
-                                                        <a href="{{ route('purchases.complete', ['id' => $sale->id]) }}" class="btn btn-success">Complete</a>
-                                                    @else
-                                                        Sale Completed
-                                                    @endif
-                                                </td>
+                                                <td>{{ $sale->created_at }}</td>
                                             </tr>
                                         @endif
                                     @endforeach

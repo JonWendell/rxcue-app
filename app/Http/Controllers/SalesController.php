@@ -96,6 +96,21 @@ class SalesController extends Controller
 
         return redirect()->route('purchases.show')->with('success', 'Purchase voided successfully');
     }
+        public function completePurchase(Request $request)
+    {
+        // Add logic to mark the purchase as completed in the database
+        // You can customize this method based on your requirements
+        // For example, you might want to update the status of completed purchases
+
+        return response()->json(['success' => true]);
+    }
+        public function viewSales()
+    {
+        // Fetch sales information for display
+        $sales = Sales::with(['user', 'inventory'])->get();
+
+        return view('cashier.sales', compact('sales'));
+    }
 
 
  

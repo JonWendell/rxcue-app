@@ -180,23 +180,16 @@ class SalesController extends Controller
 }
 
 
-        public function viewSales()
-    {
-        // Fetch sales information for display
-        $sales = Sales::with(['user', 'inventory'])->get();
+public function viewSales()
+{
+    // Fetch sales information for display
+    $salesManagement = Sales::with(['user', 'inventory'])->get();
 
-        return view('cashier.sales', compact('sales'));
-    }
-        public function showSalesManagement()
-    {
-        // Fetch sales information for Sales Management
-        $salesManagement = Sales::with(['inventory'])
-            ->where('completed', true)
-            ->orderBy('created_at', 'desc')
-            ->get();
+    return view('cashier.sales_management', compact('salesManagement'));
+}
 
-        return view('cashier.sales_management', compact('salesManagement'));
-    }
+    
+
 
 
  

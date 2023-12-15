@@ -131,11 +131,14 @@ class EcomController extends Controller
         // Redirect or return a response
         // ...
     }
-        public function showPurchaseHistory()
+    public function showPurchaseHistory()
     {
-        // Retrieve the authenticated user's purchase history
-        $userSales = Sales::where('user_id', Auth::id())->with('inventory')->get();
-
+        // Retrieve the authenticated user's purchase history excluding completed sales
+        $userSales = Sales::where('user_id', Auth::id())
+            ->where('completed', false) // Exclude completed sales
+            ->with('inventory')
+            ->get();
+    
         return view('ecom.front.history', compact('userSales'));
     }
     public function cancelOrder(Sales $sale)

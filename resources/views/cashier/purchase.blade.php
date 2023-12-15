@@ -65,19 +65,14 @@
                                                 <td>{{ $sale->quantity_sold }}</td>
                                                 <td>{{ $sale->inventory->price * $sale->quantity_sold }}</td> <!-- Calculate the total price -->
                                                 <td>{{ $sale->created_at }}</td>
-                                                <tbody>
-                                                    @foreach($sales as $sale)
-                                                        @if (!$sale->voided && !$sale->completed)
-                                                            <tr>
-                                                                <!-- ... your existing code ... -->
-                                                                <td>
-                                                                    <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
-                                                                    <button class="btn btn-success completePurchaseBtn" data-sale-id="{{ $sale->id }}">Complete</button>
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-                                                </tbody>
+                                                <td>
+                                                    <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
+                                                    @if (!$sale->completed)
+                                                        <button class="btn btn-success completePurchaseBtn" data-sale-id="{{ $sale->id }}">Complete</button>
+                                                    @else
+                                                        <span class="badge badge-success">Completed</span>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endif
                                     @endforeach

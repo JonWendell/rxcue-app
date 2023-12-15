@@ -1,5 +1,3 @@
-<!-- resources/views/cashier/sales_management.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,35 +13,53 @@
 </head>
 
 <body>
-    <div class="container">
-        <h2>Sales Management</h2>
+    <div class="card-box mb-30">
+        <div class="table-responsive">
+            <h2 class="h4 pd-20">Sales Management</h2>
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">User Purchases</h4>
+                <a href="{{ route('cashier.show') }}" class="btn btn-secondary">Back</a>
+                <!-- Add a link or button if needed -->
+            </div>
 
-        @if($salesManagement->isEmpty())
-            <p>No sales records available.</p>
-        @else
-            <table class="table">
+            <!-- Add this at the top of your Blade view, before the table -->
+         
+
+            <table class="table nowrap">
                 <thead>
                     <tr>
                         <th>Item Name</th>
-                        <th>Quantity Sold</th>
-                        <th>Price at Sale</th>
+                        <th>Total Quantity Sold</th>
+                        <th>Total Price at Sale</th>
                         <th>Date</th>
-                        <!-- Add more columns as needed -->
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($salesManagement as $sale)
+                    @foreach($salesManagement->groupBy('inventory.item_name') as $itemName => $sales)
                         <tr>
-                            <td>{{ $sale->inventory->item_name }}</td>
-                            <td>{{ $sale->quantity_sold }}</td>
-                            <td>{{ $sale->price_at_sale }}</td>
-                            <td>{{ $sale->created_at }}</td>
-                            <!-- Add more columns as needed -->
+                            <td class="table-plus">{{ $itemName }}</td>
+                            <td>{{ $sales->sum('quantity_sold') }}</td>
+                            <td>₱{{ $sales->sum('price_at_sale') }}</td>
+                            <td>{{ $sales[0]->created_at }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
+                                        role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item"
+                                                                    ><i
+                                                class="dw dw-eye"></i> View Details</a>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        @endif
+        </div>
     </div>
 
     <!-- Add your scripts or other body content here -->

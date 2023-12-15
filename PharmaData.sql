@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 15, 2023 at 04:06 PM
+-- Generation Time: Dec 15, 2023 at 04:51 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -44,9 +44,14 @@ CREATE TABLE `audits` (
 --
 
 INSERT INTO `audits` (`id`, `inventory_id`, `current_quantity`, `quantity`, `new_stock`, `type`, `created_at`, `updated_at`, `upc`) VALUES
-(98, 32, 990, -10, 990, 'purchase', '2023-12-15 05:49:49', '2023-12-15 05:49:49', NULL),
-(99, 32, 989, -1, 989, 'purchase', '2023-12-15 07:09:07', '2023-12-15 07:09:07', NULL),
-(100, 32, 968, -21, 968, 'purchase', '2023-12-15 07:46:11', '2023-12-15 07:46:11', NULL);
+(101, 33, 990, -10, 990, 'purchase', '2023-12-15 08:18:53', '2023-12-15 08:18:53', NULL),
+(102, 33, 977, -13, 977, 'purchase', '2023-12-15 08:20:13', '2023-12-15 08:20:13', NULL),
+(103, 33, 967, -10, 967, 'purchase', '2023-12-15 08:32:56', '2023-12-15 08:32:56', NULL),
+(104, 33, 977, 10, 987, 'void', '2023-12-15 08:33:27', '2023-12-15 08:33:27', NULL),
+(105, 33, 967, -10, 967, 'purchase', '2023-12-15 08:34:07', '2023-12-15 08:34:07', NULL),
+(106, 33, 948, -19, 948, 'purchase', '2023-12-15 08:41:29', '2023-12-15 08:41:29', NULL),
+(107, 33, 967, 19, 986, 'cancel', '2023-12-15 08:45:08', '2023-12-15 08:45:08', NULL),
+(108, 33, 957, -10, 957, 'purchase', '2023-12-15 08:45:32', '2023-12-15 08:45:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -118,7 +123,7 @@ CREATE TABLE `inventories` (
 --
 
 INSERT INTO `inventories` (`id`, `item_name`, `previous_quantity`, `quantity_change`, `new_quantity`, `change_date`, `created_at`, `updated_at`, `image`, `description`, `quantity`, `category`, `price`, `upc`, `branch_id`) VALUES
-(32, 'Biogesic', 45, 1000, 968, '2023-12-15', '2023-12-15 05:49:25', '2023-12-15 07:46:11', '4lpU5FNY1ZeuHLqnOPSuVENvJb2LXN3tcJK9sHbf.png', 'Test', 0, 'solid', 6.00, '3213321', 9);
+(33, 'Biogesic', 0, 1000, 957, '2023-12-16', '2023-12-15 08:18:13', '2023-12-15 08:45:32', NULL, 'test', 0, 'solid', 6.00, '3214125', 9);
 
 -- --------------------------------------------------------
 
@@ -171,7 +176,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (32, '2023_12_13_212416_add_branch_id_to_inventories_table', 26),
 (33, '2023_12_14_040307_add_branch_id_to_sales', 27),
 (34, '2023_12_15_104257_add_completed_to_sales_table', 28),
-(35, '2023_12_15_134616_remove_branch_id_from_sales_table', 29);
+(35, '2023_12_15_134616_remove_branch_id_from_sales_table', 29),
+(36, '2023_12_15_161359_add_price_at_sale_to_sales_table', 30);
 
 -- --------------------------------------------------------
 
@@ -238,17 +244,19 @@ CREATE TABLE `sales` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `voided` tinyint(1) NOT NULL DEFAULT '0',
-  `completed` tinyint(1) NOT NULL DEFAULT '0'
+  `completed` tinyint(1) NOT NULL DEFAULT '0',
+  `price_at_sale` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`id`, `inventory_id`, `quantity_sold`, `created_at`, `updated_at`, `user_id`, `voided`, `completed`) VALUES
-(126, 32, 10, '2023-12-15 05:49:49', '2023-12-15 07:03:13', 20, 1, 0),
-(127, 32, 1, '2023-12-15 07:09:07', '2023-12-15 07:09:07', 20, 0, 0),
-(128, 32, 21, '2023-12-15 07:46:11', '2023-12-15 07:46:11', 20, 0, 0);
+INSERT INTO `sales` (`id`, `inventory_id`, `quantity_sold`, `created_at`, `updated_at`, `user_id`, `voided`, `completed`, `price_at_sale`) VALUES
+(130, 33, 13, '2023-12-15 08:20:13', '2023-12-15 08:29:30', 20, 1, 0, 78.00),
+(131, 33, 10, '2023-12-15 08:32:56', '2023-12-15 08:33:27', 20, 1, 0, 60.00),
+(133, 33, 19, '2023-12-15 08:41:29', '2023-12-15 08:45:08', 20, 1, 0, 114.00),
+(134, 33, 10, '2023-12-15 08:45:32', '2023-12-15 08:45:32', 20, 0, 0, 60.00);
 
 -- --------------------------------------------------------
 
@@ -363,7 +371,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -381,13 +389,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `inventories`
 --
 ALTER TABLE `inventories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -399,7 +407,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `users`

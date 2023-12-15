@@ -95,18 +95,51 @@ class SalesController extends Controller
         return view('cashier.purchase', compact('sales'));
     }
 
-        public function voidPurchase(Request $request, $id)
+    public function voidPurchase(Request $request, $id)
     {
-        $sale = Sales::find($id);
-
-        if (!$sale) {
-            abort(404);
+        // Start a database transaction
+        DB::beginTransaction();
+    
+        try {
+            // Find the sale record by ID
+            $sale = Sales::find($id);
+    
+            if (!$sale) {
+                abort(404);
+            }
+    
+            // Find the associated inventory record
+            $inventory = Inventory::find($sale->inventory_id);
+    
+            // Rollback the inventory to its previous state
+            $inventory->new_quantity += $sale->quantity_sold;
+            $inventory->save();
+    
+            // Update the sale record as voided
+            $sale->voided = true;
+            $sale->save();
+    
+            // Create an audit record for the voided sale
+            Audit::create([
+                'inventory_id' => $inventory->id,
+                'current_quantity' => $inventory->new_quantity,
+                'quantity' => $sale->quantity_sold,
+                'new_stock' => $inventory->new_quantity + $sale->quantity_sold,
+                'type' => 'void',
+                'upc' => $inventory->upc,
+            ]);
+    
+            // Commit the transaction if all steps are successful
+            DB::commit();
+    
+            return redirect()->route('purchases.show')->with('success', 'Purchase voided successfully');
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of an exception
+            DB::rollBack();
+    
+            // Handle the exception (e.g., log, display an error message)
+            return redirect()->route('purchases.show')->with('error', 'Error occurred while voiding purchase');
         }
-
-        $sale->voided = true;
-        $sale->save();
-
-        return redirect()->route('purchases.show')->with('success', 'Purchase voided successfully');
     }
         public function completePurchase(Request $request)
     {

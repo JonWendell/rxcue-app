@@ -31,7 +31,11 @@
                             <td>{{ $sale->quantity_sold }}</td>
                             <td>{{ $sale->quantity_sold * $sale->inventory->price }}</td>
                             <td>
-                                <a href="{{ route('cancel.order', $sale->id) }}" class="btn btn-danger">Cancel Order</a>
+                                <form action="{{ route('cancel.order', $sale->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger">Cancel Order</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

@@ -9,6 +9,8 @@ use App\Models\Sales;
 use App\Models\Inventories;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\Audit;
 
 
 class EcomController extends Controller
@@ -136,17 +138,50 @@ class EcomController extends Controller
 
         return view('ecom.front.history', compact('userSales'));
     }
-        public function cancelOrder(Sales $sale)
+    public function cancelOrder(Sales $sale)
     {
         // Check if the authenticated user owns the order
         if (auth()->id() !== $sale->user_id) {
             return redirect()->back()->with('error', 'You are not authorized to cancel this order.');
         }
 
-        // Implement your cancel order logic, for example, delete the sale record
-        $sale->delete();
+        // Start a database transaction
+        DB::beginTransaction();
 
-        return redirect()->back()->with('success', 'Order canceled successfully.');
+        try {
+            // Find the associated inventory record
+            $inventory = Inventory::find($sale->inventory_id);
+
+            // Rollback the inventory to its previous state
+            $inventory->new_quantity += $sale->quantity_sold;
+            $inventory->save();
+
+            // Update the sale record as voided
+            $sale->voided = true;
+            $sale->save();
+
+            // Create an audit record for the canceled sale
+            Audit::create([
+                'inventory_id' => $inventory->id,
+                'current_quantity' => $inventory->new_quantity,
+                'quantity' => $sale->quantity_sold,
+                'new_stock' => $inventory->new_quantity + $sale->quantity_sold,
+                'type' => 'cancel',
+                'upc' => $inventory->upc,
+            ]);
+
+            // Commit the transaction if all steps are successful
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Order canceled successfully.');
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of an exception
+            DB::rollBack();
+
+            // Handle the exception (e.g., log, display an error message)
+            return redirect()->back()->with('error', 'Error occurred while canceling order.');
+        }
     }
+
     
 }

@@ -22,6 +22,8 @@
     </style>
 </head>
 
+<!-- ... (head section remains the same) ... -->
+
 <body>
 
     <div class="container-fluid">
@@ -43,6 +45,7 @@
                                         <th>User</th>
                                         <th>Item Name</th>
                                         <th>Quantity Sold</th>
+                                        <th>Price</th> <!-- New column for Price -->
                                         <th>Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -62,11 +65,11 @@
                                                 </td>
                                                 <td>{{ $sale->inventory->item_name }}</td>
                                                 <td>{{ $sale->quantity_sold }}</td>
+                                                <td>{{ $sale->inventory->price * $sale->quantity_sold }}</td> <!-- Calculate the total price -->
                                                 <td>{{ $sale->created_at }}</td>
                                                 <td>
                                                     <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
                                                     <a href="{{ route('purchases.complete', ['id' => $sale->id]) }}" class="btn btn-success">Complete</a>
-                                                    
                                                 </td>
                                             </tr>
                                         @endif

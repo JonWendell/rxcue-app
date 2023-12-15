@@ -121,7 +121,7 @@ Route::get('/purchases/{id}/void', [SalesController::class, 'voidPurchase'])
     ->name('purchases.void');
     
 Route::get('/purchase-history', [EcomController::class, 'showPurchaseHistory'])->name('ecom.purchase.history');
-Route::get('/cancel-order/{sale}', [EcomController::class, 'cancelOrder'])->name('cancel.order');
+Route::delete('/cancel-order/{sale}', [EcomController::class, 'cancelOrder'])->name('cancel.order');
 
 
 Route::get('cashier/manageSales', [CashierController::class, 'manageSales'])->name('cashier.manageSales');

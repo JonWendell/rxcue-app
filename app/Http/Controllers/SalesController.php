@@ -14,7 +14,7 @@ use App\Models\Branch;
 class SalesController extends Controller
 {
     
-        public function purchase(Request $request)
+    public function purchase(Request $request)
     {
         // Start a database transaction
         DB::beginTransaction();
@@ -34,6 +34,9 @@ class SalesController extends Controller
 
                 $soldQuantity = min($item['quantity'], $inventory->new_quantity);
 
+                // Calculate the price at sale based on the quantity sold
+                $priceAtSale = $soldQuantity * $inventory->price;
+
                 $inventory->new_quantity -= $soldQuantity;
                 $inventory->save();
 
@@ -42,6 +45,7 @@ class SalesController extends Controller
                     'user_id' => Auth::id(),
                     'inventory_id' => $productId,
                     'quantity_sold' => $soldQuantity,
+                    'price_at_sale' => $priceAtSale, // Add this line
                 ]);
 
                 Audit::create([
@@ -70,6 +74,8 @@ class SalesController extends Controller
             return redirect()->back()->with('error', 'Error occurred during purchase');
         }
     }
+
+    // ...
 
 
     

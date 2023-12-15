@@ -14,8 +14,8 @@ class Sales extends Model
         'user_id',
         'voided',
         'completed',
+        'price_at_sale', // Add this line
     ];
-    
 
     public function user()
     {

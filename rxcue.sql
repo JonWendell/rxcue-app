@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 13, 2023 at 07:02 PM
+-- Generation Time: Dec 15, 2023 at 04:06 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -44,7 +44,9 @@ CREATE TABLE `audits` (
 --
 
 INSERT INTO `audits` (`id`, `inventory_id`, `current_quantity`, `quantity`, `new_stock`, `type`, `created_at`, `updated_at`, `upc`) VALUES
-(78, 22, 980, -20, 980, 'purchase', '2023-12-13 10:59:46', '2023-12-13 10:59:46', NULL);
+(98, 32, 990, -10, 990, 'purchase', '2023-12-15 05:49:49', '2023-12-15 05:49:49', NULL),
+(99, 32, 989, -1, 989, 'purchase', '2023-12-15 07:09:07', '2023-12-15 07:09:07', NULL),
+(100, 32, 968, -21, 968, 'purchase', '2023-12-15 07:46:11', '2023-12-15 07:46:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,15 +109,16 @@ CREATE TABLE `inventories` (
   `quantity` int DEFAULT '0',
   `category` enum('fluid','solid','other') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` decimal(8,2) DEFAULT '0.00',
-  `upc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `upc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `branch_id` bigint UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `inventories`
 --
 
-INSERT INTO `inventories` (`id`, `item_name`, `previous_quantity`, `quantity_change`, `new_quantity`, `change_date`, `created_at`, `updated_at`, `image`, `description`, `quantity`, `category`, `price`, `upc`) VALUES
-(22, 'Biogesic', 0, 1000, 980, '2023-12-14', '2023-12-13 10:59:17', '2023-12-13 10:59:46', 'K8O5u8M1ul0ga0WvagL2XsgPnokknJJ7p2kDWEDO.png', 'Description. For the relief of minor aches and pains such as headache, backache, menstrua cramps, muscular aches, minor arthritis pain, toothache, and pain associated with common cold and flu. For fever reduction.', 0, 'solid', 6.00, '210244');
+INSERT INTO `inventories` (`id`, `item_name`, `previous_quantity`, `quantity_change`, `new_quantity`, `change_date`, `created_at`, `updated_at`, `image`, `description`, `quantity`, `category`, `price`, `upc`, `branch_id`) VALUES
+(32, 'Biogesic', 45, 1000, 968, '2023-12-15', '2023-12-15 05:49:25', '2023-12-15 07:46:11', '4lpU5FNY1ZeuHLqnOPSuVENvJb2LXN3tcJK9sHbf.png', 'Test', 0, 'solid', 6.00, '3213321', 9);
 
 -- --------------------------------------------------------
 
@@ -162,7 +165,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2023_12_13_173034_add_user_id_to_branches', 22),
 (27, '2023_12_13_180715_update_users_table_add_address_nullable', 23),
 (28, '2023_12_13_184545_add_branch_id_to_users', 24),
-(29, '2023_12_13_184818_drop_branches_column_from_users', 25);
+(29, '2023_12_13_184818_drop_branches_column_from_users', 25),
+(30, '2023_12_13_195456_remove_duplicate_completed_column_from_sales_table', 26),
+(31, '2023_12_13_195531_remove_duplicate_completed_column_from_sales_table', 26),
+(32, '2023_12_13_212416_add_branch_id_to_inventories_table', 26),
+(33, '2023_12_14_040307_add_branch_id_to_sales', 27),
+(34, '2023_12_15_104257_add_completed_to_sales_table', 28),
+(35, '2023_12_15_134616_remove_branch_id_from_sales_table', 29);
 
 -- --------------------------------------------------------
 
@@ -228,16 +237,18 @@ CREATE TABLE `sales` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
-  `completed` tinyint(1) NOT NULL DEFAULT '0',
-  `voided` tinyint(1) NOT NULL DEFAULT '0'
+  `voided` tinyint(1) NOT NULL DEFAULT '0',
+  `completed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`id`, `inventory_id`, `quantity_sold`, `created_at`, `updated_at`, `user_id`, `completed`, `voided`) VALUES
-(106, 22, 20, '2023-12-13 10:59:46', '2023-12-13 10:59:46', 21, 0, 0);
+INSERT INTO `sales` (`id`, `inventory_id`, `quantity_sold`, `created_at`, `updated_at`, `user_id`, `voided`, `completed`) VALUES
+(126, 32, 10, '2023-12-15 05:49:49', '2023-12-15 07:03:13', 20, 1, 0),
+(127, 32, 1, '2023-12-15 07:09:07', '2023-12-15 07:09:07', 20, 0, 0),
+(128, 32, 21, '2023-12-15 07:46:11', '2023-12-15 07:46:11', 20, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -269,7 +280,10 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `firstName`, `lastName`, `middleName`, `address`, `gender`, `age`, `email`, `role`, `password`, `created_at`, `updated_at`, `branch_id`) VALUES
 (20, 'admin', 'admin', 'admin', 'admin', 'admin', 'male', 12, 'admin@gmail.com', 'client', '$2y$12$JsVK3KmJZbuajIqvck252.mQAJ9v/ROeINdVtxre/TilbFgsF7JIW', '2023-12-13 10:46:39', '2023-12-13 10:46:39', 9),
 (21, 'Sett', 'Jon Wendell', 'Cabrera', 'Lontoc', 'Nacoco', 'male', 21, 'corvecc1@gmail.com', 'admin', '$2y$12$dIdhUdrCoIlySyDqCrUVyeGbmospurNXreji8E6xfjvo6PWy37Ley', '2023-12-13 10:55:16', '2023-12-13 10:55:16', 9),
-(22, 'Erzie', 'Janzel', 'Bongo', 'Managaze', 'Cebu', 'female', 21, 'janzkiemalditz@gmailcom', 'cashier', '$2y$12$wP6Hs5s2J6/OnZVWtLX37OckrSYF85RtvUY/dsWO7/6iwBeg6SxS2', '2023-12-13 10:55:52', '2023-12-13 10:55:52', 9);
+(22, 'Erzie', 'Janzel', 'Bongo', 'Managaze', 'Cebu', 'female', 21, 'janzkiemalditz@gmailcom', 'cashier', '$2y$12$wP6Hs5s2J6/OnZVWtLX37OckrSYF85RtvUY/dsWO7/6iwBeg6SxS2', '2023-12-13 10:55:52', '2023-12-13 10:55:52', 9),
+(23, 'test', 'test', 'test', 'test', 'test', 'female', 21, 'test@gmail.com', 'admin', '$2y$12$487hv0feyUJWdFlnJWShp.ywUoib9E7RPsJ1TJB.kdP9vPY.iqgrO', '2023-12-13 19:29:12', '2023-12-13 19:29:12', 8),
+(24, 'janz', 'janzkie', 'janzkiemalditz', 'Lontoc', 'cebu', 'female', 32, 'weithingcheong@gmai.com', 'client', '$2y$12$jOFV3DAAt6OWko8xBkxiVORtb2IIEetW1Dwt9G7FWtw1nI2kBp7ii', '2023-12-13 19:37:56', '2023-12-13 19:37:56', 8),
+(25, 'test2', 'test2', 'test2', 'test2', 'Victoria', 'female', 21, 'test2@gmai.com', 'cashier', '$2y$12$U5HX21bCDG1k7D3L1ln6d.DSnplWppmRGwBGxC5n6oKxs0e3aWEei', '2023-12-13 19:59:11', '2023-12-13 19:59:11', 8);
 
 --
 -- Indexes for dumped tables
@@ -349,7 +363,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -367,13 +381,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `inventories`
 --
 ALTER TABLE `inventories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -385,13 +399,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables

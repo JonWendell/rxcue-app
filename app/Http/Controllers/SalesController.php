@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Branch;
+use Illuminate\Support\Facades\Response;
 
 class SalesController extends Controller
 {
@@ -85,16 +86,17 @@ class SalesController extends Controller
     {
         $userBranchId = Auth::user()->branch->id;
         
-        // Fetch only sales records related to the user's branch
+        // Fetch only sales records related to the user's branch and not completed
         $sales = Sales::with(['user', 'inventory'])
             ->whereHas('inventory', function ($query) use ($userBranchId) {
                 $query->where('branch_id', $userBranchId);
             })
+            ->where('completed', false)
             ->get();
     
         return view('cashier.purchase', compact('sales'));
     }
-
+    
     public function voidPurchase(Request $request, $id)
     {
         // Start a database transaction
@@ -141,20 +143,59 @@ class SalesController extends Controller
             return redirect()->route('purchases.show')->with('error', 'Error occurred while voiding purchase');
         }
     }
-        public function completePurchase(Request $request)
-    {
-        // Add logic to mark the purchase as completed in the database
-        // You can customize this method based on your requirements
-        // For example, you might want to update the status of completed purchases
+    public function completePurchase(Request $request)
+{
+    try {
+        // Get the sale ID from the request
+        $saleId = $request->input('saleId');
 
-        return response()->json(['success' => true]);
+        // Find the sale record by ID
+        $sale = Sales::find($saleId);
+
+        if (!$sale) {
+            return response()->json(['error' => 'Sale not found'], 404);
+        }
+
+        // Check if the sale is already completed
+        if ($sale->completed) {
+            return response()->json(['error' => 'Sale already completed'], 400);
+        }
+
+        // Mark the sale as completed
+        $sale->completed = true;
+        $sale->save();
+
+        // You can add logic here to update Sales Management directly
+        // For example, you can fetch the updated sales information and pass it to the view
+        $salesManagement = Sales::with(['inventory'])
+            ->where('completed', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Return the updated data to be handled in the JavaScript success callback
+        return response()->json(['success' => true, 'salesManagement' => $salesManagement]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Error completing sale'], 500);
     }
+}
+
+
         public function viewSales()
     {
         // Fetch sales information for display
         $sales = Sales::with(['user', 'inventory'])->get();
 
         return view('cashier.sales', compact('sales'));
+    }
+        public function showSalesManagement()
+    {
+        // Fetch sales information for Sales Management
+        $salesManagement = Sales::with(['inventory'])
+            ->where('completed', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('cashier.sales_management', compact('salesManagement'));
     }
 
 

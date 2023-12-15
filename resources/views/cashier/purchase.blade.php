@@ -22,8 +22,6 @@
     </style>
 </head>
 
-<!-- ... (head section remains the same) ... -->
-
 <body>
 
     <div class="container-fluid">
@@ -67,10 +65,19 @@
                                                 <td>{{ $sale->quantity_sold }}</td>
                                                 <td>{{ $sale->inventory->price * $sale->quantity_sold }}</td> <!-- Calculate the total price -->
                                                 <td>{{ $sale->created_at }}</td>
-                                                <td>
-                                                    <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
-                                                    <a href="{{ route('purchases.complete', ['id' => $sale->id]) }}" class="btn btn-success">Complete</a>
-                                                </td>
+                                                <tbody>
+                                                    @foreach($sales as $sale)
+                                                        @if (!$sale->voided && !$sale->completed)
+                                                            <tr>
+                                                                <!-- ... your existing code ... -->
+                                                                <td>
+                                                                    <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
+                                                                    <button class="btn btn-success completePurchaseBtn" data-sale-id="{{ $sale->id }}">Complete</button>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
                                             </tr>
                                         @endif
                                     @endforeach
@@ -89,29 +96,49 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#purchaseTable').DataTable({
-                responsive: true
-            });
+    <!-- Your new script -->
+    <!-- Your new script -->
+    <!-- Your new script -->
+<!-- Your new script -->
+<script>
+    $(document).ready(function () {
+        // Add a listener to the document for the button click
+        $(document).on('click', '.completePurchaseBtn', function () {
+            var saleId = $(this).data('sale-id');
+            var $tableRow = $(this).closest('tr'); // Get the parent table row
 
-            $('#completePurchaseBtn').on('click', function () {
-                $.ajax({
-                    url: '{{ route("purchases.complete") }}',
-                    method: 'POST',
-                    data: {},
-                    success: function (response) {
-                        $('#purchaseTable').DataTable().ajax.reload();
-                        window.location.href = '{{ route("purchases.sales") }}';
-                    },
-                    error: function (error) {
-                        console.error(error);
+            $.ajax({
+                url: '{{ route("purchases.complete") }}',
+                method: 'POST',
+                data: { saleId: saleId },
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        // Optionally, you can also update the Sales Management view
+                        // ...
+
+                        // Hide the table row if the sale is completed successfully
+                        $tableRow.hide();
+
+                        // Optionally, you can provide a user-friendly message
+                        alert('Purchase completed successfully');
+                    } else {
                         alert('Error completing purchase');
                     }
-                });
+                },
+                error: function (error) {
+                    console.error(error);
+                    alert('Error completing purchase');
+                }
             });
         });
-    </script>
+    });
+</script>
+
+
+
 
 </body>
 

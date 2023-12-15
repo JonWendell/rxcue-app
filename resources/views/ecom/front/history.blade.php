@@ -24,13 +24,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($userSales as $sale)
+                    @foreach($userSales->where('voided', false) as $sale)
                         <tr>
                             <td>{{ $sale->inventory->item_name }}</td>
                             <td>{{ $sale->inventory->upc }}</td>
                             <td>{{ $sale->quantity_sold }}</td>
                             <td>{{ $sale->quantity_sold * $sale->inventory->price }}</td>
-                            <!-- Add more columns as needed -->
                             <td>
                                 <a href="{{ route('cancel.order', $sale->id) }}" class="btn btn-danger">Cancel Order</a>
                             </td>

@@ -9,10 +9,13 @@ use App\Models\Audit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use App\Models\Branch;
+use Carbon\Carbon;
 
 class SalesController extends Controller
 {
-    public function purchase(Request $request)
+    
+        public function purchase(Request $request)
     {
         // Start a database transaction
         DB::beginTransaction();
@@ -21,7 +24,9 @@ class SalesController extends Controller
             $cart = session('cart', []);
 
             foreach ($cart as $productId => $item) {
-                $inventory = Inventory::find($productId);
+                $inventory = Inventory::where('id', $productId)
+                    ->where('branch_id', Auth::user()->branch->id) // Ensure the inventory belongs to the user's branch
+                    ->first();
 
                 if (!$inventory) {
                     // Handle the case where the inventory is not found
@@ -38,6 +43,9 @@ class SalesController extends Controller
                     'user_id' => Auth::id(),
                     'inventory_id' => $productId,
                     'quantity_sold' => $soldQuantity,
+                    'date_sold' => Carbon::now(), // Add the date of sale
+                    'cost' => $item['cost'], // Add the cost of the item
+                    'completed' => false, // Initially set as not completed
                 ]);
 
                 Audit::create([
@@ -67,15 +75,19 @@ class SalesController extends Controller
         }
     }
 
+
+    
+    
     public function showPurchases()
     {
+        $userBranchId = Auth::user()->branch->id;
         // Fetch all sales data with associated user and inventory information
         $sales = Sales::with(['user', 'inventory'])->get();
 
         return view('cashier.purchase', compact('sales'));
     }
 
-    public function voidPurchase(Request $request, $id)
+        public function voidPurchase(Request $request, $id)
     {
         $sale = Sales::find($id);
 
@@ -88,4 +100,22 @@ class SalesController extends Controller
 
         return redirect()->route('purchases.show')->with('success', 'Purchase voided successfully');
     }
+
+    public function completePurchase(Request $request)
+    {
+        // Add logic to mark the purchase as completed in the database
+        // You can customize this method based on your requirements
+
+        return response()->json(['success' => true]);
+    }
+
+    public function viewSales()
+    {
+        // Fetch sales information for display
+        $sales = Sales::with(['user', 'inventory'])->get();
+
+        return view('cashier.sales', compact('sales'));
+    }
+
+ 
 }

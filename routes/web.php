@@ -125,8 +125,7 @@ Route::get('/cancel-order/{sale}', [EcomController::class, 'cancelOrder'])->name
 
 
 Route::get('/sales/manage', [CashierController::class, 'manageSales'])->name('cashier.manageSales');
-Route::get('cashier/complete-purchase/{id}', [CashierController::class, 'completePurchase'])->name('cashier.completePurchase');
 Route::get('cashier/manageSales', [CashierController::class, 'manageSales'])->name('cashier.manageSales');
-Route::get('cashier/complete-purchase/{id}', [CashierController::class, 'completePurchase'])->name('purchases.complete');
-
-
+//complete purchase routes
+Route::post('/purchases/complete', [SalesController::class, 'completePurchase'])->name('purchases.complete');
+Route::get('/purchases/sales', [SalesController::class, 'viewSales'])->name('purchases.sales');

@@ -22,6 +22,8 @@
     </style>
 </head>
 
+<!-- ... (existing code) ... -->
+
 <body>
 
     <div class="container-fluid">
@@ -65,7 +67,6 @@
                                                 <td>{{ $sale->created_at }}</td>
                                                 <td>
                                                     <a href="{{ route('purchases.void', ['id' => $sale->id]) }}" class="btn btn-danger">Void</a>
-                                                    <a href="{{ route('purchases.complete', ['id' => $sale->id]) }}" class="btn btn-success">Complete
                                                 </td>
                                             </tr>
                                         @endif
@@ -73,7 +74,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -89,22 +89,6 @@
         $(document).ready(function () {
             $('#purchaseTable').DataTable({
                 responsive: true
-            });
-
-            $('#completePurchaseBtn').on('click', function () {
-                $.ajax({
-                    url: '{{ route("purchases.complete") }}',
-                    method: 'POST',
-                    data: {},
-                    success: function (response) {
-                        $('#purchaseTable').DataTable().ajax.reload();
-                        window.location.href = '{{ route("purchases.sales") }}';
-                    },
-                    error: function (error) {
-                        console.error(error);
-                        alert('Error completing purchase');
-                    }
-                });
             });
         });
     </script>

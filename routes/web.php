@@ -76,7 +76,7 @@ Route::get('/order-layout/{productId}', [EcomController::class, 'showOrderLayout
 Route::view('/checkout','checkout');
 Route::get('/cart', [EcomController::class, 'showCart']);
 Route::post('/add-to-cart/{productId}', [EcomController::class, 'addToCart'])->name('addToCart');
-Route::post('/purchase', [EcomController::class, 'purchase'])->name('purchase');
+
 Route::delete('/remove-from-cart/{productId}', [EcomController::class, 'removeFromCart'])->name('remove-from-cart');
 Route::get('/home1', [EcomController::class, 'home1'])->name('home1');
 Route::get('/about2', [EcomController::class, 'about2'])->name('about2');
@@ -129,4 +129,4 @@ Route::post('/purchases/complete', [SalesController::class, 'completePurchase'])
 Route::get('/purchases/sales', [SalesController::class, 'viewSales'])->name('purchases.sales');
 Route::get('/sales-management', [SalesController::class, 'viewSales'])->name('sales.management');
 
-
+Route::get('/sales/{sale}/audit', [SalesController::class, 'viewAudit'])->name('sales.audit');

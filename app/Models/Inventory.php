@@ -29,7 +29,7 @@ class Inventory extends Model
 
     public function audits()
     {
-        return $this->hasMany(Audit::class);
+        return $this->hasMany(Audit::class, 'inventory_id');
     }
     public function sales()
     {

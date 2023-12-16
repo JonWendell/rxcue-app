@@ -109,28 +109,7 @@ class EcomController extends Controller
         // Pass the data to the view
         return view('product1', ['inventoryData' => $inventoryData]);
     }
-        public function purchase(Request $request)
-    {
-        // Perform the purchase logic, save the sale record
-        // ...
-
-        // Retrieve values from the request or any other source
-        $inventoryId = $request->input('inventory_id'); // Change 'inventory_id' to the actual name in your form
-        $quantity = $request->input('quantity'); // Change 'quantity' to the actual name in your form
-
-        // Record the purchase history for the authenticated user
-        $user = Auth::user();
-        $sale = new Sales([
-            'user_id' => $user->id,
-            'inventory_id' => $inventoryId,
-            'quantity_sold' => $quantity,
-            // Add other fields as needed
-        ]);
-        $sale->save();
-
-        // Redirect or return a response
-        // ...
-    }
+     
     public function showPurchaseHistory()
     {
         // Retrieve the authenticated user's purchase history excluding completed sales

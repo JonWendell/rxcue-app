@@ -27,5 +27,10 @@ class Sales extends Model
         return $this->belongsTo(Inventory::class, 'inventory_id');
     }
 
+    // Relationship with audits
+    public function audits()
+    {
+        return $this->hasManyThrough(Audit::class, Inventory::class, 'id', 'inventory_id', 'inventory_id', 'id');
+    }
   
 }

@@ -1,5 +1,7 @@
 @extends('back.layout.ecom-layout')
+
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Cart')
+
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +9,9 @@
 <head>
     <!-- Add your head elements here -->
     <title>Shopping Cart</title>
+
+    <!-- Add your styles or links here -->
+
 </head>
 
 <body>
@@ -31,20 +36,10 @@
                         </div>
                         <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
                             <!-- Add a form for the purchase action -->
-                            <form class="purchase-form" data-product-id="{{ $productId }}" action="{{ route('purchase') }}" method="post">
-                                @csrf
-                                <!-- Add input fields for user information -->
-                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                                <input type="hidden" name="product_id" value="{{ $productId }}">
-                                <button type="submit" class="btn btn-primary mb-2">Purchase</button>
-                            </form>
+                            <button type="button" class="btn btn-primary mb-2 purchase-btn" data-product-id="{{ $productId }}" data-quantity="{{ $item['quantity'] }}">Purchase</button>
 
                             <!-- Add a "Remove" button for each product -->
-                            <form class="remove-form" data-product-id="{{ $productId }}" action="{{ route('remove-from-cart', $productId) }}" method="post">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger">Remove</button>
-                            </form>
+                            <button type="button" class="btn btn-danger remove-btn" data-product-id="{{ $productId }}">Remove</button>
                         </div>
                     </div>
                 </div>
@@ -54,16 +49,9 @@
         @endif
 
         <!-- Display the purchase success message if it exists -->
-        @if(session('purchaseSuccess'))
-            <div class="alert alert-success">
-                <strong>Success!</strong> {{ session('purchaseSuccess') }}
-            </div>
-
-            <!-- Clear the purchase success message from the session -->
-            @php
-                session()->forget('purchaseSuccess');
-            @endphp
-        @endif
+        <div class="purchase-success-message alert alert-success" style="display: none;">
+            <strong>Success!</strong> Item purchased successfully.
+        </div>
     </div>
 
     <!-- Add your footer scripts or links here -->
@@ -72,11 +60,60 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Handling form submissions
-            document.querySelectorAll('.purchase-form').forEach(function(form) {
-                form.addEventListener('submit', function(event) {
-                    // Optional: You can add loading spinners or other UI feedback here
-                    return true; // Let the form submit naturally
+            // Handling purchase button clicks
+            $('.purchase-btn').on('click', function() {
+                var productId = $(this).data('product-id');
+                var quantity = $(this).data('quantity');
+                var purchaseButton = $(this); // Save a reference to the clicked button
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('purchase') }}',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        inventory_id: productId,
+                        quantity: quantity
+                    },
+                    success: function(response) {
+                        // Optional: You can update the UI to show success or handle it as needed
+                        console.log('Purchase Success:', response);
+
+                        // Show the success message
+                        $('.purchase-success-message').fadeIn();
+
+                        // Remove the purchased item from the cart UI
+                        purchaseButton.closest('.card').remove();
+                    },
+                    error: function(error) {
+                        // Optional: You can update the UI to show an error or handle it as needed
+                        console.log('Purchase Error:', error);
+                    }
+                });
+            });
+
+            // Handling remove button clicks
+            $('.remove-btn').on('click', function() {
+                var productId = $(this).data('product-id');
+                var removeButton = $(this); // Save a reference to the clicked button
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ url('remove-from-cart') }}/' + productId,
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        _method: 'delete'
+                    },
+                    success: function(response) {
+                        // Optional: You can update the UI to show success or handle it as needed
+                        console.log('Remove Success:', response);
+
+                        // Remove the removed item from the cart UI
+                        removeButton.closest('.card').remove();
+                    },
+                    error: function(error) {
+                        // Optional: You can update the UI to show an error or handle it as needed
+                        console.log('Remove Error:', error);
+                    }
                 });
             });
         });
@@ -84,4 +121,5 @@
 </body>
 
 </html>
+
 @endsection

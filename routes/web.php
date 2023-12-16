@@ -129,3 +129,5 @@ Route::post('/purchases/complete', [SalesController::class, 'completePurchase'])
 Route::get('/purchases/sales', [SalesController::class, 'viewSales'])->name('purchases.sales');
 Route::get('/sales-management', [SalesController::class, 'viewSales'])->name('sales.management');
 
+Route::get('/sales/{itemName}', 'App\Http\Controllers\SalesController@viewProductPurchases')->name('sales.view');
+

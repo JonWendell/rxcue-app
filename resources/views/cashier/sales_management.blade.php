@@ -29,25 +29,23 @@
                                 <th>Total Quantity Sold</th>
                                 <th>Total Price at Sale</th>
                                 <th>Date</th>
-                                <th>Action</th>
+                                
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach($salesManagement->groupBy('inventory.item_name') as $itemName => $sales)
-                            <tr>
-                                <td class="table-plus">{{ $itemName }}</td>
-                                <td>{{ $sales->sum('quantity_sold') }}</td>
-                                <td>₱{{ $sales->sum('price_at_sale') }}</td>
-                                <td>{{ $sales[0]->created_at }}</td>
-                                <td>
-                                    <!-- Add a button for each sale -->
-                                    
-                                        <i class="dw dw-eye"></i> View Audit
-                                    
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+                      
+                            <tbody>
+                                @foreach($salesManagement->groupBy('inventory.item_name') as $itemName => $sales)
+                                    <tr>
+                                        <td class="table-plus">
+                                            <a href="{{ route('sales.view', ['itemName' => $itemName]) }}">{{ $itemName }}</a>
+                                        </td>
+                                        <td>{{ $sales->sum('quantity_sold') }}</td>
+                                        <td>₱{{ $sales->sum('price_at_sale') }}</td>
+                                        <td>{{ $sales[0]->created_at }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        
                     </table>
                 </div>
             </div>

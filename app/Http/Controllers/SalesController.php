@@ -228,7 +228,21 @@ public function showPurchases()
 
         return view('cashier.sales_management', compact('salesManagement'));
     }
-     
+        public function viewProductPurchases($itemName)
+    {
+        $userBranchId = Auth::user()->branch->id;
+
+        // Fetch sales records for the specified item name related to the user's branch
+        $sales = Sales::with(['user', 'inventory'])
+            ->whereHas('inventory', function ($query) use ($userBranchId, $itemName) {
+                $query->where('branch_id', $userBranchId)
+                    ->where('item_name', $itemName);
+            })
+            ->where('completed', true)
+            ->get();
+
+        return view('cashier.product_purchases', compact('sales', 'itemName'));
+    }
 
 
 

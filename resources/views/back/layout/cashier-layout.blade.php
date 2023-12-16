@@ -524,6 +524,7 @@
 		<script src="/back/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 		<script src="/back/vendors/scripts/dashboard.js"></script>
 		<!-- Google Tag Manager (noscript) -->
+		
 		<noscript
 			><iframe
 				src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS"

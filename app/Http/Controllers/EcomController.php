@@ -109,7 +109,7 @@ class EcomController extends Controller
         // Pass the data to the view
         return view('product1', ['inventoryData' => $inventoryData]);
     }
-     
+       
     public function showPurchaseHistory()
     {
         // Retrieve the authenticated user's purchase history excluding completed sales

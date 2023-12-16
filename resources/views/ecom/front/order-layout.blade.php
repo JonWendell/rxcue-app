@@ -82,6 +82,9 @@
                     <p>{{ $product->description }}</p>
                     <p id="price" class="fw-bold">Price: ₱{{ $product->price }}</p>
     
+                    <!-- Display new_quantity -->
+                    <p>New Quantity: {{ $product->new_quantity }}</p>
+
                     <div class="notification-container">
                         @if(session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">

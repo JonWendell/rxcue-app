@@ -36,15 +36,20 @@ class EcomController extends Controller
     public function addToCart($productId)
     {
         $product = Inventory::find($productId);
-    
+
         if (!$product) {
             return redirect()->back()->with('error', 'Product not found.');
         }
-    
+
         $quantity = request('quantity', 1);
-    
+
+        // Check if the requested quantity exceeds the available new_quantity
+        if ($quantity > $product->new_quantity) {
+            return redirect()->back()->with('error', 'Quantity exceeds available stock. Available stock: ' . $product->new_quantity);
+        }
+
         $cart = Session::get('cart', []);
-    
+
         // Check if the product is already in the cart
         if (isset($cart[$productId])) {
             // If yes, update the quantity
@@ -59,18 +64,18 @@ class EcomController extends Controller
                 'image' => $product->image,
             ];
         }
-    
+
         // Update the total price
         $cart[$productId]['totalPrice'] = $cart[$productId]['quantity'] * $cart[$productId]['price'];
-    
+
         // Update the quantity
         $cart[$productId]['quantity'] += $quantity;
-    
+
         // Update the total price again after increasing the quantity
         $cart[$productId]['totalPrice'] = $cart[$productId]['quantity'] * $cart[$productId]['price'];
-    
+
         Session::put('cart', $cart);
-    
+
         return redirect()->back()->with('success', 'Item added to cart.');
     }
         public function removeFromCart($productId)

@@ -219,10 +219,16 @@ public function showPurchases()
     
 
 
-        public function viewSales()
+        
+    public function viewSales()
     {
-        // Fetch only completed sales information for display
+        $userBranchId = Auth::user()->branch->id;
+
+        // Fetch only completed sales records related to the user's branch
         $salesManagement = Sales::with(['user', 'inventory'])
+            ->whereHas('inventory', function ($query) use ($userBranchId) {
+                $query->where('branch_id', $userBranchId);
+            })
             ->where('completed', true)
             ->get();
 

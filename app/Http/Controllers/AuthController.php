@@ -90,23 +90,26 @@ class AuthController extends Controller
     
         // ... (other methods)
     
-    public function logout()
-{
-    // Check if the user is logged in
-    if (Auth::check()) {
-        // Get the currently authenticated user
-        $user = Auth::user();
-
-        // Log the user out
-        Auth::logout();
-
-        // Redirect to the login form with a success message
-        return redirect()->route('login.form')->with('success', "You have been logged out successfully, $user->name.");
-    }
-
-    // If the user is not logged in, simply redirect to the login form
-    return redirect()->route('login.form');
-}
+        public function logout()
+        {
+            // Check if the user is logged in
+            if (Auth::check()) {
+                // Get the currently authenticated user
+                $user = Auth::user();
+        
+                // Log the user out
+                Auth::logout();
+        
+                // Clear all session data
+                Session::flush();
+        
+                // Redirect to the login form with a success message
+                return redirect()->route('login.form')->with('success', "You have been logged out successfully, $user->name.");
+            }
+        
+            // If the user is not logged in, simply redirect to the login form
+            return redirect()->route('login.form');
+        }
 
 
 }

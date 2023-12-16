@@ -77,6 +77,10 @@
 						<i class="fas fa-shopping-cart"></i> View Cart
 					</a>
 				</li>
+				<li class="nav-item">
+					<a href="{{ route('ecom.purchase.history') }}" class="btn btn-primary">View Purchase History</a>
+				</li>
+				
 				
                 <li class="nav-item">
                     <a class="nav-link header-login" href="{{ route('manual.logout') }}">Logout</a>

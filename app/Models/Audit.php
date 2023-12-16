@@ -24,6 +24,12 @@ class Audit extends Model
     {
         return $this->belongsTo(Inventory::class);
     }
+        public function sale()
+    {
+        return $this->belongsTo(Sales::class, 'inventory_id', 'inventory_id');
+    }
+
+ 
     
 }
 

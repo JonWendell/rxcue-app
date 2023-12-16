@@ -16,39 +16,42 @@ class SalesController extends Controller
 {
     
     public function purchase(Request $request)
-    {
-        // Start a database transaction
-        DB::beginTransaction();
+{
+    // Start a database transaction
+    DB::beginTransaction();
 
-        try {
-            $cart = session('cart', []);
+    try {
+        $cart = session('cart', []);
 
-            foreach ($cart as $productId => $item) {
-                $inventory = Inventory::where('id', $productId)
-                    ->where('branch_id', Auth::user()->branch->id)
-                    ->first();
+        foreach ($cart as $productId => $item) {
+            $inventory = Inventory::where('id', $productId)
+                ->where('branch_id', Auth::user()->branch->id)
+                ->first();
 
-                if (!$inventory) {
-                    // Handle the case where the inventory is not found or doesn't belong to the user's branch
-                    continue;
-                }
+            if (!$inventory) {
+                // Handle the case where the inventory is not found or doesn't belong to the user's branch
+                continue;
+            }
 
-                $soldQuantity = min($item['quantity'], $inventory->new_quantity);
+            $soldQuantity = min($item['quantity'], $inventory->new_quantity);
 
-                // Calculate the price at sale based on the quantity sold
-                $priceAtSale = $soldQuantity * $inventory->price;
+            // Calculate the price at sale based on the quantity sold
+            $priceAtSale = $soldQuantity * $inventory->price;
 
-                $inventory->new_quantity -= $soldQuantity;
-                $inventory->save();
+            $inventory->new_quantity -= $soldQuantity;
+            $inventory->save();
 
-                // Assuming Sale model has a relationship with User and Inventory models
-                $sale = Sales::create([
-                    'user_id' => Auth::id(),
-                    'inventory_id' => $productId,
-                    'quantity_sold' => $soldQuantity,
-                    'price_at_sale' => $priceAtSale,
-                ]);
+            // Assuming Sale model has a relationship with User and Inventory models
+            $sale = Sales::create([
+                'user_id' => Auth::id(),
+                'inventory_id' => $productId,
+                'quantity_sold' => $soldQuantity,
+                'price_at_sale' => $priceAtSale,
+            ]);
 
+            if ($sale->completed) {
+                \Log::info('Sale completed - creating audit record');
+                // Create an audit record for the completed sale
                 Audit::create([
                     'inventory_id' => $productId,
                     'current_quantity' => $inventory->new_quantity,
@@ -58,49 +61,51 @@ class SalesController extends Controller
                     'upc' => $inventory->upc,
                 ]);
             }
-
-            // Commit the transaction if all steps are successful
-            DB::commit();
-
-            // Clear the cart after a successful purchase
-            session()->forget('cart');
-
-            session(['purchaseSuccess' => 'Purchase successful']);
-
-            return view('ecom.front.cart');
-        } catch (\Exception $e) {
-            // Rollback the transaction in case of an exception
-            DB::rollBack();
-
-            // Handle the exception (e.g., log, display an error message)
-            return redirect()->back()->with('error', 'Error occurred during purchase');
         }
+
+        // Commit the transaction if all steps are successful
+        DB::commit();
+
+        // Clear the cart after a successful purchase
+        session()->forget('cart');
+
+        session(['purchaseSuccess' => 'Purchase successful']);
+
+        return view('ecom.front.cart');
+    } catch (\Exception $e) {
+        // Rollback the transaction in case of an exception
+        DB::rollBack();
+
+        // Handle the exception (e.g., log, display an error message)
+        \Log::error('Error occurred during purchase: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Error occurred during purchase');
+    }
+}
+    
+    
+public function showPurchases()
+{
+    $userBranchId = Auth::user()->branch->id;
+
+    // Fetch only sales records related to the user's branch and not completed
+    $sales = Sales::with(['user', 'inventory'])
+        ->whereHas('inventory', function ($query) use ($userBranchId) {
+            $query->where('branch_id', $userBranchId);
+        })
+        ->where('completed', false)
+        ->get();
+
+    // Fetch audit history for each inventory item
+    $inventoryAuditHistory = [];
+    foreach ($sales as $sale) {
+        $inventoryId = $sale->inventory->id;
+        \Log::info("Fetching audit history for inventory ID: $inventoryId");
+        $auditHistory = Audit::where('inventory_id', $inventoryId)->get();
+        $inventoryAuditHistory[$inventoryId] = $auditHistory;
     }
 
-    
-    
-    public function showPurchases()
-    {
-        $userBranchId = Auth::user()->branch->id;
-    
-        // Fetch only sales records related to the user's branch and not completed
-        $sales = Sales::with(['user', 'inventory'])
-            ->whereHas('inventory', function ($query) use ($userBranchId) {
-                $query->where('branch_id', $userBranchId);
-            })
-            ->where('completed', false)
-            ->get();
-    
-        // Fetch audit history for each inventory item
-        $inventoryAuditHistory = [];
-        foreach ($sales as $sale) {
-            $inventoryId = $sale->inventory->id;
-            $auditHistory = Audit::where('inventory_id', $inventoryId)->get();
-            $inventoryAuditHistory[$inventoryId] = $auditHistory;
-        }
-    
-        return view('cashier.purchase', compact('sales', 'inventoryAuditHistory'));
-    }
+    return view('cashier.purchase', compact('sales', 'inventoryAuditHistory'));
+}
     
     
     public function voidPurchase(Request $request, $id)
@@ -118,6 +123,11 @@ class SalesController extends Controller
     
             // Find the associated inventory record
             $inventory = Inventory::find($sale->inventory_id);
+    
+            // Check if the sale is already voided or completed
+            if ($sale->voided || $sale->completed) {
+                return redirect()->route('purchases.show')->with('error', 'Sale is already voided or completed');
+            }
     
             // Rollback the inventory to its previous state
             $inventory->new_quantity += $sale->quantity_sold;
@@ -158,63 +168,67 @@ class SalesController extends Controller
             return redirect()->route('purchases.show')->with('error', 'Error occurred while voiding purchase');
         }
     }
-        public function completePurchase(Request $request)
+    public function completePurchase(Request $request)
     {
         try {
             // Get the sale ID from the request
             $saleId = $request->input('saleId');
-
+    
             // Find the sale record by ID
             $sale = Sales::find($saleId);
-
+    
             if (!$sale) {
                 return response()->json(['error' => 'Sale not found'], 404);
             }
-
+    
             // Check if the sale is already completed
-            if ($sale->completed) {
+            if (!$sale->completed) {
+                // Mark the sale as completed
+                $sale->completed = true;
+                $sale->save();
+    
+                \Log::info('Sale completed - creating audit record');
+    
+                // You can add logic here to update Sales Management directly
+                // For example, you can fetch the updated sales information and pass it to the view
+                $salesManagement = Sales::with(['inventory'])
+                    ->where('completed', true)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+    
+                // Create an audit record for the completed sale
+                Audit::create([
+                    'inventory_id' => $sale->inventory_id,
+                    'current_quantity' => $sale->inventory->new_quantity,
+                    'quantity' => -$sale->quantity_sold,
+                    'new_stock' => $sale->inventory->new_quantity,
+                    'type' => 'purchase',
+                    'upc' => $sale->inventory->upc,
+                ]);
+    
+                // Return the updated data to be handled in the JavaScript success callback
+                return response()->json(['success' => true, 'salesManagement' => $salesManagement]);
+            } else {
                 return response()->json(['error' => 'Sale already completed'], 400);
             }
-
-            // Mark the sale as completed
-            $sale->completed = true;
-            $sale->save();
-
-            // You can add logic here to update Sales Management directly
-            // For example, you can fetch the updated sales information and pass it to the view
-            $salesManagement = Sales::with(['inventory'])
-                ->where('completed', true)
-                ->orderBy('created_at', 'desc')
-                ->get();
-
-            // Return the updated data to be handled in the JavaScript success callback
-            return response()->json(['success' => true, 'salesManagement' => $salesManagement]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error completing sale'], 500);
         }
     }
+    
+    
 
 
-    public function viewSales()
+        public function viewSales()
     {
-        // Fetch sales information for display
-        $salesManagement = Sales::with(['user', 'inventory'])->get();
+        // Fetch only completed sales information for display
+        $salesManagement = Sales::with(['user', 'inventory'])
+            ->where('completed', true)
+            ->get();
 
         return view('cashier.sales_management', compact('salesManagement'));
     }
-    public function viewAudit($saleId)
-{
-    // Fetch audit information for the selected sale
-    $sale = Sales::with(['audits'])->find($saleId);
-
-    if (!$sale) {
-        abort(404);
-    }
-
-    return view('cashier.sales_audit', compact('sale'));
-}
-
-    
+     
 
 
 

@@ -41,9 +41,9 @@
                                 <td>{{ $sales[0]->created_at }}</td>
                                 <td>
                                     <!-- Add a button for each sale -->
-                                    <a class="btn btn-info" href="{{ route('sales.audit', ['sale' => $sales[0]->id]) }}">
+                                    
                                         <i class="dw dw-eye"></i> View Audit
-                                    </a>
+                                    
                                 </td>
                             </tr>
                             @endforeach

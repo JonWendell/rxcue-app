@@ -1,5 +1,3 @@
-<!-- resources/views/cashier/product_purchases.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,29 +27,12 @@
         .back-button {
             margin-top: 20px;
         }
-
-        /* Adjustments for better responsiveness */
-        @media (max-width: 576px) {
-            .container {
-                padding: 10px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h2 class="h4 mb-4">Product Purchases - {{ $itemName }}</h2>
-
-        @php
-            $totalSales = 0;
-        @endphp
 
         @foreach($sales->groupBy(function($date) {
             return \Carbon\Carbon::parse($date->created_at)->format('Y-m-d');
@@ -67,6 +48,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $totalSales = 0; // Initialize total sales for each date
+                        @endphp
+
                         @foreach($groupedSales as $sale)
                             <tr>
                                 <td>{{ $sale->quantity_sold }}</td>
@@ -74,25 +59,25 @@
                                 <td>{{ $sale->created_at }}</td>
                             </tr>
                             @php
-                                // Update total sales amount
+                                // Update total sales amount for each date
                                 $totalSales += $sale->price_at_sale;
                             @endphp
                         @endforeach
                     </tbody>
                 </table>
             </div>
-        @endforeach
 
-        <div class="mt-4">
-            <strong>Total Sales Amount:</strong> ₱{{ $totalSales }}
-        </div>
+            <div class="mt-4">
+                <strong>Total Sales Amount for {{ $date }}:</strong> ₱{{ $totalSales }}
+            </div>
+        @endforeach
 
         <div class="back-button">
             <!-- Link the back button to /purchases/sales -->
             <a href="{{ url('/purchases/sales') }}" class="btn btn-secondary">Back</a>
         </div>
     </div>
-    <!-- Link to Bootstrap JS from CDN for enhanced styling -->
+    <!-- Bootstrap JS links go here -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

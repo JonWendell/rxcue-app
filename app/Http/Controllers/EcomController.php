@@ -107,13 +107,16 @@ class EcomController extends Controller
         return view('about2');
     }
     public function product1()
-    {
-        // Retrieve data from your Product model or other source
-        $inventoryData = Inventory::all(); // Replace with your actual model and query
+{
+    // Get the branch of the authenticated user
+    $userBranch = Auth::user()->branch;
 
-        // Pass the data to the view
-        return view('product1', ['inventoryData' => $inventoryData]);
-    }
+    // Retrieve data from your Product model or other source based on the user's branch
+    $inventoryData = Inventory::where('branch_id', $userBranch->id)->get();
+
+    // Pass the data to the view
+    return view('product1', ['inventoryData' => $inventoryData]);
+}
        
     public function showPurchaseHistory()
     {

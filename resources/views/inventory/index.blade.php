@@ -54,7 +54,7 @@
                             <td>{{ $inventory->new_quantity }}</td>
                             <td>
                                 @if($inventory->image)
-                                <img src="{{ asset('/public/storage/images/' . $inventory->image) }}"
+                                <img src="{{ asset('public/storage/images/' . $inventory->image) }}"
                                     alt="{{ $inventory->item_name }}" style="max-width: 100px;">
                                 @else
                                 No Image

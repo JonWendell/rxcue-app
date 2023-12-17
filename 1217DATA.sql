@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2023 at 06:24 AM
+-- Generation Time: Dec 17, 2023 at 05:44 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -44,22 +44,18 @@ CREATE TABLE `audits` (
 --
 
 INSERT INTO `audits` (`id`, `inventory_id`, `current_quantity`, `quantity`, `new_stock`, `type`, `created_at`, `updated_at`, `upc`) VALUES
-(101, 33, 990, -10, 990, 'purchase', '2023-12-15 08:18:53', '2023-12-15 08:18:53', NULL),
-(102, 33, 977, -13, 977, 'purchase', '2023-12-15 08:20:13', '2023-12-15 08:20:13', NULL),
-(103, 33, 967, -10, 967, 'purchase', '2023-12-15 08:32:56', '2023-12-15 08:32:56', NULL),
-(104, 33, 977, 10, 987, 'void', '2023-12-15 08:33:27', '2023-12-15 08:33:27', NULL),
-(105, 33, 967, -10, 967, 'purchase', '2023-12-15 08:34:07', '2023-12-15 08:34:07', NULL),
-(106, 33, 948, -19, 948, 'purchase', '2023-12-15 08:41:29', '2023-12-15 08:41:29', NULL),
-(107, 33, 967, 19, 986, 'cancel', '2023-12-15 08:45:08', '2023-12-15 08:45:08', NULL),
-(108, 33, 957, -10, 957, 'purchase', '2023-12-15 08:45:32', '2023-12-15 08:45:32', NULL),
-(109, 33, 888, -69, 888, 'purchase', '2023-12-15 09:30:30', '2023-12-15 09:30:30', NULL),
-(110, 33, 876, -12, 876, 'purchase', '2023-12-15 09:33:27', '2023-12-15 09:33:27', NULL),
-(111, 34, 968, -32, 968, 'purchase', '2023-12-15 10:16:15', '2023-12-15 10:16:15', NULL),
-(112, 34, 936, -32, 936, 'purchase', '2023-12-15 10:17:30', '2023-12-15 10:17:30', NULL),
-(113, 34, 935, -1, 935, 'purchase', '2023-12-15 11:16:59', '2023-12-15 11:16:59', NULL),
-(114, 34, 934, -1, 934, 'purchase', '2023-12-15 11:23:35', '2023-12-15 11:23:35', NULL),
-(115, 34, 933, -1, 933, 'purchase', '2023-12-15 22:08:40', '2023-12-15 22:08:40', NULL),
-(116, 33, 875, -1, 875, 'purchase', '2023-12-15 22:08:40', '2023-12-15 22:08:40', NULL);
+(277, 41, 923, -55, 923, 'purchase', '2023-12-16 03:43:58', '2023-12-16 03:43:58', NULL),
+(278, 42, 932, -55, 932, 'purchase', '2023-12-16 03:55:07', '2023-12-16 03:55:07', NULL),
+(279, 41, 777, -134, 777, 'purchase', '2023-12-16 04:16:51', '2023-12-16 04:16:51', NULL),
+(280, 41, 789, 0, 789, 'void', '2023-12-16 04:17:35', '2023-12-16 04:17:35', NULL),
+(281, 41, 789, 0, 789, 'void', '2023-12-16 05:22:37', '2023-12-16 05:22:37', NULL),
+(282, 42, 920, 0, 920, 'void', '2023-12-16 05:22:38', '2023-12-16 05:22:38', NULL),
+(283, 42, 932, 0, 932, 'void', '2023-12-16 05:22:40', '2023-12-16 05:22:40', NULL),
+(284, 41, 768, -21, 768, 'purchase', '2023-12-16 06:30:39', '2023-12-16 06:30:39', NULL),
+(285, 42, 888, -32, 888, 'purchase', '2023-12-16 06:30:41', '2023-12-16 06:30:41', NULL),
+(286, 42, 888, -12, 888, 'purchase', '2023-12-16 06:30:43', '2023-12-16 06:30:43', NULL),
+(287, 41, 645, -123, 645, 'purchase', '2023-12-16 21:24:41', '2023-12-16 21:24:41', NULL),
+(288, 42, 856, -32, 856, 'purchase', '2023-12-16 21:24:45', '2023-12-16 21:24:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,7 +80,8 @@ CREATE TABLE `branches` (
 
 INSERT INTO `branches` (`id`, `name`, `location`, `contact`, `status`, `created_at`, `updated_at`, `user_id`) VALUES
 (8, 'Victoria', 'Victoria', '09305115251', 'Active', '2023-12-13 09:31:32', '2023-12-13 09:31:32', 1),
-(9, 'Calapan', 'Masipit', '09305115251', 'Active', '2023-12-13 09:39:15', '2023-12-13 09:39:15', 1);
+(9, 'Calapan', 'Masipit', '09305115251', 'Active', '2023-12-13 09:39:15', '2023-12-13 09:39:15', 1),
+(10, 'Bongabong', 'Bongabong', '09892389812', 'Active', '2023-12-15 23:57:55', '2023-12-15 23:57:55', 1);
 
 -- --------------------------------------------------------
 
@@ -131,8 +128,8 @@ CREATE TABLE `inventories` (
 --
 
 INSERT INTO `inventories` (`id`, `item_name`, `previous_quantity`, `quantity_change`, `new_quantity`, `change_date`, `created_at`, `updated_at`, `image`, `description`, `quantity`, `category`, `price`, `upc`, `branch_id`) VALUES
-(33, 'Biogesic', 0, 1000, 875, '2023-12-16', '2023-12-15 08:18:13', '2023-12-15 22:08:40', NULL, 'test', 0, 'solid', 6.00, '3214125', 9),
-(34, 'Mefinamic', 0, 1000, 933, '2023-12-16', '2023-12-15 10:15:47', '2023-12-15 22:08:40', 'dZ4lyYje6Aj3oBAmEGQ68nr6koNaGc5wdVrdqe0b.jpg', 'Test', 0, 'solid', 6.00, '321451', 9);
+(41, 'Biogesic', 0, 1000, 645, '2023-12-16', '2023-12-16 03:17:04', '2023-12-16 21:22:03', '3nvJTuvfY5dmDmZQ8d9HHoU0mUIQexUU6usyHKcJ.png', 'test', 0, 'solid', 6.00, '123126', 9),
+(42, 'Mefinamic', 0, 1000, 856, '2023-12-16', '2023-12-16 03:17:27', '2023-12-16 21:22:03', 'wnvdpZFwswwPG7P0XGu1SFZRyuzFM4FmrPICXJBn.jpg', 'test', 0, 'solid', 6.00, '32145123', 9);
 
 -- --------------------------------------------------------
 
@@ -262,18 +259,20 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`id`, `inventory_id`, `quantity_sold`, `created_at`, `updated_at`, `user_id`, `voided`, `completed`, `price_at_sale`) VALUES
-(130, 33, 13, '2023-12-15 08:20:13', '2023-12-15 08:29:30', 20, 1, 0, 78.00),
-(131, 33, 10, '2023-12-15 08:32:56', '2023-12-15 08:33:27', 20, 1, 0, 60.00),
-(133, 33, 19, '2023-12-15 08:41:29', '2023-12-15 08:45:08', 20, 1, 0, 114.00),
-(134, 33, 10, '2023-12-15 08:45:32', '2023-12-15 09:29:45', 20, 0, 1, 60.00),
-(135, 33, 69, '2023-12-15 09:30:30', '2023-12-15 09:30:50', 20, 0, 1, 414.00),
-(136, 33, 12, '2023-12-15 09:33:27', '2023-12-15 09:33:43', 20, 0, 1, 72.00),
-(137, 34, 32, '2023-12-15 10:16:15', '2023-12-15 10:16:37', 20, 0, 1, 192.00),
-(138, 34, 32, '2023-12-15 10:17:30', '2023-12-15 10:17:56', 20, 0, 1, 192.00),
-(139, 34, 1, '2023-12-15 11:16:59', '2023-12-15 11:18:06', 20, 0, 1, 6.00),
-(140, 34, 1, '2023-12-15 11:23:35', '2023-12-15 11:24:08', 20, 0, 1, 6.00),
-(141, 34, 1, '2023-12-15 22:08:40', '2023-12-15 22:08:40', 20, 0, 0, 6.00),
-(142, 33, 1, '2023-12-15 22:08:40', '2023-12-15 22:08:40', 20, 0, 0, 6.00);
+(229, 41, 22, '2023-12-16 03:17:58', '2023-12-16 03:18:32', 20, 0, 1, 132.00),
+(230, 42, 13, '2023-12-16 03:17:58', '2023-12-16 03:34:43', 20, 0, 1, 78.00),
+(231, 42, 55, '2023-12-16 03:18:16', '2023-12-16 03:55:07', 20, 0, 1, 330.00),
+(232, 41, 55, '2023-12-16 03:18:16', '2023-12-16 03:43:58', 20, 0, 1, 330.00),
+(233, 41, 134, '2023-12-16 04:15:16', '2023-12-16 04:16:51', 20, 0, 1, 804.00),
+(234, 42, 0, '2023-12-16 04:15:16', '2023-12-16 05:22:38', 20, 1, 0, 0.00),
+(235, 42, 0, '2023-12-16 04:15:37', '2023-12-16 05:22:40', 20, 1, 0, 0.00),
+(236, 41, 0, '2023-12-16 04:15:37', '2023-12-16 04:17:35', 20, 1, 0, 0.00),
+(237, 41, 0, '2023-12-16 05:15:24', '2023-12-16 05:22:37', 20, 1, 0, 0.00),
+(238, 42, 32, '2023-12-16 06:25:16', '2023-12-16 06:30:41', 20, 0, 1, 192.00),
+(239, 42, 12, '2023-12-16 06:26:52', '2023-12-16 06:30:43', 20, 0, 1, 72.00),
+(240, 41, 21, '2023-12-16 06:26:52', '2023-12-16 06:30:39', 20, 0, 1, 126.00),
+(241, 41, 123, '2023-12-16 21:22:03', '2023-12-16 21:24:41', 20, 0, 1, 738.00),
+(242, 42, 32, '2023-12-16 21:22:03', '2023-12-16 21:24:45', 20, 0, 1, 192.00);
 
 -- --------------------------------------------------------
 
@@ -308,7 +307,8 @@ INSERT INTO `users` (`id`, `username`, `firstName`, `lastName`, `middleName`, `a
 (22, 'Erzie', 'Janzel', 'Bongo', 'Managaze', 'Cebu', 'female', 21, 'janzkiemalditz@gmailcom', 'cashier', '$2y$12$wP6Hs5s2J6/OnZVWtLX37OckrSYF85RtvUY/dsWO7/6iwBeg6SxS2', '2023-12-13 10:55:52', '2023-12-13 10:55:52', 9),
 (23, 'test', 'test', 'test', 'test', 'test', 'female', 21, 'test@gmail.com', 'admin', '$2y$12$487hv0feyUJWdFlnJWShp.ywUoib9E7RPsJ1TJB.kdP9vPY.iqgrO', '2023-12-13 19:29:12', '2023-12-13 19:29:12', 8),
 (24, 'janz', 'janzkie', 'janzkiemalditz', 'Lontoc', 'cebu', 'female', 32, 'weithingcheong@gmai.com', 'client', '$2y$12$jOFV3DAAt6OWko8xBkxiVORtb2IIEetW1Dwt9G7FWtw1nI2kBp7ii', '2023-12-13 19:37:56', '2023-12-13 19:37:56', 8),
-(25, 'test2', 'test2', 'test2', 'test2', 'Victoria', 'female', 21, 'test2@gmai.com', 'cashier', '$2y$12$U5HX21bCDG1k7D3L1ln6d.DSnplWppmRGwBGxC5n6oKxs0e3aWEei', '2023-12-13 19:59:11', '2023-12-13 19:59:11', 8);
+(25, 'test2', 'test2', 'test2', 'test2', 'Victoria', 'female', 21, 'test2@gmai.com', 'cashier', '$2y$12$U5HX21bCDG1k7D3L1ln6d.DSnplWppmRGwBGxC5n6oKxs0e3aWEei', '2023-12-13 19:59:11', '2023-12-13 19:59:11', 8),
+(26, 'bongabong', 'bongabong', 'bongabong', 'bongabong', 'bongabong', 'female', 21, 'bongabong@gmail.com', 'admin', '$2y$12$slGvOmv9U0GfBWa/Q2doteEY67v8zfFO..euRMwRvxGu8ruZdRzEa', '2023-12-15 23:58:38', '2023-12-15 23:58:38', 10);
 
 --
 -- Indexes for dumped tables
@@ -388,13 +388,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=289;
 
 --
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -406,7 +406,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `inventories`
 --
 ALTER TABLE `inventories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -424,13 +424,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables

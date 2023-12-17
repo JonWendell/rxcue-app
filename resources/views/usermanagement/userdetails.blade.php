@@ -1,3 +1,5 @@
+<!-- resources/views/usermanagement/userdetails.blade.php -->
+
 @extends('back.layout.main-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title here')
 @section('content')
@@ -10,65 +12,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Details</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Your existing styles remain unchanged */
 
-        h2 {
-            background-color: #bcdfdfe5;
-            color: #000000;
-            font-size: 1.25rem;
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-            text-decoration-color: #fff;
-        }
-
-        .details-container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .details-section {
-            flex: 1;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .details-section p {
-            margin-bottom: 0.5rem;
-        }
-
-        .go-back-link {
-            color: #0e0d0d;
-            background-color: #74a8d5;
-            border-color: #6c757d;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
+        /* Add any additional styles here */
     </style>
 </head>
 
 <body>
 
-    <h2>User Details</h2>
+    <div class="h4 pd-20">User Details</div>
 
     <div class="details-container">
         @if(isset($user))
         <div class="details-section">
             <p><strong>Username:</strong> {{ $user->username }}</p>
             <p><strong>Email:</strong> {{ $user->email }}</p>
-            <p><strong>Created At:</strong> {{ $user->created_at }}</p>
+            <p><strong>Created At:</strong> {{ $user->created_at->format('Y-m-d H:i:s') }}</p>
 
             <!-- Add more user details if needed -->
             <p><strong>First Name:</strong> {{ $user->firstName }}</p>
@@ -81,17 +40,18 @@
             <p><strong>Gender:</strong> {{ $user->gender }}</p>
             <p><strong>Age:</strong> {{ $user->age }}</p>
             <p><strong>Role:</strong> {{ $user->role }}</p>
-            
-           <!-- Add more fields if needed -->
+
+            <!-- Display the associated branch -->
+            <p><strong>Branch:</strong> {{ $user->branch->name }}</p>
         </div>
+
         <div>
-            <a href="{{ route('userTable') }}" class="go-back-link">Go Back to User Table</a>
+            <a href="{{ route('userTable') }}" class="btn btn-secondary">Go Back to User Table</a>
         </div>
         @else
         <p>No user data found.</p>
         @endif
     </div>
-
 
 </body>
 

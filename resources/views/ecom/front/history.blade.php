@@ -19,7 +19,9 @@
                         <th>UPC</th>
                         <th>Quantity</th>
                         <th>Total Price</th>
-                        <!-- Add more columns as needed -->
+                        <th>Branch</th>
+                        <th>Type of Purchase</th>
+                        <th>Branch Address</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -30,6 +32,21 @@
                             <td>{{ $sale->inventory->upc }}</td>
                             <td>{{ $sale->quantity_sold }}</td>
                             <td>{{ $sale->quantity_sold * $sale->inventory->price }}</td>
+                            <td>
+                                @if($sale->inventory->branch)
+                                    {{ $sale->inventory->branch->name }}
+                                @else
+                                    N/A
+                                @endif
+                            </td>
+                            <td>Walk In</td> <!-- Assuming type_of_purchase is always "Walk In" -->
+                            <td>
+                                @if($sale->inventory->branch)
+                                    {{ $sale->inventory->branch->location }}
+                                @else
+                                    N/A
+                                @endif
+                            </td>
                             <td>
                                 <form action="{{ route('cancel.order', $sale->id) }}" method="post">
                                     @csrf

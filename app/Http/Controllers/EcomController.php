@@ -120,7 +120,7 @@ class EcomController extends Controller
         // Retrieve the authenticated user's purchase history excluding completed sales
         $userSales = Sales::where('user_id', Auth::id())
             ->where('completed', false) // Exclude completed sales
-            ->with('inventory')
+            ->with(['inventory.branch']) // Eager load relationships
             ->get();
     
         return view('ecom.front.history', compact('userSales'));

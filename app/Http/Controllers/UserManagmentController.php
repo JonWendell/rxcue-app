@@ -16,7 +16,8 @@ class UserManagmentController extends Controller
     }
 
     // Edit user
-    public function editUser($id){
+    public function editUser($id)
+    {
         $user = User::find($id);
         return view('usermanagement.edituser', compact('user'));
     }

@@ -104,7 +104,10 @@
 
                         <div class="form-group">
                             <label for="status">Status:</label>
-                            <input type="text" class="form-control" name="status" value="{{ $branch->status }}" required>
+                            <select class="form-control" name="status" required>
+                                <option value="Active" {{ $branch->status == 'Active' ? 'selected' : '' }}>Active</option>
+                                <option value="Inactive" {{ $branch->status == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block">Update Branch</button>

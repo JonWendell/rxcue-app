@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Hash;
 class UserManagmentController extends Controller
 {
     // Display user table
-    public function index(){
+    public function index()
+    {
         $user_table = User::all();
         return view('usermanagement.usertable', compact('user_table'));
     }
@@ -23,7 +24,8 @@ class UserManagmentController extends Controller
     }
 
     // Update user
-    public function updateUser(Request $request, $id){
+    public function updateUser(Request $request, $id)
+    {
         $user = User::find($id);
         $user->update($request->only([
             'username', 'email', 'firstName', 'lastName', 'middleName', 'address', 'gender', 'age', 'role'
@@ -36,19 +38,21 @@ class UserManagmentController extends Controller
         }
 
         // Handle file upload
-      
+
         // You might want to add validation and error handling here
         return redirect()->route('userTable')->with('success', 'User updated successfully');
     }
 
-    public function showAddUserForm(){
+    public function showAddUserForm()
+    {
         // Fetch all branches from the database
         $branches = Branch::all();
 
         return view('usermanagement.adduserform', compact('branches'));
     }
 
-    public function storeUser(Request $request){
+    public function storeUser(Request $request)
+    {
         // Validate the request
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
@@ -56,11 +60,10 @@ class UserManagmentController extends Controller
             'password' => 'required|string|min:6',
             'firstName' => 'string|max:255', // Add validation for firstName
             'branch_id' => 'required|exists:branches,id', // Add validation for branch_id
-            
+
         ]);
 
         // Handle file upload
-     
 
         // Create a new user
         $user = User::create([
@@ -81,8 +84,14 @@ class UserManagmentController extends Controller
         return redirect()->route('userTable')->with('success', 'User added successfully');
     }
 
-    public function getUserDetails($id) {
+    public function getUserDetails($id)
+    {
         $user = User::find($id);
         return view('usermanagement.userdetails', compact('user'));
+    }
+        public function showEditUserForm($id)
+    {
+        $user = User::find($id);
+        return view('usermanagement.edituser', compact('user'));
     }
 }
